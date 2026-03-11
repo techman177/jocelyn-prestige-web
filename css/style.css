@@ -1,0 +1,202 @@
+/* --- INTEGRATCORE $20K LUXURY ENGINE --- */
+
+:root {
+    --emerald: #50C878;
+    --emerald-dark: #2e8b57;
+    --black: #000000;
+    --deep: #050505;
+    --white: #ffffff;
+    --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+/* Ocultar cursor nativo para usar el de lujo (Solo en Desktop) */
+@media (min-width: 992px) {
+    body, a, button { cursor: none !important; }
+}
+
+body {
+    background-color: var(--black);
+    color: var(--white);
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+}
+
+/* Tipografía Avanzada */
+.luxury-font { font-family: 'Playfair Display', serif; }
+.syncopate-font { font-family: 'Syncopate', sans-serif; }
+.emerald-text { color: var(--emerald); }
+.tracking-wide { letter-spacing: 2px; }
+
+/* Preloader Cinematográfico */
+#preloader {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--black); z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 1s ease, visibility 1s ease;
+}
+.pulse-slow { animation: pulse 3s infinite ease-in-out; }
+@keyframes pulse { 0% {opacity: 0.5;} 50% {opacity: 1;} 100% {opacity: 0.5;} }
+
+/* Textura de Ruido (Film Grain) */
+.noise-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none; z-index: 0; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Custom Cursor */
+.cursor-dot, .cursor-outline {
+    position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+    border-radius: 50%; pointer-events: none; z-index: 9999;
+}
+.cursor-dot { width: 8px; height: 8px; background: var(--emerald); transition: width 0.2s, height 0.2s; }
+.cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(80, 200, 120, 0.5); transition: 0.1s ease-out; }
+
+/* Navegación Glass Píldora */
+.nav-pill-container { padding-top: 30px; }
+.nav-glass-pill {
+    background: rgba(5, 5, 5, 0.5);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    border-radius: 100px;
+    transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Hero Section */
+.hero-section {
+    height: 100vh; display: flex; align-items: center; position: relative; z-index: 1;
+    background: linear-gradient(rgba(0,0,0,0.80), rgba(0,0,0,0.80)), url('../img/fondo-principal.jpg') center/cover;
+}
+.hero-glow {
+    position: absolute; width: 60vw; height: 60vw;
+    background: radial-gradient(circle, rgba(80, 200, 120, 0.15) 0%, transparent 60%);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    z-index: -1; filter: blur(60px);
+}
+.hero-content h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; }
+
+/* Botones Moldeados Magnéticos */
+.btn-molded-main, .btn-molded-outline {
+    padding: 20px 45px; border-radius: 100px; font-weight: 600;
+    text-decoration: none; text-transform: uppercase; letter-spacing: 1px;
+    display: inline-block; transition: background 0.4s, color 0.4s;
+    font-size: 0.85rem;
+}
+.btn-molded-main {
+    background: var(--emerald); color: #000;
+}
+.btn-molded-main:hover { background: #fff; color: #000; }
+.btn-molded-outline {
+    border: 1px solid var(--emerald); color: var(--emerald);
+}
+.btn-molded-outline:hover { background: var(--emerald); color: #000; }
+
+.btn-emerald-pill {
+    background: transparent; border: 1px solid var(--glass-border);
+    color: var(--white); padding: 10px 30px; border-radius: 100px;
+    text-decoration: none; font-size: 0.8rem; letter-spacing: 1px;
+}
+.btn-emerald-pill:hover { border-color: var(--emerald); color: var(--emerald); }
+
+/* Tarjetas Asimétricas de Alta Gama */
+.molded-card {
+    background: rgba(10,10,10,0.4);
+    border: 1px solid var(--glass-border);
+    border-radius: 40px; padding: 12px;
+    transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    backdrop-filter: blur(10px);
+    overflow: hidden; /* Importante para el carrusel interno */
+}
+.molded-card:hover { border-color: rgba(80, 200, 120, 0.3); transform: translateY(-20px); }
+
+.molded-img-placeholder {
+    height: 400px; border-radius: 30px; position: relative; overflow: hidden;
+    background: #111;
+}
+
+/* Estilos para el Carrusel dentro de la tarjeta */
+.card-image-real {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+/* Efecto zoom al hacer hover en la tarjeta, afecta a la imagen activa del carrusel */
+.molded-card:hover .carousel-item.active .card-image-real { transform: scale(1.08); }
+
+/* Customizing Carousel Controls */
+.carousel-control-prev, .carousel-control-next { opacity: 0; transition: 0.3s; width: 10%; }
+.molded-card:hover .carousel-control-prev, .molded-card:hover .carousel-control-next { opacity: 0.7; }
+.carousel-control-prev:hover, .carousel-control-next:hover { opacity: 1 !important; }
+.carousel-control-prev-icon, .carousel-control-next-icon { 
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.8)); 
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 50%;
+    padding: 15px;
+    background-size: 50%;
+}
+
+.glass-badge {
+    position: absolute; top: 20px; left: 20px;
+    background: rgba(0,0,0,0.5); backdrop-filter: blur(10px);
+    color: var(--white); padding: 8px 20px; border-radius: 100px;
+    font-size: 0.65rem; font-family: 'Syncopate', sans-serif; font-weight: 700;
+    border: 1px solid rgba(255,255,255,0.1); z-index: 10; /* Por encima del carrusel */
+}
+
+/* ADVISOR FRAME CORREGIDO (CÍRCULO PEQUEÑO Y CENTRADO) */
+.advisor-frame-circle {
+    border-radius: 50%; /* Círculo perfecto */
+    overflow: hidden; 
+    border: 2px solid var(--glass-border);
+    position: relative; 
+    background: #080808;
+    width: 250px;  /* MÁS PEQUEÑO */
+    height: 250px; /* MÁS PEQUEÑO */
+    box-shadow: 0 15px 40px rgba(80, 200, 120, 0.1);
+    transition: 0.5s;
+}
+.advisor-frame-circle:hover {
+    border-color: var(--emerald);
+    box-shadow: 0 15px 50px rgba(80, 200, 120, 0.3);
+}
+.advisor-frame-circle img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    object-position: center 20%; /* CENTRA LA CABEZA automáticamente */
+    opacity: 0.9; 
+    transition: 1s; 
+}
+.advisor-frame-circle:hover img { 
+    opacity: 1; 
+    transform: scale(1.05); 
+}
+
+/* Animaciones Reveal Suaves */
+.reveal, .reveal-delay, .reveal-delay-2, .reveal-right { opacity: 0; transition: 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.reveal { transform: translateY(40px); }
+.reveal-delay { transform: translateY(40px); transition-delay: 0.2s; }
+.reveal-delay-2 { transform: translateY(40px); transition-delay: 0.4s; }
+.reveal-right { transform: translateX(40px); }
+.active { opacity: 1; transform: translate(0, 0); }
+
+.emerald-pill-line { width: 60px; height: 4px; background: var(--emerald); border-radius: 100px; }
+
+/* WhatsApp Premium */
+.whatsapp-float {
+    position: fixed; bottom: 40px; right: 40px; background: #25d366;
+    width: 65px; height: 65px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3); z-index: 99; transition: 0.3s;
+}
+.whatsapp-icon { width: 30px; fill: white; }
+.whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 10px 40px rgba(37, 211, 102, 0.6); }
+
+/* Ajustes Responsivos Móviles */
+@media (max-width: 768px) {
+    .molded-img-placeholder { height: 300px; }
+    .display-1 { font-size: 3.5rem; }
+    .advisor-frame-circle { width: 200px; height: 200px; }
+}
