@@ -1,72 +1,29 @@
-// --- INTEGRATCORE LUXURY ENGINE ---
-
 document.addEventListener('DOMContentLoaded', () => {
-
-    // 1. GESTIÓN DEL PRELOADER (Pantalla de carga)
+    // 1. Preloader más rápido
     const preloader = document.getElementById('preloader');
-    window.addEventListener('load', () => {
+    if(preloader) {
         setTimeout(() => {
-            if(preloader) {
-                preloader.style.opacity = '0';
-                preloader.style.visibility = 'hidden';
-            }
-        }, 1000); // Se va después de 1 segundo
-    });
+            preloader.style.opacity = '0';
+            setTimeout(() => preloader.style.display = 'none', 500);
+        }, 500);
+    }
 
-    // 2. CURSOR PERSONALIZADO DE LUJO
-    const cursorDot = document.querySelector(".cursor-dot");
-    const cursorOutline = document.querySelector(".cursor-outline");
-
-    window.addEventListener("mousemove", (e) => {
-        const posX = e.clientX;
-        const posY = e.clientY;
-
-        // Punto central
-        cursorDot.style.left = `${posX}px`;
-        cursorDot.style.top = `${posY}px`;
-
-        // El aro sigue al punto con un poco de retraso para efecto fluido
-        cursorOutline.animate({
-            left: `${posX}px`,
-            top: `${posY}px`
-        }, { duration: 500, fill: "forwards" });
-    });
-
-    // 3. MOTOR DE APARICIÓN (REVEAL ANIMATION)
-    // Esto es lo que hace que las fotos dejen de "esconderse"
+    // 2. Revelación Ultra-Sensible
     const observerOptions = {
-        threshold: 0.15, // Se activa cuando se ve el 15% del elemento
-        rootMargin: "0px 0px -50px 0px"
+        threshold: 0.01, // Se activa con solo ver 1 píxel
+        rootMargin: "0px 0px 200px 0px" // Carga la foto 200px antes de que llegues
     };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
-                // Una vez que aparece, dejamos de observarlo para ahorrar memoria
-                observer.unobserve(entry.target);
+                observer.unobserve(entry.target); // IMPORTANTE: Una vez aparece, no se vuelve a esconder
             }
         });
     }, observerOptions);
 
-    // Seleccionamos todos los elementos que tienen clases de animación
-    const targets = document.querySelectorAll('.reveal, .reveal-delay, .reveal-delay-2, .reveal-right');
-    targets.forEach(target => observer.observe(target));
-
-    // 4. EFECTO MAGNÉTICO EN BOTONES
-    const magneticElements = document.querySelectorAll('.magnetic');
-    magneticElements.forEach((el) => {
-        el.addEventListener('mousemove', function(e) {
-            const pos = this.getBoundingClientRect();
-            const x = e.pageX - pos.left - pos.width / 2;
-            const y = e.pageY - pos.top - pos.height / 2;
-
-            this.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-        });
-
-        el.addEventListener('mouseleave', function() {
-            this.style.transform = 'translate(0px, 0px)';
-        });
+    document.querySelectorAll('.reveal, .reveal-delay, .reveal-delay-2, .reveal-right').forEach((el) => {
+        observer.observe(el);
     });
-
 });
