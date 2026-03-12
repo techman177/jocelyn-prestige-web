@@ -1,17 +1,21 @@
-/* --- INTEGRATCORE $20K LUXURY ENGINE - ALIGNMENT FIX & MOBILE READY --- */
+/* --- INTEGRATCORE LUXURY ENGINE - LIGHT THEME (BLANCO PERLA) --- */
 
 :root {
-    --emerald: #50C878;
-    --emerald-dark: #2e8b57;
+    --emerald: #1e8f4e; /* Verde un poco más oscuro para que resalte en lo blanco */
+    --emerald-light: #50C878;
     --black: #000000;
-    --deep: #050505;
     --white: #ffffff;
-    --glass-border: rgba(255, 255, 255, 0.08);
+    --bg-main-light: #fcfcfc; /* Blanco perla */
+    --bg-alt: #f4f6f8; /* Beige muy suave */
+    --text-dark: #1a1a1a;
+    --text-muted: #6c757d;
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(0, 0, 0, 0.08);
 }
 
 body {
-    background-color: var(--black);
-    color: var(--white);
+    background-color: var(--bg-main-light);
+    color: var(--text-dark);
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
@@ -26,129 +30,108 @@ body {
 .syncopate-font { font-family: 'Syncopate', sans-serif; }
 .emerald-text { color: var(--emerald); }
 .tracking-wide { letter-spacing: 2px; }
+.bg-main-light { background-color: var(--bg-main-light); }
 
-/* Preloader */
+/* Preloader Light */
 #preloader {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: var(--black); z-index: 9999;
+    background: var(--bg-main-light); z-index: 9999;
     display: flex; align-items: center; justify-content: center;
     transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 .pulse-slow { animation: pulse 2.5s infinite ease-in-out; }
 @keyframes pulse { 0% {opacity: 0.4;} 50% {opacity: 1;} 100% {opacity: 0.4;} }
 
-/* Ruido Cinematográfico */
-.noise-overlay {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    pointer-events: none; z-index: 0; opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
-
-/* Cursor VIP */
+/* Cursor VIP Light */
 .cursor-dot, .cursor-outline {
     position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
     border-radius: 50%; pointer-events: none; z-index: 9999;
 }
 .cursor-dot { width: 8px; height: 8px; background: var(--emerald); }
-.cursor-outline { width: 45px; height: 45px; border: 1px solid rgba(80, 200, 120, 0.4); transition: transform 0.1s; }
+.cursor-outline { width: 45px; height: 45px; border: 1px solid rgba(30, 143, 78, 0.4); transition: transform 0.1s; }
 
-/* Navegación */
+/* Navegación Glass Light */
 .nav-pill-container { padding-top: 30px; }
 .nav-glass-pill {
-    background: rgba(10, 10, 10, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border); border-radius: 100px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    padding-top: 10px !important; padding-bottom: 10px !important; /* Ajuste para el logo grande */
+    background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border); border-radius: 100px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    padding-top: 10px !important; padding-bottom: 10px !important;
 }
 
-/* Hero Section */
+/* Hero Section (Se mantiene oscuro para contraste de foto) */
 .hero-section {
     height: 100vh; display: flex; align-items: center; position: relative; z-index: 1;
-    background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.6)), url('../img/fondo-principal.jpg') center/cover;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('../img/fondo-principal.jpg') center/cover;
 }
 .hero-glow {
     position: absolute; width: 50vw; height: 50vw;
-    background: radial-gradient(circle, rgba(80, 200, 120, 0.12) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(80, 200, 120, 0.15) 0%, transparent 70%);
     top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: -1; filter: blur(60px);
 }
 .hero-content h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; }
 
-/* Botones Moldeados */
+/* Botones Moldeados Light */
 .btn-molded-main, .btn-molded-outline {
     padding: 18px 40px; border-radius: 100px; font-weight: 600;
     text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px;
     display: inline-block; transition: all 0.4s ease; font-size: 0.85rem;
     position: relative; overflow: hidden; text-align: center;
 }
-.btn-molded-main { background: var(--emerald); color: #000; box-shadow: 0 10px 20px rgba(80, 200, 120, 0.2); border: none; }
-.btn-molded-main:hover { background: #fff; transform: translateY(-3px); box-shadow: 0 15px 25px rgba(255, 255, 255, 0.2); }
+.btn-molded-main { background: var(--emerald); color: #fff; box-shadow: 0 10px 20px rgba(30, 143, 78, 0.2); border: none; }
+.btn-molded-main:hover { background: var(--text-dark); color: #fff; transform: translateY(-3px); box-shadow: 0 15px 25px rgba(0,0,0,0.1); }
 .btn-molded-outline { border: 1px solid var(--emerald); color: var(--emerald); background: transparent; }
-.btn-molded-outline:hover { background: var(--emerald); color: #000; }
+.btn-molded-outline:hover { background: var(--emerald); color: #fff; }
 .btn-emerald-pill {
-    background: transparent; border: 1px solid var(--glass-border); color: var(--white);
-    padding: 10px 30px; border-radius: 100px; text-decoration: none; font-size: 0.8rem; transition: 0.3s;
+    background: transparent; border: 1px solid rgba(0,0,0,0.1); color: var(--text-dark);
+    padding: 10px 30px; border-radius: 100px; text-decoration: none; font-size: 0.8rem; transition: 0.3s; font-weight: 600;
 }
-.btn-emerald-pill:hover { border-color: var(--emerald); color: var(--emerald); background: rgba(80,200,120,0.05); }
+.btn-emerald-pill:hover { border-color: var(--emerald); color: var(--emerald); background: rgba(30,143,78,0.05); }
 
-/* Tarjetas VIP */
+/* Tarjetas VIP Light */
 .molded-card {
-    background: rgba(15,15,15,0.4); border: 1px solid var(--glass-border);
-    border-radius: 40px; padding: 15px; backdrop-filter: blur(15px);
+    background: #ffffff; border: 1px solid var(--glass-border);
+    border-radius: 40px; padding: 15px;
     transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-    width: 100%; max-width: 480px;
-    margin: 0 auto;
+    width: 100%; max-width: 480px; margin: 0 auto;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.04);
 }
 .molded-card:hover {
-    transform: translateY(-10px); border-color: rgba(80, 200, 120, 0.3);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+    transform: translateY(-10px); border-color: rgba(30, 143, 78, 0.3);
+    box-shadow: 0 25px 45px rgba(0,0,0,0.1);
 }
 .molded-img-placeholder {
-    height: 380px; border-radius: 30px; position: relative; overflow: hidden; background: #080808;
+    height: 380px; border-radius: 30px; position: relative; overflow: hidden; background: #eee;
 }
 .card-image-real {
     width: 100%; height: 100%; object-fit: cover; display: block;
-    opacity: 0; transition: opacity 1s ease-out, transform 0.6s ease;
 }
-.molded-card:hover .card-image-real { transform: scale(1.05); }
-.molded-card .card-image-real.loaded { opacity: 1; }
 
-.image-overlay {
-    position: absolute; bottom: 0; left: 0; width: 100%; height: 50%;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); z-index: 5; pointer-events: none;
+/* Sombra inferior en la foto para que se lea la etiqueta si la pones abajo */
+.image-overlay-light {
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 30%;
+    background: linear-gradient(to top, rgba(0,0,0,0.4), transparent); z-index: 5; pointer-events: none;
 }
 .glass-badge {
     position: absolute; top: 20px; left: 20px;
-    background: rgba(0,0,0,0.6); backdrop-filter: blur(10px);
-    color: var(--white); padding: 8px 20px; border-radius: 100px;
+    background: rgba(255,255,255,0.85); backdrop-filter: blur(10px);
+    color: var(--text-dark); padding: 8px 20px; border-radius: 100px;
     font-size: 0.65rem; font-family: 'Syncopate', sans-serif; font-weight: 700;
-    border: 1px solid rgba(255,255,255,0.15); z-index: 10;
+    border: 1px solid rgba(0,0,0,0.1); z-index: 10;
 }
 
-/* Advisor Frame (CORREGIDO PARA FOTO DE JOCELYN) */
+/* Advisor Frame Light */
 .advisor-frame-circle {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 2px solid var(--glass-border);
-    background: #080808;
-    position: relative;
-    padding: 10px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 300px; height: 300px; border-radius: 50%;
+    overflow: hidden; border: 4px solid #ffffff; /* Borde blanco grueso */
+    background: #ffffff; position: relative; padding: 5px;
+    margin: 0 auto; display: flex; justify-content: center; align-items: center;
 }
-
 .advisor-frame-circle img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top center;
-    border-radius: 50%;
-    display: block;
+    width: 100%; height: 100%; object-fit: cover; object-position: top center;
+    border-radius: 50%; display: block;
 }
 
-/* Animaciones Reveal de Alto Rendimiento */
+/* Animaciones */
 .reveal, .reveal-delay, .reveal-delay-2, .reveal-right {
     opacity: 0; will-change: opacity, transform;
     transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
@@ -160,25 +143,18 @@ body {
 .reveal.active, .reveal-delay.active, .reveal-delay-2.active, .reveal-right.active {
     opacity: 1; transform: translate(0, 0);
 }
-.emerald-pill-line { width: 80px; height: 3px; background: var(--emerald); border-radius: 100px; margin: 0 auto; }
+.emerald-pill-line { width: 80px; height: 4px; background: var(--emerald); border-radius: 100px; margin: 0 auto; }
 
-/* Ajustes Móviles */
+/* Móviles */
 @media (max-width: 768px) {
     .molded-img-placeholder { height: 280px; }
 }
-
 @media (max-width: 576px) {
-    .advisor-frame-circle {
-        width: 250px;
-        height: 250px;
-    }
+    .advisor-frame-circle { width: 250px; height: 250px; }
+}
+@media (max-width: 991px) {
+    .cursor-dot, .cursor-outline { display: none !important; opacity: 0 !important; visibility: hidden !important; }
 }
 
-/* --- SOLUCIÓN PARA CURSOR PEGADO EN MÓVILES --- */
-@media (max-width: 991px) {
-    .cursor-dot, .cursor-outline {
-        display: none !important;
-        opacity: 0 !important;
-        visibility: hidden !important;
-    }
-}
+/* Ajustes de botones de carrusel */
+.carousel-control-prev, .carousel-control-next { z-index: 15; width: 10%; }
