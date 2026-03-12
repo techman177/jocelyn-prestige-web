@@ -180,8 +180,13 @@
                     </div>
                 </div>
 
-                <div class="text-center mt-5 mb-2">
-                    <p class="small text-white-50 tracking-wide">SOFTWARE ADMINISTRATIVO EXCLUSIVO DE <br><b class="emerald-text mt-1 d-inline-block" style="letter-spacing: 3px; font-size: 1rem;">INTEGRATCORE</b></p>
+                <div class="text-center mt-5 mb-2 border-top border-secondary pt-4">
+                    <p class="small text-white-50 tracking-wide mb-1">SOFTWARE ADMINISTRATIVO EXCLUSIVO DE</p>
+                    <b class="emerald-text d-inline-block mb-3" style="letter-spacing: 3px; font-size: 1.1rem;">INTEGRATCORE</b>
+                    <br>
+                    <a href="mailto:contact@integratcore.com" class="text-white-50 small text-decoration-none bg-dark px-3 py-2 rounded-pill border border-secondary">
+                        <i class="fas fa-headset me-1 text-emerald"></i> Soporte Técnico: <b>contact@integratcore.com</b>
+                    </a>
                 </div>
 
             </div>
@@ -197,15 +202,20 @@
                 </div>
                 <div class="modal-body p-4 p-md-5">
                     <form onsubmit="return false;">
-                        <h6 class="text-white-50 text-uppercase tracking-wide mb-3">Datos Principales</h6>
+                        <h6 class="text-white-50 text-uppercase tracking-wide mb-3">Datos y Textos Principales</h6>
                         <div class="row g-4 mb-5">
                             <div class="col-md-8">
-                                <label class="form-label">Nombre de la Villa</label>
-                                <input type="text" class="form-control">
+                                <label class="form-label">Nombre de la Villa / Proyecto</label>
+                                <input type="text" class="form-control" placeholder="Ej: Villa Paraíso">
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Precio (US$)</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" placeholder="Ej: 350,000">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label text-emerald"><i class="fas fa-list-ul me-1"></i> Amenidades y Detalles (Texto bajo la foto)</label>
+                                <textarea class="form-control form-textarea" rows="3" placeholder="Ej: 3 Habitaciones | 2.5 Baños | Piscina Infinita | Parqueo Techado..."></textarea>
+                                <small class="text-white-50 mt-2 d-block">Escribe aquí todo lo que quieras que los clientes lean sobre la propiedad en la tarjeta de presentación.</small>
                             </div>
                         </div>
 
@@ -217,14 +227,14 @@
                             </div>
                             <div class="col-12">
                                 <label class="form-label text-danger mt-3"><i class="fab fa-youtube"></i> Enlace a Video de YouTube</label>
-                                <input type="url" class="form-control">
+                                <input type="url" class="form-control" placeholder="Pega tu enlace aquí">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer border-top border-secondary p-4">
                     <button type="button" class="btn-outline me-2" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn-main" onclick="saveData()"><i class="fas fa-cloud-upload-alt me-2"></i> Publicar</button>
+                    <button type="button" class="btn-main" onclick="saveData()"><i class="fas fa-cloud-upload-alt me-2"></i> Guardar y Publicar</button>
                 </div>
             </div>
         </div>
@@ -233,7 +243,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function saveData() {
-            alert("Información capturada. Fase 2 de IntegratCore requerida para guardar en Base de Datos.");
+            alert("Propiedad guardada. Fase 2 de IntegratCore requerida para inyectar los datos en Base de Datos.");
             var modal = document.getElementById('propertyModal');
             if(modal.classList.contains('show')){
                 bootstrap.Modal.getInstance(modal).hide();
