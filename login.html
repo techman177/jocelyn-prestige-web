@@ -54,14 +54,20 @@
             </div>
             <button type="submit" onclick="validateAccess()" class="btn btn-access"><i class="fas fa-sign-in-alt me-2"></i> Entrar al Panel</button>
         </form>
+
+        <div class="mt-4 pt-4 border-top border-secondary">
+            <p class="small text-white-50 mb-1">¿Olvidaste tu clave o necesitas ayuda técnica?</p>
+            <a href="mailto:contact@integratcore.com" class="emerald-text text-decoration-none small fw-bold">
+                <i class="fas fa-headset me-1"></i> Soporte: contact@integratcore.com
+            </a>
+        </div>
     </div>
 
     <script>
         function validateAccess() {
             const pass = document.getElementById('passphrase').value;
-            // Clave: Jocelyn2026
             if(pass === "Jocelyn2026") {
-                window.location.href = "admin.html"; // Aquí empuja al panel de control
+                window.location.href = "admin.html"; 
             } else {
                 alert("Código de acceso incorrecto. Intente de nuevo.");
                 document.getElementById('passphrase').value = "";
