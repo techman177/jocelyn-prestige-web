@@ -1,9 +1,12 @@
-/* --- INTEGRATCORE LUXURY ENGINE --- */
+/* --- INTEGRATCORE $20K LUXURY ENGINE --- */
+
 :root {
     --emerald: #50C878;
+    --emerald-dark: #2e8b57;
     --black: #000000;
     --deep: #050505;
     --white: #ffffff;
+    --glass-border: rgba(255, 255, 255, 0.08);
 }
 
 body {
@@ -11,47 +14,137 @@ body {
     color: var(--white);
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Animaciones Reveal - Si hay error en JS, esto asegura que se vean */
-.reveal, .reveal-delay, .reveal-delay-2, .reveal-right {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease-out;
+/* Ocultar cursor nativo (Solo Desktop) */
+@media (min-width: 992px) {
+    body, a, button { cursor: none !important; }
 }
 
-/* Clase que activa el JS */
-.reveal.active, .reveal-delay.active, .reveal-delay-2.active, .reveal-right.active {
-    opacity: 1;
-    transform: translateY(0) translateX(0);
+/* Tipografía Avanzada */
+.luxury-font { font-family: 'Playfair Display', serif; }
+.syncopate-font { font-family: 'Syncopate', sans-serif; }
+.emerald-text { color: var(--emerald); }
+.tracking-wide { letter-spacing: 2px; }
+
+/* Preloader Cinematográfico Corregido */
+#preloader {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--black); z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+.pulse-slow { animation: pulse 3s infinite ease-in-out; }
+@keyframes pulse { 0% {opacity: 0.5;} 50% {opacity: 1;} 100% {opacity: 0.5;} }
+
+/* Textura de Ruido */
+.noise-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none; z-index: 0; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* Imagen de la propiedad */
-.card-image-real {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block; /* Asegura que no se esconda */
+/* Custom Cursor */
+.cursor-dot, .cursor-outline {
+    position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+    border-radius: 50%; pointer-events: none; z-index: 9999;
+}
+.cursor-dot { width: 8px; height: 8px; background: var(--emerald); }
+.cursor-outline { width: 40px; height: 40px; border: 1px solid rgba(80, 200, 120, 0.5); }
+
+/* Navegación Glass */
+.nav-pill-container { padding-top: 30px; }
+.nav-glass-pill {
+    background: rgba(5, 5, 5, 0.5); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border); border-radius: 100px;
 }
 
+/* Hero Section */
+.hero-section {
+    height: 100vh; display: flex; align-items: center; position: relative; z-index: 1;
+    background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('../img/fondo-principal.jpg') center/cover;
+}
+.hero-glow {
+    position: absolute; width: 60vw; height: 60vw;
+    background: radial-gradient(circle, rgba(80, 200, 120, 0.15) 0%, transparent 60%);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    z-index: -1; filter: blur(60px);
+}
+.hero-content h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; }
+
+/* Botones Moldeados */
+.btn-molded-main, .btn-molded-outline {
+    padding: 20px 45px; border-radius: 100px; font-weight: 600;
+    text-decoration: none; text-transform: uppercase; letter-spacing: 1px;
+    display: inline-block; transition: background 0.4s, color 0.4s, transform 0.2s; font-size: 0.85rem;
+}
+.btn-molded-main { background: var(--emerald); color: #000; }
+.btn-molded-main:hover { background: #fff; transform: translateY(-3px); }
+.btn-molded-outline { border: 1px solid var(--emerald); color: var(--emerald); }
+.btn-molded-outline:hover { background: var(--emerald); color: #000; }
+
+.btn-emerald-pill {
+    background: transparent; border: 1px solid var(--glass-border); color: var(--white);
+    padding: 10px 30px; border-radius: 100px; text-decoration: none; font-size: 0.8rem;
+}
+.btn-emerald-pill:hover { border-color: var(--emerald); color: var(--emerald); }
+
+/* Tarjetas Asimétricas (Solución Fija Optimizado) */
+.molded-card {
+    background: rgba(10,10,10,0.6); border: 1px solid var(--glass-border);
+    border-radius: 40px; padding: 15px; backdrop-filter: blur(10px);
+}
 .molded-img-placeholder {
-    height: 400px;
-    background: #111;
-    position: relative;
-    overflow: hidden;
-    border-radius: 30px;
+    height: 400px; border-radius: 30px; position: relative; overflow: hidden;
+    background: #0a0a0a; /* Fondo negro mientras carga */
+}
+.card-image-real {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block; opacity: 0; transition: opacity 1.5s ease-out; /* Corrección de Carga */
+}
+/* Efecto de Carga Terminada */
+.molded-card .card-image-real.loaded { opacity: 1; }
+
+.glass-badge {
+    position: absolute; top: 20px; left: 20px;
+    background: rgba(0,0,0,0.5); backdrop-filter: blur(10px);
+    color: var(--white); padding: 8px 20px; border-radius: 100px;
+    font-size: 0.65rem; font-family: 'Syncopate', sans-serif; font-weight: 700;
+    border: 1px solid rgba(255,255,255,0.1); z-index: 10;
 }
 
-/* Perfil de Jocelyn en Círculo */
+/* Advisor Frame (Solución Fija Optimizado) */
 .advisor-frame-circle {
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 2px solid rgba(255,255,255,0.1);
+    width: 300px; height: 300px; border-radius: 50%;
+    overflow: hidden; border: 2px solid var(--glass-border);
+    background: #080808; box-shadow: 0 15px 50px rgba(80, 200, 120, 0.1);
 }
 .advisor-frame-circle img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 100%; height: 100%; object-fit: cover;
+    opacity: 0.9; transition: 1s; display: block;
+}
+
+/* Animaciones Reveal Corregidas (Anticipado y Fijado) */
+.reveal, .reveal-delay, .reveal-delay-2, .reveal-right {
+    opacity: 0; will-change: opacity, transform;
+    transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal { transform: translateY(50px); }
+.reveal-delay { transform: translateY(50px); transition-delay: 0.15s; }
+.reveal-delay-2 { transform: translateY(50px); transition-delay: 0.3s; }
+.reveal-right { transform: translateX(50px); }
+
+/* Clase que Activa JS - Fija el elemento */
+.reveal.active, .reveal-delay.active, .reveal-delay-2.active, .reveal-right.active {
+    opacity: 1; transform: translate(0, 0);
+}
+
+.emerald-pill-line { width: 60px; height: 4px; background: var(--emerald); border-radius: 100px; }
+
+/* Responsive Móvil */
+@media (max-width: 768px) {
+    .molded-img-placeholder { height: 300px; }
+    .display-1 { font-size: 3rem; }
+    .nav-pill-container { padding-top: 15px; }
 }
