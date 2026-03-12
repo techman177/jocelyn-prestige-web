@@ -71,12 +71,12 @@ body {
 }
 .hero-content h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; }
 
-/* Botones Moldeados (CORREGIDO CENTRADO INTERNO) */
+/* Botones Moldeados */
 .btn-molded-main, .btn-molded-outline {
     padding: 18px 40px; border-radius: 100px; font-weight: 600;
     text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px;
     display: inline-block; transition: all 0.4s ease; font-size: 0.85rem;
-    position: relative; overflow: hidden; text-align: center; /* Forzar centrado de texto */
+    position: relative; overflow: hidden; text-align: center;
 }
 .btn-molded-main { background: var(--emerald); color: #000; box-shadow: 0 10px 20px rgba(80, 200, 120, 0.2); border: none; }
 .btn-molded-main:hover { background: #fff; transform: translateY(-3px); box-shadow: 0 15px 25px rgba(255, 255, 255, 0.2); }
@@ -88,13 +88,13 @@ body {
 }
 .btn-emerald-pill:hover { border-color: var(--emerald); color: var(--emerald); background: rgba(80,200,120,0.05); }
 
-/* Tarjetas VIP (CORREGIDO GRID Y CENTRADO TOTAL) */
+/* Tarjetas VIP */
 .molded-card {
     background: rgba(15,15,15,0.4); border: 1px solid var(--glass-border);
     border-radius: 40px; padding: 15px; backdrop-filter: blur(15px);
     transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-    width: 100%; max-width: 480px; /* Tamaño controlado por card */
-    margin: 0 auto; /* Centrado tradicional en su columna */
+    width: 100%; max-width: 480px;
+    margin: 0 auto;
 }
 .molded-card:hover {
     transform: translateY(-10px); border-color: rgba(80, 200, 120, 0.3);
@@ -122,15 +122,29 @@ body {
     border: 1px solid rgba(255,255,255,0.15); z-index: 10;
 }
 
-/* Advisor Frame (CORREGIDO CENTRADO TOTAL) */
+/* Advisor Frame (CORREGIDO PARA FOTO DE JOCELYN) */
 .advisor-frame-circle {
-    width: 320px; height: 320px; border-radius: 50%;
-    overflow: hidden; border: 2px solid var(--glass-border);
-    background: #080808; position: relative; padding: 10px;
-    display: flex; justify-content: center; align-items: center;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--glass-border);
+    background: #080808;
+    position: relative;
+    padding: 10px;
+    margin: 0 auto; /* Centrado absoluto */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 .advisor-frame-circle img {
-    width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Recorta la imagen para que llene el círculo sin aplastarse */
+    object-position: top center; /* Centra la cara de Jocelyn en el círculo */
+    border-radius: 50%;
+    display: block;
 }
 
 /* Animaciones Reveal de Alto Rendimiento */
@@ -145,7 +159,17 @@ body {
 .reveal.active, .reveal-delay.active, .reveal-delay-2.active, .reveal-right.active {
     opacity: 1; transform: translate(0, 0);
 }
-.emerald-pill-line { width: 80px; height: 3px; background: var(--emerald); border-radius: 100px; margin: 0 auto; /* Centrado tradicional */ }
+.emerald-pill-line { width: 80px; height: 3px; background: var(--emerald); border-radius: 100px; margin: 0 auto; }
+
+/* Ajustes Móviles */
 @media (max-width: 768px) {
     .molded-img-placeholder { height: 280px; }
+}
+
+@media (max-width: 576px) {
+    /* Ajuste para que el círculo no sea tan grande en teléfonos pequeños */
+    .advisor-frame-circle {
+        width: 250px;
+        height: 250px;
+    }
 }
