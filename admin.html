@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Prestige | Jocelyn | IntegratCore</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --emerald: #50C878; --black: #000000; --deep: #050505; --dark: #0a0a0a; --white: #ffffff; }
+        body { background-color: var(--black); color: white; font-family: 'Poppins', sans-serif; margin: 0; padding: 0; display: flex; }
+        .syncopate-font { font-family: 'Syncopate', sans-serif; letter-spacing: 2px; }
+        .emerald-text { color: var(--emerald); }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 280px; height: 100vh; background-color: var(--dark);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px; display: flex; flex-direction: column;
+        }
+        .nav-link {
+            color: rgba(255, 255, 255, 0.6); padding: 15px 0; font-size: 0.9rem;
+            text-decoration: none; display: flex; align-items: center; transition: 0.3s;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--emerald); }
+        .nav-link.logout { margin-top: auto; color: #ff5555; }
+        
+        /* Main Content */
+        .main-content { flex: 1; padding: 50px 70px; }
+        .property-card {
+            background: #0a0a0a; border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px; padding: 25px; display: flex; align-items: center; margin-bottom: 25px;
+        }
+        .property-img { width: 100px; height: 100px; border-radius: 15px; overflow: hidden; margin-right: 25px; }
+        .property-img img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* Botones del Panel */
+        .btn-action {
+            border: 1px solid rgba(255, 255, 255, 0.1); color: var(--white);
+            border-radius: 50px; padding: 10px 25px; text-decoration: none; font-size: 0.8rem;
+        }
+        .btn-action:hover { border-color: var(--emerald); color: var(--emerald); }
+        
+        /* Modal Style */
+        .modal-content { background: var(--dark); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; color: white; }
+        .form-control { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); color: white; }
+        .btn-save { background: var(--emerald); color: #000; border: none; border-radius: 50px; padding: 10px 25px; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h1 class="syncopate-font text-white fw-bold h5 mb-5">JOCELYN <span class="emerald-text">PRESTIGE</span></h1>
+        
+        <a href="#" class="nav-link active">Propiedades</a>
+        <a href="#" class="nav-link">Perfil</a>
+        <a href="#" class="nav-link">Mensajes</a>
+        
+        <a href="index.html" class="nav-link logout">Cerrar Sesión</a>
+    </div>
+
+    <div class="main-content">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h2 class="syncopate-font h3">Panel de <span class="emerald-text">Control</span></h2>
+            <div class="small text-white-50">IntegratCore Corp © 2026</div>
+        </div>
+
+        <div class="mb-4 d-flex justify-content-between align-items-center">
+            <h3 class="h5 fw-light text-white-50">Tus Propiedades (6)</h3>
+            <button class="btn btn-action" data-bs-toggle="modal" data-bs-target="#editModal">+ Nueva Villa</button>
+        </div>
+
+        <div class="property-card">
+            <div class="property-img"><img src="img/propiedades/villa-1.jpg" alt="Villa 1"></div>
+            <div>
+                <h4 class="h6 mb-1 text-white syncopate-font" style="font-size: 0.8rem;">Villa Puerta Amarilla</h4>
+                <p class="small text-white-50 mb-0">US$ 295,000 | 2 Hab</p>
+            </div>
+            <div class="ms-auto d-flex gap-2">
+                <button class="btn-action" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
+                <button class="btn-action" style="border-color: rgba(255, 85, 85, 0.3); color: #ff5555;">Eliminar</button>
+            </div>
+        </div>
+        
+        <div class="property-card">
+            <div class="property-img"><img src="img/propiedades/villa-2.jpg" alt="Villa 2"></div>
+            <div>
+                <h4 class="h6 mb-1 text-white syncopate-font" style="font-size: 0.8rem;">Villa Puerta Mamey</h4>
+                <p class="small text-white-50 mb-0">US$ 375,000 | 3 Hab</p>
+            </div>
+            <div class="ms-auto d-flex gap-2">
+                <button class="btn-action" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
+                <button class="btn-action" style="border-color: rgba(255, 85, 85, 0.3); color: #ff5555;">Eliminar</button>
+            </div>
+        </div>
+        
+        <div class="property-card">
+            <div class="property-img"><img src="img/propiedades/4.jpg" alt="Apto 4"></div>
+            <div>
+                <h4 class="h6 mb-1 text-white syncopate-font" style="font-size: 0.8rem;">Apto Moderno Piantini</h4>
+                <p class="small text-white-50 mb-0">US$ 395,000 | 2 Hab</p>
+            </div>
+            <div class="ms-auto d-flex gap-2">
+                <button class="btn-action" data-bs-toggle="modal" data-bs-target="#editModal">Editar</button>
+                <button class="btn-action" style="border-color: rgba(255, 85, 85, 0.3); color: #ff5555;">Eliminar</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="editModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4">
+                <h4 class="modal-title syncopate-font emerald-text mb-4" style="font-size: 1rem;">Editar Propiedad</h4>
+                <div class="modal-body p-0">
+                    <form onsubmit="return false;">
+                        <div class="mb-3">
+                            <label class="small text-white-50 mb-1">Nombre de la Villa</label>
+                            <input type="text" class="form-control form-control-sm" value="Villa Puerta Amarilla">
+                        </div>
+                        <div class="mb-3">
+                            <label class="small text-white-50 mb-1">Precio (US$)</label>
+                            <input type="text" class="form-control form-control-sm" value="US$ 295,000">
+                        </div>
+                        <div class="mb-4">
+                            <label class="small text-white-50 mb-1">Subir Nueva Foto (Actual: villa-1.jpg)</label>
+                            <input type="file" class="form-control form-control-sm">
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-save" onclick="mockSave()">Guardar Cambios</button>
+                            <button type="button" class="btn-action" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function mockSave() {
+            alert("¡Felicidades Joel! El Frontend del Panel funciona. Ahora estás listo para venderle a Jocelyn el contrato de la Fase 2 (el Backend con base de datos) para IntegratCore.");
+            // Cerrar modal (mocado)
+            var modal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+            modal.hide();
+        }
+    </script>
+</body>
+</html>
