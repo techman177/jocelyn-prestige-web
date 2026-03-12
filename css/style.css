@@ -1,4 +1,4 @@
-/* --- INTEGRATCORE $20K LUXURY ENGINE - ALIGNMENT FIX --- */
+/* --- INTEGRATCORE $20K LUXURY ENGINE - ALIGNMENT FIX & MOBILE READY --- */
 
 :root {
     --emerald: #50C878;
@@ -17,7 +17,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* Ocultar cursor nativo en PC */
+/* Ocultar cursor nativo solo en PC */
 @media (min-width: 992px) {
     body, a, button { cursor: none !important; }
 }
@@ -57,6 +57,7 @@ body {
 .nav-glass-pill {
     background: rgba(10, 10, 10, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border); border-radius: 100px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    padding-top: 10px !important; padding-bottom: 10px !important; /* Ajuste para el logo grande */
 }
 
 /* Hero Section */
@@ -132,7 +133,7 @@ body {
     background: #080808;
     position: relative;
     padding: 10px;
-    margin: 0 auto; /* Centrado absoluto */
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -141,8 +142,8 @@ body {
 .advisor-frame-circle img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Recorta la imagen para que llene el círculo sin aplastarse */
-    object-position: top center; /* Centra la cara de Jocelyn en el círculo */
+    object-fit: cover;
+    object-position: top center;
     border-radius: 50%;
     display: block;
 }
@@ -167,9 +168,17 @@ body {
 }
 
 @media (max-width: 576px) {
-    /* Ajuste para que el círculo no sea tan grande en teléfonos pequeños */
     .advisor-frame-circle {
         width: 250px;
         height: 250px;
+    }
+}
+
+/* --- SOLUCIÓN PARA CURSOR PEGADO EN MÓVILES --- */
+@media (max-width: 991px) {
+    .cursor-dot, .cursor-outline {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
     }
 }
