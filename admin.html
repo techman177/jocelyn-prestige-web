@@ -41,7 +41,7 @@
         .btn-main:hover { background: #fff; transform: translateY(-2px); }
         .btn-outline { border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 50px; padding: 10px 25px; background: transparent; transition: 0.3s; font-size: 0.85rem; }
         .btn-outline:hover { border-color: var(--emerald); color: var(--emerald); background: rgba(80,200,120,0.05); }
-        
+
         .property-list-item { display: flex; align-items: center; gap: 20px; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); flex-wrap: wrap; transition: 0.3s; border-radius: 15px; }
         .property-list-item:hover { background: rgba(255,255,255,0.02); }
         .property-list-img { width: 100px; height: 100px; border-radius: 15px; object-fit: cover; border: 1px solid rgba(255,255,255,0.1); }
@@ -99,7 +99,7 @@
                 </div>
 
                 <div id="tab-propiedades" class="tab-section active">
-                    <div class="row g-4 mb-5">
+                    <div class="row g-4 mb-4">
                         <div class="col-6 col-md-4">
                             <div class="stat-card">
                                 <h2 class="emerald-text mb-0 display-5 fw-bold">DB</h2>
@@ -116,12 +116,14 @@
 
                     <div class="dashboard-card">
                         <div class="d-flex justify-content-between align-items-center border-bottom border-secondary pb-4 mb-4">
-                            <h4 class="h5 m-0"><i class="fas fa-building text-white-50 me-2"></i> Inventario de Villas</h4>
+                            <h4 class="h5 m-0"><i class="fas fa-building text-white-50 me-2"></i> Inventario Real</h4>
                             <button class="btn-main" data-bs-toggle="modal" data-bs-target="#propertyModal"><i class="fas fa-plus me-2"></i> Agregar Propiedad</button>
                         </div>
-                        <div class="text-center p-4">
-                            <p class="text-white-50">Las propiedades agregadas se mostrarán automáticamente en la página principal gracias a la conexión con Supabase.</p>
+                        
+                        <div id="admin-property-list">
+                            <p class="text-white-50 text-center py-3"><i class="fas fa-spinner fa-spin me-2"></i> Cargando inventario desde la base de datos...</p>
                         </div>
+                        
                     </div>
                 </div>
 
@@ -190,14 +192,15 @@
                         <div class="row g-4 mb-5">
                             <div class="col-md-8">
                                 <label class="form-label">Nombre de la Villa / Proyecto</label>
-                                <input type="text" class="form-control" id="form-nombre" placeholder="Ej: Villa Paraíso">
+                                <input type="text" class="form-control" id="form-nombre" placeholder="Ej: Villa Paraíso (Renta)">
+                                <small class="text-white-50 mt-1 d-block"><i class="fas fa-magic text-emerald"></i> Tip: Escribe la palabra "Renta" aquí para que salga la etiqueta verde en la web.</small>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Precio (US$)</label>
-                                <input type="text" class="form-control" id="form-precio" placeholder="Ej: 350,000">
+                                <input type="text" class="form-control" id="form-precio" placeholder="Ej: 350,000 / mes">
                             </div>
                             <div class="col-12">
-                                <label class="form-label text-emerald"><i class="fas fa-list-ul me-1"></i> Amenidades y Detalles (Texto bajo la foto)</label>
+                                <label class="form-label text-emerald"><i class="fas fa-list-ul me-1"></i> Amenidades y Detalles</label>
                                 <textarea class="form-control form-textarea" id="form-amenidades" rows="3" placeholder="Ej: 3 Habitaciones | 2.5 Baños | Piscina Infinita..."></textarea>
                             </div>
                         </div>
@@ -207,10 +210,6 @@
                             <div class="col-12">
                                 <label class="form-label text-emerald">Subir Foto Principal</label>
                                 <input type="file" class="form-control" id="form-fotos" accept="image/*">
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label text-danger mt-3"><i class="fab fa-youtube"></i> Enlace a Video de YouTube</label>
-                                <input type="url" class="form-control" id="form-video" placeholder="Pega tu enlace aquí">
                             </div>
                         </div>
                     </form>
@@ -232,19 +231,69 @@
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ucmJybG1xYmx5ZGR4dHNvYXBrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNTk1NDYsImV4cCI6MjA4ODkzNTU0Nn0.WkzYwQqNA_QrtfgOAicWqc_suREHsabKoUbXpr-3T7M';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+        // FUNCIÓN QUE CARGA LAS PROPIEDADES EN EL PANEL
+        async function loadAdminProperties() {
+            const listContainer = document.getElementById('admin-property-list');
+            
+            const { data, error } = await supabase.from('propiedades').select('*');
+            
+            if (error) { 
+                listContainer.innerHTML = '<p class="text-danger text-center">Error cargando base de datos.</p>'; 
+                return; 
+            }
+
+            if (data.length === 0) {
+                listContainer.innerHTML = '<p class="text-white-50 text-center py-4 border border-secondary rounded">El inventario está vacío. Haz clic en "Agregar Propiedad" para empezar.</p>';
+                return;
+            }
+
+            listContainer.innerHTML = '';
+            data.forEach(villa => {
+                let foto = (villa.fotos && villa.fotos.length > 0) ? villa.fotos[0] : 'img/propiedades/villa-1.jpg';
+                listContainer.innerHTML += `
+                    <div class="property-list-item">
+                        <img src="${foto}" class="property-list-img" alt="${villa.nombre}">
+                        <div>
+                            <div class="fw-bold fs-5">${villa.nombre}</div>
+                            <div class="emerald-text fw-bold">US$ ${villa.precio}</div>
+                        </div>
+                        <div class="property-actions">
+                            <button class="btn-outline text-danger border-danger" onclick="deleteProperty('${villa.id}')"><i class="fas fa-trash me-1"></i> Borrar</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // CARGAR PROPIEDADES AL ABRIR EL PANEL
+        document.addEventListener('DOMContentLoaded', loadAdminProperties);
+
+        // FUNCIÓN PARA ELIMINAR PROPIEDADES
+        async function deleteProperty(id) {
+            if(!confirm("¿Deseas ELIMINAR esta propiedad? Se borrará de la página web inmediatamente.")) return;
+            
+            const { error } = await supabase.from('propiedades').delete().eq('id', id);
+            
+            if(error) {
+                alert("Error al eliminar: " + error.message);
+            } else {
+                alert("Propiedad eliminada de la base de datos.");
+                loadAdminProperties(); // Recarga la lista automáticamente
+            }
+        }
+
+        // FUNCIÓN PARA GUARDAR PROPIEDADES
         async function saveDataToSupabase() {
             const nombre = document.getElementById('form-nombre').value;
             const precio = document.getElementById('form-precio').value;
             const amenidades = document.getElementById('form-amenidades').value;
             const inputFotos = document.getElementById('form-fotos');
-            const videoUrl = document.getElementById('form-video').value;
 
             if(!nombre || !precio) {
                 alert("Director, el Nombre y el Precio son obligatorios.");
                 return;
             }
 
-            // Cambiar botón a estado de carga
             const btn = document.querySelector('.btn-main');
             const originalText = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Subiendo...';
@@ -252,7 +301,6 @@
 
             let fotoUrlFinal = "img/propiedades/villa-1.jpg"; 
 
-            // Subir imagen si seleccionó una
             if(inputFotos.files.length > 0) {
                 const fotoOriginal = inputFotos.files[0];
                 const fileExt = fotoOriginal.name.split('.').pop();
@@ -273,42 +321,39 @@
                 fotoUrlFinal = publicURLData.publicUrl;
             }
 
-            // Guardar en la base de datos
             const { data, error } = await supabase
                 .from('propiedades')
-                .insert([
-                    { 
-                        nombre: nombre, 
-                        precio: precio, 
-                        amenidades: amenidades, 
-                        video_url: videoUrl,
-                        fotos: [fotoUrlFinal] 
-                    }
-                ]);
+                .insert([{ nombre: nombre, precio: precio, amenidades: amenidades, fotos: [fotoUrlFinal] }]);
 
             if (error) {
                 alert("Asegúrate de crear la tabla 'propiedades'. Error: " + error.message);
             } else {
-                alert("¡Propiedad Guardada en la Base de Datos con Éxito!");
+                alert("¡Propiedad Guardada con Éxito!");
                 document.getElementById('propiedadForm').reset();
                 var modal = document.getElementById('propertyModal');
                 bootstrap.Modal.getInstance(modal).hide();
+                loadAdminProperties(); // Recargar la lista tras guardar
             }
 
             btn.innerHTML = originalText;
             btn.disabled = false;
         }
 
+        // CAMBIO DE PESTAÑAS SEGURO (Evita que el menú se quede pegado)
         function switchTab(tabId) {
+            if(window.event) window.event.preventDefault();
             document.querySelectorAll('.tab-section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
             document.getElementById('tab-' + tabId).classList.add('active');
+            
             const btnDesktop = document.getElementById('btn-' + tabId);
             if(btnDesktop) btnDesktop.classList.add('active');
+            
             const offcanvasElement = document.getElementById('mobileMenu');
             if(offcanvasElement) {
-                const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
-                if (bsOffcanvas) bsOffcanvas.hide();
+                let bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
+                if (!bsOffcanvas) bsOffcanvas = new bootstrap.Offcanvas(offcanvasElement);
+                bsOffcanvas.hide();
             }
         }
     </script>
