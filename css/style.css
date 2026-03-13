@@ -1,196 +1,141 @@
-/* --- INTEGRATCORE $20K LUXURY ENGINE - DUAL THEME --- */
+/* --- INTEGRATCORE LUXURY ENGINE - DUAL THEME & SUPABASE --- */
 
-:root {
-    /* Modo Claro (Default) */
-    --emerald: #2e8b57;
-    --text-main: #111111;
-    --text-muted: #666666;
-    --bg-main: #FAFAFA;
-    --bg-sec: #FFFFFF;
-    --bg-footer: #f8f9fa;
-    --card-bg: #FFFFFF;
-    --card-border: rgba(0,0,0,0.05);
-    --glass-border: rgba(0, 0, 0, 0.08);
-    --nav-bg: rgba(255, 255, 255, 0.9);
-    --nav-text: #111111;
-}
+// 1. CONFIGURACIÓN DE LAS LLAVES SUPABASE
+const SUPABASE_URL = 'https://onrbrlmqblyddxtsoapk.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ucmJybG1xYmx5ZGR4dHNvYXBrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNTk1NDYsImV4cCI6MjA4ODkzNTU0Nn0.WkzYwQqNA_QrtfgOAicWqc_suREHsabKoUbXpr-3T7M';
 
-[data-theme="dark"] {
-    /* Modo Oscuro (Override) */
-    --emerald: #50C878;
-    --text-main: #ffffff;
-    --text-muted: #a0a0a0;
-    --bg-main: #050505;
-    --bg-sec: #030303;
-    --bg-footer: #000000;
-    --card-bg: rgba(15,15,15,0.4);
-    --card-border: rgba(255,255,255,0.08);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --nav-bg: rgba(10, 10, 10, 0.6);
-    --nav-text: #ffffff;
-}
+// Inicializar Supabase si el script principal está cargado
+const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
 
-body {
-    background-color: var(--bg-main);
-    color: var(--text-main);
-    font-family: 'Poppins', sans-serif;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    transition: background-color 0.5s ease, color 0.5s ease;
-}
+document.addEventListener('DOMContentLoaded', () => {
 
-/* Clases Utilitarias del Tema */
-.theme-text { color: var(--text-main) !important; transition: color 0.5s ease; }
-.theme-muted { color: var(--text-muted) !important; transition: color 0.5s ease; }
-.theme-bg-sec { background-color: var(--bg-sec) !important; transition: background-color 0.5s ease; }
-.theme-bg-footer { background-color: var(--bg-footer) !important; transition: background-color 0.5s ease; }
-.theme-nav-text { color: var(--nav-text) !important; transition: color 0.5s ease; }
+    // 2. PRELOADER ULTRA-RÁPIDO
+    const preloader = document.getElementById('preloader');
+    if(preloader) {
+        setTimeout(() => {
+            preloader.style.opacity = '0';
+            setTimeout(() => preloader.style.display = 'none', 500);
+        }, 700);
+    }
 
-/* Ocultar cursor nativo solo en PC */
-@media (min-width: 992px) {
-    body, a, button { cursor: none !important; }
-}
+    // 3. SISTEMA DE TEMA DÍA/NOCHE (DARK MODE TOGGLE)
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    if(themeToggleBtn) {
+        const themeIcon = themeToggleBtn.querySelector('i');
+        const currentTheme = localStorage.getItem('theme') || 'light'; 
 
-.luxury-font { font-family: 'Playfair Display', serif; }
-.syncopate-font { font-family: 'Syncopate', sans-serif; }
-.emerald-text { color: var(--emerald) !important; }
-.tracking-wide { letter-spacing: 2px; }
+        if (currentTheme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        }
 
-/* Preloader */
-#preloader {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 9999; display: flex; align-items: center; justify-content: center;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-.pulse-slow { animation: pulse 2.5s infinite ease-in-out; }
-@keyframes pulse { 0% {opacity: 0.4;} 50% {opacity: 1;} 100% {opacity: 0.4;} }
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.body.getAttribute('data-theme') === 'dark') {
+                document.body.removeAttribute('data-theme');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    }
 
-/* Ruido Cinematográfico */
-.noise-overlay {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    pointer-events: none; z-index: 0; opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
+    // 4. CURSOR VIP (Solo en PC)
+    const dot = document.querySelector(".cursor-dot");
+    const out = document.querySelector(".cursor-outline");
+    if (dot && out) {
+        window.addEventListener("mousemove", (e) => {
+            dot.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 50, fill: "forwards" });
+            out.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 400, fill: "forwards" });
+        });
+        window.addEventListener("mousedown", () => {
+            out.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            out.style.backgroundColor = 'rgba(80, 200, 120, 0.1)';
+        });
+        window.addEventListener("mouseup", () => {
+            out.style.transform = 'translate(-50%, -50%) scale(1)';
+            out.style.backgroundColor = 'transparent';
+        });
+    }
 
-/* Cursor VIP */
-.cursor-dot, .cursor-outline {
-    position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
-    border-radius: 50%; pointer-events: none; z-index: 9999;
-}
-.cursor-dot { width: 8px; height: 8px; background: var(--emerald); }
-.cursor-outline { width: 45px; height: 45px; border: 1px solid rgba(46, 139, 87, 0.4); transition: transform 0.1s; }
+    // 5. OBSERVER DE APARICIÓN
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.05, rootMargin: "0px 0px 100px 0px" });
 
-/* Navegación */
-.nav-pill-container { padding-top: 30px; }
-.nav-glass-pill {
-    background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border); border-radius: 100px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    padding-top: 10px !important; padding-bottom: 10px !important; transition: background-color 0.5s ease;
-}
+    document.querySelectorAll('.reveal, .reveal-delay, .reveal-delay-2, .reveal-right').forEach(el => {
+        revealObserver.observe(el);
+    });
 
-/* Hero Section */
-.hero-section {
-    height: 100vh; display: flex; align-items: center; position: relative; z-index: 1;
-    background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.6)), url('../img/fondo-principal.jpg') center/cover;
-}
-.hero-glow {
-    position: absolute; width: 50vw; height: 50vw;
-    background: radial-gradient(circle, rgba(80, 200, 120, 0.12) 0%, transparent 70%);
-    top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: -1; filter: blur(60px);
-}
-.hero-content h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; }
+    // 6. EFECTO MAGNÉTICO
+    const magneticElements = document.querySelectorAll('.magnetic');
+    magneticElements.forEach((el) => {
+        el.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.pageX - rect.left - rect.width / 2;
+            const y = e.pageY - rect.top - rect.height / 2;
+            this.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+        el.addEventListener('mouseleave', function() {
+            this.style.transform = 'translate(0px, 0px)';
+        });
+    });
 
-/* Botones */
-.btn-molded-main, .btn-molded-outline {
-    padding: 18px 40px; border-radius: 100px; font-weight: 600;
-    text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px;
-    display: inline-block; transition: all 0.4s ease; font-size: 0.85rem;
-    position: relative; overflow: hidden; text-align: center;
-}
-.btn-molded-main { background: var(--emerald); color: #fff; box-shadow: 0 10px 20px rgba(46, 139, 87, 0.2); border: none; }
-.btn-molded-main:hover { background: #000; color: #fff; transform: translateY(-3px); box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2); }
-[data-theme="dark"] .btn-molded-main { color: #000; }
-[data-theme="dark"] .btn-molded-main:hover { background: #fff; }
+    // 7. ORDENAR CARGA DINÁMICA DE SUPABASE
+    if(supabaseClient && document.querySelector('#catalogo .row')) {
+        cargarVillasDesdeBD();
+    }
+});
 
-.btn-molded-outline { border: 1px solid var(--emerald); color: var(--emerald); background: transparent; }
-.btn-molded-outline:hover { background: var(--emerald); color: #fff; }
-[data-theme="dark"] .btn-molded-outline:hover { color: #000; }
+// FUNCIÓN MAESTRA QUE EXTRAE DATOS Y LOS PINTA EN LA WEB
+async function cargarVillasDesdeBD() {
+    const contenedorVillas = document.querySelector('#catalogo .row');
+    if(!contenedorVillas) return;
 
-.btn-emerald-pill {
-    background: transparent; border: 1px solid var(--emerald); color: var(--emerald);
-    padding: 10px 30px; border-radius: 100px; text-decoration: none; font-size: 0.8rem; transition: 0.3s; font-weight: 600;
-}
-.btn-emerald-pill:hover { background: var(--emerald); color: #fff; }
-[data-theme="dark"] .btn-emerald-pill:hover { color: #000; }
+    const { data: propiedades, error } = await supabaseClient
+        .from('propiedades')
+        .select('*');
 
-/* Tarjetas VIP */
-.molded-card {
-    background: var(--card-bg); border: 1px solid var(--card-border);
-    border-radius: 40px; padding: 15px;
-    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease, background-color 0.5s ease;
-    width: 100%; max-width: 480px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-}
-.molded-card:hover {
-    transform: translateY(-10px); border-color: rgba(46, 139, 87, 0.3);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-}
-.molded-img-placeholder {
-    height: 380px; border-radius: 30px; position: relative; overflow: hidden; background: #eee;
-}
-.object-fit-cover { object-fit: cover; }
+    if (error) {
+        console.error("Error conectando a la Bóveda:", error);
+        return;
+    }
 
-.image-overlay {
-    position: absolute; bottom: 0; left: 0; width: 100%; height: 30%;
-    background: linear-gradient(to top, rgba(0,0,0,0.4), transparent); z-index: 1; pointer-events: none;
-}
-.glass-badge {
-    position: absolute; top: 20px; left: 20px;
-    background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
-    color: #000; padding: 8px 20px; border-radius: 100px;
-    font-size: 0.65rem; font-family: 'Syncopate', sans-serif; font-weight: 700;
-    border: 1px solid rgba(0,0,0,0.05); z-index: 10;
-}
+    // Si encuentra datos, vacía las de prueba y pone las reales
+    if(propiedades && propiedades.length > 0) {
+        contenedorVillas.innerHTML = ''; 
 
-/* Advisor Frame */
-.advisor-frame-circle {
-    width: 300px; height: 300px; border-radius: 50%; overflow: hidden;
-    border: 3px solid var(--emerald); background: var(--bg-sec);
-    position: relative; padding: 5px; margin: 0 auto;
-    display: flex; justify-content: center; align-items: center; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-}
-.advisor-frame-circle img {
-    width: 100%; height: 100%; object-fit: cover; object-position: top center; border-radius: 50%; display: block;
-}
-
-/* Ajustes de Carrusel Bootstrap */
-.carousel-control-prev, .carousel-control-next { width: 12%; opacity: 0; transition: 0.3s; }
-.molded-img-placeholder:hover .carousel-control-prev, 
-.molded-img-placeholder:hover .carousel-control-next { opacity: 1; }
-
-/* Animaciones Reveal */
-.reveal, .reveal-delay, .reveal-delay-2, .reveal-right {
-    opacity: 0; will-change: opacity, transform;
-    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.reveal { transform: translateY(40px); }
-.reveal-delay { transform: translateY(40px); transition-delay: 0.15s; }
-.reveal-delay-2 { transform: translateY(40px); transition-delay: 0.3s; }
-.reveal-right { transform: translateX(40px); }
-.reveal.active, .reveal-delay.active, .reveal-delay-2.active, .reveal-right.active {
-    opacity: 1; transform: translate(0, 0);
-}
-.emerald-pill-line { width: 80px; height: 3px; background: var(--emerald); border-radius: 100px; margin: 0 auto; }
-
-/* Ajustes Móviles */
-@media (max-width: 768px) {
-    .molded-img-placeholder { height: 280px; }
-}
-@media (max-width: 576px) {
-    .advisor-frame-circle { width: 250px; height: 250px; }
-}
-
-@media (max-width: 991px) {
-    .cursor-dot, .cursor-outline {
-        display: none !important; opacity: 0 !important; visibility: hidden !important;
+        propiedades.forEach((villa) => {
+            let fotoPortada = (villa.fotos && villa.fotos.length > 0) ? villa.fotos[0] : 'img/propiedades/villa-1.jpg';
+            let amenidadesTexto = villa.amenidades ? villa.amenidades : 'Detalles exclusivos de alto nivel.';
+            
+            const htmlVilla = `
+                <div class="col-md-6 col-lg-5 reveal active">
+                    <div class="molded-card magnetic-slight">
+                        <div class="molded-img-placeholder p-0">
+                            <div class="glass-badge z-3">COLECCIÓN</div>
+                            <img src="${fotoPortada}" class="d-block w-100 h-100 object-fit-cover" alt="${villa.nombre}">
+                            <div class="image-overlay z-2"></div>
+                        </div>
+                        <div class="p-4 text-center">
+                            <div class="mb-2">
+                                <h4 class="theme-text syncopate-font fs-5 m-0 mb-1">${villa.nombre}</h4>
+                                <p class="emerald-text fw-bold h5 m-0">US$ ${villa.precio}</p>
+                            </div>
+                            <p class="theme-muted small mb-4">${amenidadesTexto}</p>
+                            <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20${encodeURIComponent(villa.nombre)}." target="_blank" class="btn-molded-outline text-center magnetic">Solicitar Información</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            contenedorVillas.innerHTML += htmlVilla;
+        });
     }
 }
