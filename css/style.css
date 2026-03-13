@@ -39,14 +39,12 @@ body {
     transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-/* Clases Utilitarias del Tema */
 .theme-text { color: var(--text-main) !important; transition: color 0.5s ease; }
 .theme-muted { color: var(--text-muted) !important; transition: color 0.5s ease; }
 .theme-bg-sec { background-color: var(--bg-sec) !important; transition: background-color 0.5s ease; }
 .theme-bg-footer { background-color: var(--bg-footer) !important; transition: background-color 0.5s ease; }
 .theme-nav-text { color: var(--nav-text) !important; transition: color 0.5s ease; }
 
-/* Ocultar cursor nativo solo en PC */
 @media (min-width: 992px) {
     body, a, button { cursor: none !important; }
 }
@@ -56,7 +54,6 @@ body {
 .emerald-text { color: var(--emerald) !important; }
 .tracking-wide { letter-spacing: 2px; }
 
-/* Preloader */
 #preloader {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     z-index: 9999; display: flex; align-items: center; justify-content: center;
@@ -65,14 +62,12 @@ body {
 .pulse-slow { animation: pulse 2.5s infinite ease-in-out; }
 @keyframes pulse { 0% {opacity: 0.4;} 50% {opacity: 1;} 100% {opacity: 0.4;} }
 
-/* Ruido Cinematográfico */
 .noise-overlay {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     pointer-events: none; z-index: 0; opacity: 0.03;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* Cursor VIP */
 .cursor-dot, .cursor-outline {
     position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
     border-radius: 50%; pointer-events: none; z-index: 9999;
@@ -80,7 +75,6 @@ body {
 .cursor-dot { width: 8px; height: 8px; background: var(--emerald); }
 .cursor-outline { width: 45px; height: 45px; border: 1px solid rgba(46, 139, 87, 0.4); transition: transform 0.1s; }
 
-/* Navegación */
 .nav-pill-container { padding-top: 30px; }
 .nav-glass-pill {
     background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -88,7 +82,6 @@ body {
     padding-top: 10px !important; padding-bottom: 10px !important; transition: background-color 0.5s ease;
 }
 
-/* Hero Section */
 .hero-section {
     height: 100vh; display: flex; align-items: center; position: relative; z-index: 1;
     background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.6)), url('../img/fondo-principal.jpg') center/cover;
@@ -100,7 +93,6 @@ body {
 }
 .hero-content h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; }
 
-/* Botones */
 .btn-molded-main, .btn-molded-outline {
     padding: 18px 40px; border-radius: 100px; font-weight: 600;
     text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px;
@@ -123,7 +115,6 @@ body {
 .btn-emerald-pill:hover { background: var(--emerald); color: #fff; }
 [data-theme="dark"] .btn-emerald-pill:hover { color: #000; }
 
-/* Tarjetas VIP */
 .molded-card {
     background: var(--card-bg); border: 1px solid var(--card-border);
     border-radius: 40px; padding: 15px;
@@ -150,8 +141,10 @@ body {
     font-size: 0.65rem; font-family: 'Syncopate', sans-serif; font-weight: 700;
     border: 1px solid rgba(0,0,0,0.05); z-index: 10;
 }
+.badge-renta {
+    background: var(--emerald) !important; color: #fff !important;
+}
 
-/* Advisor Frame */
 .advisor-frame-circle {
     width: 300px; height: 300px; border-radius: 50%; overflow: hidden;
     border: 3px solid var(--emerald); background: var(--bg-sec);
@@ -162,12 +155,10 @@ body {
     width: 100%; height: 100%; object-fit: cover; object-position: top center; border-radius: 50%; display: block;
 }
 
-/* Ajustes de Carrusel Bootstrap */
 .carousel-control-prev, .carousel-control-next { width: 12%; opacity: 0; transition: 0.3s; }
 .molded-img-placeholder:hover .carousel-control-prev, 
 .molded-img-placeholder:hover .carousel-control-next { opacity: 1; }
 
-/* Animaciones Reveal */
 .reveal, .reveal-delay, .reveal-delay-2, .reveal-right {
     opacity: 0; will-change: opacity, transform;
     transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
@@ -181,9 +172,23 @@ body {
 }
 .emerald-pill-line { width: 80px; height: 3px; background: var(--emerald); border-radius: 100px; margin: 0 auto; }
 
-/* Ajustes Móviles */
+/* --- BOTÓN FLOTANTE WHATSAPP VIP --- */
+.floating-wa {
+    position: fixed; bottom: 30px; right: 30px;
+    background-color: #25D366; color: white;
+    width: 60px; height: 60px; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 32px; box-shadow: 0 10px 20px rgba(37,211,102,0.4);
+    z-index: 1000; transition: all 0.3s ease; text-decoration: none;
+}
+.floating-wa:hover {
+    transform: scale(1.1) translateY(-5px); color: white;
+    box-shadow: 0 15px 25px rgba(37,211,102,0.6);
+}
+
 @media (max-width: 768px) {
     .molded-img-placeholder { height: 280px; }
+    .floating-wa { bottom: 20px; right: 20px; width: 50px; height: 50px; font-size: 26px; }
 }
 @media (max-width: 576px) {
     .advisor-frame-circle { width: 250px; height: 250px; }
