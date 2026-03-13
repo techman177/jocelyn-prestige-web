@@ -102,14 +102,14 @@
                     <div class="row g-4 mb-5">
                         <div class="col-6 col-md-4">
                             <div class="stat-card">
-                                <h2 class="emerald-text mb-0 display-5 fw-bold">6</h2>
-                                <div class="small text-white-50 mt-2 text-uppercase tracking-wide">Propiedades VIP</div>
+                                <h2 class="emerald-text mb-0 display-5 fw-bold">DB</h2>
+                                <div class="small text-white-50 mt-2 text-uppercase tracking-wide">Base de Datos Activa</div>
                             </div>
                         </div>
                         <div class="col-6 col-md-4">
                             <div class="stat-card">
-                                <h2 class="text-white mb-0 display-5 fw-bold">24</h2>
-                                <div class="small text-white-50 mt-2 text-uppercase tracking-wide">Fotos en Galería</div>
+                                <h2 class="text-white mb-0 display-5 fw-bold"><i class="fas fa-cloud"></i></h2>
+                                <div class="small text-white-50 mt-2 text-uppercase tracking-wide">Conexión Supabase</div>
                             </div>
                         </div>
                     </div>
@@ -119,18 +119,8 @@
                             <h4 class="h5 m-0"><i class="fas fa-building text-white-50 me-2"></i> Inventario de Villas</h4>
                             <button class="btn-main" data-bs-toggle="modal" data-bs-target="#propertyModal"><i class="fas fa-plus me-2"></i> Agregar Propiedad</button>
                         </div>
-
-                        <div class="property-list-item">
-                            <img src="img/propiedades/villa-1.jpg" class="property-list-img" alt="Villa">
-                            <div>
-                                <div class="fw-bold fs-5">Residencia Alpha</div>
-                                <div class="emerald-text fw-bold">US$ 295,000</div>
-                                <div class="text-white-50 mt-1" style="font-size: 0.85rem;"><i class="fas fa-images me-1"></i> Carrusel Activo | <i class="fas fa-video ms-2 me-1"></i> Video</div>
-                            </div>
-                            <div class="property-actions">
-                                <button class="btn-outline" data-bs-toggle="modal" data-bs-target="#propertyModal"><i class="fas fa-edit me-1"></i> Editar</button>
-                                <button class="btn-outline text-danger border-danger"><i class="fas fa-trash"></i></button>
-                            </div>
+                        <div class="text-center p-4">
+                            <p class="text-white-50">Las propiedades agregadas se mostrarán automáticamente en la página principal gracias a la conexión con Supabase.</p>
                         </div>
                     </div>
                 </div>
@@ -152,9 +142,6 @@
                                 <label class="form-label">Descripción de Biografía</label>
                                 <textarea class="form-control form-textarea" rows="4">El mercado premium exige más que un vendedor; exige un estratega. Jocelyn redefine el estándar de confidencialidad y excelencia en Bienes Raíces.</textarea>
                             </div>
-                            <div class="text-end mt-4">
-                                <button class="btn-main" onclick="saveData()"><i class="fas fa-save me-2"></i> Publicar en la Web</button>
-                            </div>
                         </form>
                     </div>
                 </div>
@@ -171,9 +158,6 @@
                                 <div class="col-md-6">
                                     <label class="form-label"><i class="fab fa-instagram text-danger me-1"></i> Link de Instagram</label>
                                     <input type="url" class="form-control" placeholder="https://instagram.com/jocelynprestige">
-                                </div>
-                                <div class="col-12 text-end mt-4">
-                                    <button class="btn-main" onclick="saveData()"><i class="fas fa-save me-2"></i> Actualizar Perfil</button>
                                 </div>
                             </div>
                         </form>
@@ -201,55 +185,120 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body p-4 p-md-5">
-                    <form onsubmit="return false;">
+                    <form id="propiedadForm" onsubmit="return false;">
                         <h6 class="text-white-50 text-uppercase tracking-wide mb-3">Datos y Textos Principales</h6>
                         <div class="row g-4 mb-5">
                             <div class="col-md-8">
                                 <label class="form-label">Nombre de la Villa / Proyecto</label>
-                                <input type="text" class="form-control" placeholder="Ej: Villa Paraíso">
+                                <input type="text" class="form-control" id="form-nombre" placeholder="Ej: Villa Paraíso">
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Precio (US$)</label>
-                                <input type="text" class="form-control" placeholder="Ej: 350,000">
+                                <input type="text" class="form-control" id="form-precio" placeholder="Ej: 350,000">
                             </div>
                             <div class="col-12">
                                 <label class="form-label text-emerald"><i class="fas fa-list-ul me-1"></i> Amenidades y Detalles (Texto bajo la foto)</label>
-                                <textarea class="form-control form-textarea" rows="3" placeholder="Ej: 3 Habitaciones | 2.5 Baños | Piscina Infinita | Parqueo Techado..."></textarea>
-                                <small class="text-white-50 mt-2 d-block">Escribe aquí todo lo que quieras que los clientes lean sobre la propiedad en la tarjeta de presentación.</small>
+                                <textarea class="form-control form-textarea" id="form-amenidades" rows="3" placeholder="Ej: 3 Habitaciones | 2.5 Baños | Piscina Infinita..."></textarea>
                             </div>
                         </div>
 
                         <h6 class="text-white-50 text-uppercase tracking-wide mb-3">Contenido Multimedia</h6>
                         <div class="row g-4 border border-secondary rounded p-3 bg-black bg-opacity-25">
                             <div class="col-12">
-                                <label class="form-label text-emerald">Subir Fotos de Galería (Carrusel)</label>
-                                <input type="file" class="form-control" multiple accept="image/*">
+                                <label class="form-label text-emerald">Subir Foto Principal</label>
+                                <input type="file" class="form-control" id="form-fotos" accept="image/*">
                             </div>
                             <div class="col-12">
                                 <label class="form-label text-danger mt-3"><i class="fab fa-youtube"></i> Enlace a Video de YouTube</label>
-                                <input type="url" class="form-control" placeholder="Pega tu enlace aquí">
+                                <input type="url" class="form-control" id="form-video" placeholder="Pega tu enlace aquí">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer border-top border-secondary p-4">
                     <button type="button" class="btn-outline me-2" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn-main" onclick="saveData()"><i class="fas fa-cloud-upload-alt me-2"></i> Guardar y Publicar</button>
+                    <button type="button" class="btn-main" onclick="saveDataToSupabase()"><i class="fas fa-cloud-upload-alt me-2"></i> Guardar y Publicar</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
-        function saveData() {
-            alert("Propiedad guardada. Fase 2 de IntegratCore requerida para inyectar los datos en Base de Datos.");
-            var modal = document.getElementById('propertyModal');
-            if(modal.classList.contains('show')){
+        // CONFIGURACIÓN DE LAS LLAVES
+        const SUPABASE_URL = 'https://onrbrlmqblyddxtsoapk.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ucmJybG1xYmx5ZGR4dHNvYXBrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNTk1NDYsImV4cCI6MjA4ODkzNTU0Nn0.WkzYwQqNA_QrtfgOAicWqc_suREHsabKoUbXpr-3T7M';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        async function saveDataToSupabase() {
+            const nombre = document.getElementById('form-nombre').value;
+            const precio = document.getElementById('form-precio').value;
+            const amenidades = document.getElementById('form-amenidades').value;
+            const inputFotos = document.getElementById('form-fotos');
+            const videoUrl = document.getElementById('form-video').value;
+
+            if(!nombre || !precio) {
+                alert("Director, el Nombre y el Precio son obligatorios.");
+                return;
+            }
+
+            // Cambiar botón a estado de carga
+            const btn = document.querySelector('.btn-main');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Subiendo...';
+            btn.disabled = true;
+
+            let fotoUrlFinal = "img/propiedades/villa-1.jpg"; 
+
+            // Subir imagen si seleccionó una
+            if(inputFotos.files.length > 0) {
+                const fotoOriginal = inputFotos.files[0];
+                const fileExt = fotoOriginal.name.split('.').pop();
+                const fileName = `${Math.random()}.${fileExt}`;
+                const filePath = `villas/${fileName}`;
+
+                const { data: uploadData, error: uploadError } = await supabase.storage
+                    .from('galeria')
+                    .upload(filePath, fotoOriginal);
+
+                if (uploadError) {
+                    alert("Asegúrate de haber creado el bucket 'galeria' y ponerlo Público. Error: " + uploadError.message);
+                    btn.innerHTML = originalText; btn.disabled = false;
+                    return;
+                }
+
+                const { data: publicURLData } = supabase.storage.from('galeria').getPublicUrl(filePath);
+                fotoUrlFinal = publicURLData.publicUrl;
+            }
+
+            // Guardar en la base de datos
+            const { data, error } = await supabase
+                .from('propiedades')
+                .insert([
+                    { 
+                        nombre: nombre, 
+                        precio: precio, 
+                        amenidades: amenidades, 
+                        video_url: videoUrl,
+                        fotos: [fotoUrlFinal] 
+                    }
+                ]);
+
+            if (error) {
+                alert("Asegúrate de crear la tabla 'propiedades'. Error: " + error.message);
+            } else {
+                alert("¡Propiedad Guardada en la Base de Datos con Éxito!");
+                document.getElementById('propiedadForm').reset();
+                var modal = document.getElementById('propertyModal');
                 bootstrap.Modal.getInstance(modal).hide();
             }
+
+            btn.innerHTML = originalText;
+            btn.disabled = false;
         }
-        
+
         function switchTab(tabId) {
             document.querySelectorAll('.tab-section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
