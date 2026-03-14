@@ -285,7 +285,7 @@ async function cargarVillasDesdeBD() {
                                     <p class="emerald-text fw-bold h5 m-0">US$ ${villa.precio}</p>
                                 </div>
                                 <p class="theme-muted small mb-4">${villa.amenidades || 'Detalles exclusivos de alto nivel.'}</p>
-                                <a href="https://wa.me/18492508144?text=${encodedWa}" target="_blank" class="btn-molded-outline text-center magnetic">${btnText}</a>
+                                <a href="https://api.whatsapp.com/send?phone=18492508144&text=${encodedWa}" target="_blank" class="btn-molded-outline text-center magnetic">${btnText}</a>
                             </div>
                         </div>
                     </div>
