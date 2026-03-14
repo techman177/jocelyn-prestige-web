@@ -1,89 +1,162 @@
-/* --- INTEGRATCORE $20K LOGIC --- */
+/* --- INTEGRATCORE LUXURY ENGINE - DUAL THEME & SUPABASE --- */
 
-document.addEventListener("DOMContentLoaded", function() {
-    
-    // 1. Preloader Fade Out
-    setTimeout(() => {
-        const preloader = document.getElementById('preloader');
-        preloader.style.opacity = '0';
-        preloader.style.visibility = 'hidden';
-    }, 1500);
+const SUPABASE_URL = 'https://onrbrlmqblyddxtsoapk.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ucmJybG1xYmx5ZGR4dHNvYXBrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNTk1NDYsImV4cCI6MjA4ODkzNTU0Nn0.WkzYwQqNA_QrtfgOAicWqc_suREHsabKoUbXpr-3T7M';
 
-    // 2. Custom Cursor Logic (Solo Desktop)
-    const cursorDot = document.querySelector('.cursor-dot');
-    const cursorOutline = document.querySelector('.cursor-outline');
-    
-    if(window.innerWidth > 992) {
-        window.addEventListener('mousemove', function(e) {
-            const posX = e.clientX;
-            const posY = e.clientY;
-            
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-            
-            // Retraso suave para el contorno
-            setTimeout(() => {
-                cursorOutline.style.left = `${posX}px`;
-                cursorOutline.style.top = `${posY}px`;
-            }, 50);
+const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const preloader = document.getElementById('preloader');
+    if(preloader) {
+        setTimeout(() => {
+            preloader.style.opacity = '0';
+            setTimeout(() => preloader.style.display = 'none', 500);
+        }, 700);
+    }
+
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    if(themeToggleBtn) {
+        const themeIcon = themeToggleBtn.querySelector('i');
+        const currentTheme = localStorage.getItem('theme') || 'light'; 
+
+        if (currentTheme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.body.getAttribute('data-theme') === 'dark') {
+                document.body.removeAttribute('data-theme');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
         });
+    }
 
-        // Hover states for cursor
+    const dot = document.querySelector(".cursor-dot");
+    const out = document.querySelector(".cursor-outline");
+    if (dot && out && window.innerWidth > 992) {
+        window.addEventListener("mousemove", (e) => {
+            dot.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 50, fill: "forwards" });
+            out.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 400, fill: "forwards" });
+        });
         document.querySelectorAll('a, button, .magnetic, .magnetic-slight').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
-                cursorOutline.style.backgroundColor = 'rgba(80, 200, 120, 0.1)';
-                cursorDot.style.transform = 'translate(-50%, -50%) scale(0.5)';
+            el.addEventListener("mouseenter", () => {
+                out.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                out.style.backgroundColor = 'rgba(80, 200, 120, 0.1)';
             });
-            el.addEventListener('mouseleave', () => {
-                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursorOutline.style.backgroundColor = 'transparent';
-                cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+            el.addEventListener("mouseleave", () => {
+                out.style.transform = 'translate(-50%, -50%) scale(1)';
+                out.style.backgroundColor = 'transparent';
             });
         });
     }
 
-    // 3. Efecto Botones Magnéticos
-    const magnetics = document.querySelectorAll('.magnetic');
-    magnetics.forEach(magnet => {
-        magnet.addEventListener('mousemove', function(e) {
-            const position = magnet.getBoundingClientRect();
-            const x = e.pageX - position.left - position.width / 2;
-            const y = e.pageY - position.top - position.height / 2;
-            
-            magnet.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                revealObserver.unobserve(entry.target);
+            }
         });
-        magnet.addEventListener('mouseleave', function() {
-            magnet.style.transform = 'translate(0px, 0px)';
-            magnet.style.transition = 'transform 0.5s ease';
+    }, { threshold: 0.05, rootMargin: "0px 0px 100px 0px" });
+
+    document.querySelectorAll('.reveal, .reveal-delay, .reveal-delay-2, .reveal-right').forEach(el => {
+        revealObserver.observe(el);
+    });
+
+    const magneticElements = document.querySelectorAll('.magnetic');
+    magneticElements.forEach((el) => {
+        el.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.pageX - rect.left - rect.width / 2;
+            const y = e.pageY - rect.top - rect.height / 2;
+            this.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
         });
-        magnet.addEventListener('mouseenter', function() {
-            magnet.style.transition = 'none';
+        el.addEventListener('mouseleave', function() {
+            this.style.transform = 'translate(0px, 0px)';
+            this.style.transition = 'transform 0.5s ease';
+        });
+        el.addEventListener('mouseenter', function() {
+            this.style.transition = 'none';
         });
     });
 
-    // 4. Scroll Reveal Avanzado
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("active");
-            }
-        });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll(".reveal, .reveal-delay, .reveal-delay-2, .reveal-right").forEach(el => observer.observe(el));
+    if(supabaseClient && document.querySelector('#catalogo .row')) {
+        cargarVillasDesdeBD();
+    }
 });
 
-// 5. Transformación Nav al Scroll
+// Transformación Nav al Scroll
 window.onscroll = function() {
     const pill = document.querySelector('.nav-glass-pill');
-    if (window.scrollY > 100) {
-        pill.style.padding = "10px 20px";
-        pill.style.background = "rgba(0, 0, 0, 0.85)";
-        pill.style.borderColor = "rgba(80, 200, 120, 0.3)";
-    } else {
-        pill.style.padding = "20px 25px";
-        pill.style.background = "rgba(5, 5, 5, 0.5)";
-        pill.style.borderColor = "rgba(255, 255, 255, 0.08)";
+    if(pill) {
+        if (window.scrollY > 100) {
+            pill.style.padding = "10px 20px";
+            pill.style.background = "rgba(0, 0, 0, 0.85)";
+            pill.style.borderColor = "rgba(80, 200, 120, 0.3)";
+        } else {
+            pill.style.padding = "20px 25px";
+            pill.style.background = "rgba(5, 5, 5, 0.5)";
+            pill.style.borderColor = "rgba(255, 255, 255, 0.08)";
+        }
     }
 };
+
+async function cargarVillasDesdeBD() {
+    const contenedorVillas = document.querySelector('#catalogo .row');
+    if(!contenedorVillas) return;
+
+    try {
+        const { data: propiedades, error } = await supabaseClient
+            .from('propiedades')
+            .select('*');
+
+        if (error) {
+            console.error("Error conectando a supabase:", error);
+            return;
+        }
+
+        if(propiedades && propiedades.length > 0) {
+            contenedorVillas.innerHTML = ''; 
+
+            propiedades.forEach((villa) => {
+                let fotoPortada = (villa.fotos && villa.fotos.length > 0) ? villa.fotos[0] : 'img/propiedades/villa-1.jpg';
+                let amenidadesTexto = villa.amenidades ? villa.amenidades : 'Detalles exclusivos de alto nivel.';
+                
+                let esRenta = villa.nombre.toLowerCase().includes('renta') || villa.nombre.toLowerCase().includes('alquiler');
+                let badgeHTML = esRenta 
+                    ? `<div class="glass-badge badge-renta z-3">EN RENTA</div>` 
+                    : `<div class="glass-badge z-3">COLECCIÓN</div>`;
+
+                const htmlVilla = `
+                    <div class="col-md-6 col-lg-5 reveal active" style="opacity:1; transform:translateY(0)">
+                        <div class="molded-card magnetic-slight">
+                            <div class="molded-img-placeholder p-0">
+                                ${badgeHTML}
+                                <img src="${fotoPortada}" class="d-block w-100 h-100 object-fit-cover" alt="${villa.nombre}">
+                                <div class="image-overlay z-2"></div>
+                            </div>
+                            <div class="p-4 text-center">
+                                <div class="mb-2">
+                                    <h4 class="theme-text syncopate-font fs-5 m-0 mb-1">${villa.nombre}</h4>
+                                    <p class="emerald-text fw-bold h5 m-0">US$ ${villa.precio}</p>
+                                </div>
+                                <p class="theme-muted small mb-4">${amenidadesTexto}</p>
+                                <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20${encodeURIComponent(villa.nombre)}." target="_blank" class="btn-molded-outline text-center magnetic">Solicitar Información</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                contenedorVillas.innerHTML += htmlVilla;
+            });
+        }
+    } catch(err) {
+        console.error("Supabase fail", err);
+    }
+}

@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jocelyn Prestige | The Art of Real Estate</title>
+    <title>Busco Tu Renta by Jocelyn | Real Estate</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Syncopate:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -14,8 +15,11 @@
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <div id="preloader">
-        <h2 class="luxury-font emerald-text pulse-slow">JOCELYN PRESTIGE</h2>
+    <div id="preloader" class="theme-bg-sec">
+        <h2 class="luxury-font emerald-text pulse-slow text-center" style="line-height: 1.2;">
+            BUSCO TU RENTA <br>
+            <span class="theme-text fs-4 syncopate-font" style="letter-spacing: 3px;">BY JOCELYN</span>
+        </h2>
     </div>
 
     <div class="noise-overlay"></div>
@@ -24,10 +28,17 @@
         <div class="container nav-pill-container">
             <div class="nav-glass-pill d-flex align-items-center w-100 px-4 py-3">
                 <a class="navbar-brand d-flex align-items-center magnetic" href="#">
-                    <img src="img/logo.png" alt="Logo Jocelyn" class="me-2" style="height: 45px; object-fit: contain;">
-                    <span class="syncopate-font text-white fw-bold tracking-wide">JOCELYN <span class="emerald-text">PRESTIGE</span></span>
+                    <img src="img/logo.png" alt="Logo Jocelyn" class="me-3" style="height: 75px; object-fit: contain; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.1));">
+                    <div class="d-flex flex-column justify-content-center">
+                        <span class="syncopate-font theme-nav-text fw-bold tracking-wide" style="font-size: 1.1rem;">BUSCO TU RENTA</span>
+                        <span class="emerald-text syncopate-font fw-bold" style="font-size: 0.75rem; letter-spacing: 3px;">BY JOCELYN</span>
+                    </div>
                 </a>
-                <div class="ms-auto">
+                
+                <div class="ms-auto d-flex align-items-center gap-3 gap-md-4">
+                    <button id="theme-toggle" class="btn btn-link text-decoration-none p-0 magnetic theme-nav-text" style="font-size: 1.4rem;">
+                        <i class="fas fa-moon"></i>
+                    </button>
                     <a href="https://wa.me/18492508144" class="btn-emerald-pill magnetic d-none d-md-inline-block">EXPERIENCIA VIP</a>
                 </div>
             </div>
@@ -49,249 +60,210 @@
         </div>
     </header>
 
-    <section id="catalogo" class="py-5 bg-deep position-relative z-1">
+    <section id="catalogo" class="py-5 position-relative z-1">
         <div class="container py-5">
-            <div class="d-flex justify-content-between align-items-end mb-4 reveal">
+            <div class="d-flex justify-content-between align-items-end mb-5 reveal">
                 <div>
-                    <h2 class="display-4 text-white luxury-font m-0">La <span class="emerald-text">Colección</span></h2>
+                    <h2 class="display-4 theme-text luxury-font m-0">La <span class="emerald-text">Colección</span></h2>
                     <div class="emerald-pill-line mt-3"></div>
                 </div>
-                <p class="text-white-50 d-none d-md-block m-0 tracking-wide small">INVERSIONES EXCLUSIVAS</p>
+                <p class="theme-muted d-none d-md-block m-0 tracking-wide small fw-bold">VENTAS Y RENTAS EXCLUSIVAS</p>
             </div>
             
-            <div class="reveal mb-5 p-4 rounded-4" style="background: rgba(80, 200, 120, 0.05); border: 1px solid rgba(80, 200, 120, 0.2);">
-                <p class="text-white-50 m-0">
-                    <span class="emerald-text fw-bold">✨ ESTÁNDAR PRESTIGE:</span> Todas nuestras propiedades cuentan con cocina totalmente equipada. Opciones selectas incluyen amenidades de nivel superior como jacuzzi privado y balcón con área de BBQ.
-                </p>
-            </div>
-
-            <div class="row g-5">
-                <div class="col-md-6 reveal">
+            <div class="row g-5 justify-content-center">
+                <div class="col-md-6 col-lg-5 reveal">
                     <div class="molded-card magnetic-slight">
-                        <div class="molded-img-placeholder p-0">
-                            <div class="glass-badge">VILLA PRIVADA</div>
-                            <div id="carouselVilla1" class="carousel slide carousel-fade h-100" data-bs-ride="carousel">
-                                <div class="carousel-inner h-100">
-                                    <div class="carousel-item active h-100">
-                                        <img src="img/propiedades/villa-1.jpg" class="d-block w-100 h-100 card-image-real" alt="Villa Amarilla Fachada">
-                                    </div>
-                                    <div class="carousel-item h-100">
-                                        <img src="img/propiedades/villa-1-int1.jpg" class="d-block w-100 h-100 card-image-real" alt="Villa Amarilla Interior 1">
-                                    </div>
-                                    <div class="carousel-item h-100">
-                                        <img src="img/propiedades/villa-1-int2.jpg" class="d-block w-100 h-100 card-image-real" alt="Villa Amarilla Interior 2">
-                                    </div>
+                        <div id="carouselVilla1" class="carousel slide molded-img-placeholder p-0" data-bs-ride="carousel">
+                            <div class="glass-badge z-3">COLECCIÓN</div>
+                            <div class="carousel-inner h-100">
+                                <div class="carousel-item active h-100">
+                                    <img src="img/propiedades/villa-1.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Villa 1">
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselVilla1" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselVilla1" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                </button>
+                                <div class="carousel-item h-100">
+                                    <img src="img/propiedades/villa-1.jpg" class="d-block w-100 h-100 object-fit-cover" style="filter: brightness(1.1);" alt="Villa 1">
+                                </div>
                             </div>
+                            <button class="carousel-control-prev z-3" type="button" data-bs-target="#carouselVilla1" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+                            <button class="carousel-control-next z-3" type="button" data-bs-target="#carouselVilla1" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+                            <div class="image-overlay z-2"></div>
                         </div>
-                        <div class="p-4">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <h4 class="text-white syncopate-font fs-5 m-0">Villa Puerta Amarilla</h4>
+                        <div class="p-4 text-center">
+                            <div class="mb-2">
+                                <h4 class="theme-text syncopate-font fs-5 m-0 mb-1">Residencia Alpha</h4>
                                 <p class="emerald-text fw-bold h5 m-0">US$ 295,000</p>
                             </div>
-                            <p class="text-white-50 small mb-4">2 Hab | 2.5 Baños | 245 m² Const. | 700 m² Solar</p>
-                            <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20la%20Villa%20Puerta%20Amarilla%20de%20US$%20295,000." target="_blank" class="btn-molded-outline w-100 text-center magnetic">Solicitar Información</a>
+                            <p class="theme-muted small mb-4">2 Hab | 2.5 Baños | Diseño Contemporáneo</p>
+                            <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20la%20Residencia%20Alpha." target="_blank" class="btn-molded-outline text-center magnetic">Solicitar Información</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 reveal-delay">
-                    <div class="molded-card magnetic-slight mt-md-5">
-                        <div class="molded-img-placeholder p-0">
-                            <div class="glass-badge">VILLA PRIVADA</div>
-                            <div id="carouselVilla2" class="carousel slide carousel-fade h-100" data-bs-ride="carousel">
-                                <div class="carousel-inner h-100">
-                                    <div class="carousel-item active h-100">
-                                        <img src="img/propiedades/villa-2.jpg" class="d-block w-100 h-100 card-image-real" alt="Villa Mamey Fachada">
-                                    </div>
-                                    <div class="carousel-item h-100">
-                                        <img src="img/propiedades/villa-2-int1.jpg" class="d-block w-100 h-100 card-image-real" alt="Villa Mamey Interior 1">
-                                    </div>
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselVilla2" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselVilla2" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="p-4">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <h4 class="text-white syncopate-font fs-5 m-0">Villa Puerta Mamey</h4>
-                                <p class="emerald-text fw-bold h5 m-0">US$ 375,000</p>
-                            </div>
-                            <p class="text-white-50 small mb-4">3 Hab | 2.5 Baños | 380 m² Const. | 800 m² Solar</p>
-                            <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20la%20Villa%20Puerta%20Mamey%20de%20US$%20375,000." target="_blank" class="btn-molded-outline w-100 text-center magnetic">Solicitar Información</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 reveal">
+                <div class="col-md-6 col-lg-5 reveal-delay">
                     <div class="molded-card magnetic-slight">
-                        <div class="molded-img-placeholder p-0">
-                            <div class="glass-badge">VILLA PRIVADA</div>
-                            <div id="carouselVilla3" class="carousel slide carousel-fade h-100" data-bs-ride="carousel">
-                                <div class="carousel-inner h-100">
-                                    <div class="carousel-item active h-100">
-                                        <img src="img/propiedades/villa-3.jpg" class="d-block w-100 h-100 card-image-real" alt="Villa Roja Fachada">
-                                    </div>
-                                    <div class="carousel-item h-100">
-                                        <img src="img/propiedades/villa-3-int1.jpg" class="d-block w-100 h-100 card-image-real" alt="Villa Roja Interior 1">
-                                    </div>
+                        <div id="carouselVilla2" class="carousel slide molded-img-placeholder p-0" data-bs-ride="carousel">
+                            <div class="glass-badge badge-renta z-3">EN RENTA</div>
+                            <div class="carousel-inner h-100">
+                                <div class="carousel-item active h-100">
+                                    <img src="img/propiedades/villa-2.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Villa 2">
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselVilla3" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselVilla3" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                </button>
+                                <div class="carousel-item h-100">
+                                    <img src="img/propiedades/villa-2.jpg" class="d-block w-100 h-100 object-fit-cover" style="filter: brightness(1.1);" alt="Villa 2">
+                                </div>
                             </div>
+                            <button class="carousel-control-prev z-3" type="button" data-bs-target="#carouselVilla2" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+                            <button class="carousel-control-next z-3" type="button" data-bs-target="#carouselVilla2" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+                            <div class="image-overlay z-2"></div>
                         </div>
-                        <div class="p-4">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <h4 class="text-white syncopate-font fs-5 m-0">Villa Puerta Roja</h4>
-                                <p class="emerald-text fw-bold h5 m-0">US$ 300,000</p>
+                        <div class="p-4 text-center">
+                            <div class="mb-2">
+                                <h4 class="theme-text syncopate-font fs-5 m-0 mb-1">Villa Vista Verde</h4>
+                                <p class="emerald-text fw-bold h5 m-0">US$ 3,500 / mes</p>
                             </div>
-                            <p class="text-white-50 small mb-4">2 Hab | 2.5 Baños | 245 m² Const. | 700 m² Solar</p>
-                            <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20la%20Villa%20Puerta%20Roja%20de%20US$%20300,000." target="_blank" class="btn-molded-outline w-100 text-center magnetic">Solicitar Información</a>
+                            <p class="theme-muted small mb-4">3 Hab | 3 Baños | Entorno Natural</p>
+                            <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20la%20Villa%20Vista%20Verde." target="_blank" class="btn-molded-outline text-center magnetic">Agendar Visita</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 reveal-delay">
-                    <div class="molded-card magnetic-slight mt-md-5">
-                        <div class="molded-img-placeholder p-0">
-                            <div class="glass-badge">VILLA PRIVADA</div>
-                            <div id="carouselVilla4" class="carousel slide carousel-fade h-100" data-bs-ride="carousel">
-                                <div class="carousel-inner h-100">
-                                    <div class="carousel-item active h-100">
-                                        <img src="img/propiedades/villa-4.jpg" class="d-block w-100 h-100 card-image-real" alt="Villa Azul Fachada">
-                                    </div>
-                                    <div class="carousel-item h-100">
-                                        <img src="img/propiedades/villa-4-int1.jpg" class="d-block w-100 h-100 card-image-real" alt="Villa Azul Interior 1">
-                                    </div>
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselVilla4" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselVilla4" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="p-4">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <h4 class="text-white syncopate-font fs-5 m-0">Villa Puerta Azul</h4>
-                                <p class="emerald-text fw-bold h5 m-0">US$ 380,000</p>
-                            </div>
-                            <p class="text-white-50 small mb-4">3 Hab | 2.5 Baños | 380 m² Const. | 800 m² Solar</p>
-                            <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20la%20Villa%20Puerta%20Azul%20de%20US$%20380,000." target="_blank" class="btn-molded-outline w-100 text-center magnetic">Solicitar Información</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 reveal">
+                <div class="col-md-6 col-lg-5 reveal">
                     <div class="molded-card magnetic-slight">
-                        <div class="molded-img-placeholder p-0">
-                            <div class="glass-badge">VILLA PRIVADA</div>
-                            <div id="carouselVilla5" class="carousel slide carousel-fade h-100" data-bs-ride="carousel">
-                                <div class="carousel-inner h-100">
-                                    <div class="carousel-item active h-100">
-                                        <img src="img/propiedades/villa-5.jpg" class="d-block w-100 h-100 card-image-real" alt="Villa Verde Fachada">
-                                    </div>
-                                    <div class="carousel-item h-100">
-                                        <img src="img/propiedades/villa-5-int1.jpg" class="d-block w-100 h-100 card-image-real" alt="Villa Verde Interior 1">
-                                    </div>
+                        <div id="carouselVilla3" class="carousel slide molded-img-placeholder p-0" data-bs-ride="carousel">
+                            <div class="glass-badge z-3">COLECCIÓN</div>
+                            <div class="carousel-inner h-100">
+                                <div class="carousel-item active h-100">
+                                    <img src="img/propiedades/villa-3.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Villa 3">
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselVilla5" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselVilla5" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                </button>
+                                <div class="carousel-item h-100">
+                                    <img src="img/propiedades/villa-3.jpg" class="d-block w-100 h-100 object-fit-cover" style="filter: brightness(1.1);" alt="Villa 3">
+                                </div>
                             </div>
+                            <button class="carousel-control-prev z-3" type="button" data-bs-target="#carouselVilla3" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+                            <button class="carousel-control-next z-3" type="button" data-bs-target="#carouselVilla3" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+                            <div class="image-overlay z-2"></div>
                         </div>
-                        <div class="p-4">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <h4 class="text-white syncopate-font fs-5 m-0">Villa Puerta Verde</h4>
-                                <p class="emerald-text fw-bold h5 m-0">US$ 230,000</p>
+                        <div class="p-4 text-center">
+                            <div class="mb-2">
+                                <h4 class="theme-text syncopate-font fs-5 m-0 mb-1">Cabaña de Lujo</h4>
+                                <p class="emerald-text fw-bold h5 m-0">US$ 320,000</p>
                             </div>
-                            <p class="text-white-50 small mb-4">2 Hab | 2.5 Baños | 245 m² Const. | 299 m² Solar</p>
-                            <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20la%20Villa%20Puerta%20Verde%20de%20US$%20230,000." target="_blank" class="btn-molded-outline w-100 text-center magnetic">Solicitar Información</a>
+                            <p class="theme-muted small mb-4">3 Hab | 2 Baños | Acabados en Madera</p>
+                            <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20la%20Cabaña%20de%20Lujo." target="_blank" class="btn-molded-outline text-center magnetic">Solicitar Información</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 reveal-delay">
-                    <div class="molded-card magnetic-slight mt-md-5">
-                        <div class="molded-img-placeholder p-0">
-                            <div class="glass-badge">TORRE EXCLUSIVA</div>
-                            <div id="carouselVilla6" class="carousel slide carousel-fade h-100" data-bs-ride="carousel">
-                                <div class="carousel-inner h-100">
-                                    <div class="carousel-item active h-100">
-                                        <img src="img/propiedades/villa-6.jpg" class="d-block w-100 h-100 card-image-real" alt="Apto Piantini Fachada">
-                                    </div>
-                                    <div class="carousel-item h-100">
-                                        <img src="img/propiedades/villa-6-int1.jpg" class="d-block w-100 h-100 card-image-real" alt="Apto Piantini Interior 1">
-                                    </div>
+                <div class="col-md-6 col-lg-5 reveal-delay">
+                    <div class="molded-card magnetic-slight">
+                        <div id="carouselVilla4" class="carousel slide molded-img-placeholder p-0" data-bs-ride="carousel">
+                            <div class="glass-badge z-3">COLECCIÓN</div>
+                            <div class="carousel-inner h-100">
+                                <div class="carousel-item active h-100">
+                                    <img src="img/propiedades/villa-4.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Villa 4">
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselVilla6" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselVilla6" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                </button>
+                                <div class="carousel-item h-100">
+                                    <img src="img/propiedades/villa-4.jpg" class="d-block w-100 h-100 object-fit-cover" style="filter: brightness(1.1);" alt="Villa 4">
+                                </div>
                             </div>
+                            <button class="carousel-control-prev z-3" type="button" data-bs-target="#carouselVilla4" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+                            <button class="carousel-control-next z-3" type="button" data-bs-target="#carouselVilla4" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+                            <div class="image-overlay z-2"></div>
                         </div>
-                        <div class="p-4">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <h4 class="text-white syncopate-font fs-5 m-0">Apto. Moderno Piantini</h4>
-                                <p class="emerald-text fw-bold h5 m-0">US$ 395,000</p>
+                        <div class="p-4 text-center">
+                            <div class="mb-2">
+                                <h4 class="theme-text syncopate-font fs-5 m-0 mb-1">Residencia Nocturna</h4>
+                                <p class="emerald-text fw-bold h5 m-0">US$ 450,000</p>
                             </div>
-                            <p class="text-white-50 small mb-4">2 Hab | 3 Baños | 108 m² | 2 Parqueos | Full Amenidades</p>
-                            <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20el%20Apartamento%20en%20Piantini%20de%20US$%20395,000." target="_blank" class="btn-molded-outline w-100 text-center magnetic">Solicitar Información</a>
+                            <p class="theme-muted small mb-4">4 Hab | 4.5 Baños | Iluminación Premium</p>
+                            <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20la%20Residencia%20Nocturna." target="_blank" class="btn-molded-outline text-center magnetic">Solicitar Información</a>
                         </div>
                     </div>
                 </div>
 
+                <div class="col-md-6 col-lg-5 reveal">
+                    <div class="molded-card magnetic-slight">
+                        <div id="carouselVilla5" class="carousel slide molded-img-placeholder p-0" data-bs-ride="carousel">
+                            <div class="glass-badge badge-renta z-3">EN RENTA</div>
+                            <div class="carousel-inner h-100">
+                                <div class="carousel-item active h-100">
+                                    <img src="img/propiedades/villa-5.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Villa 5">
+                                </div>
+                                <div class="carousel-item h-100">
+                                    <img src="img/propiedades/villa-5.jpg" class="d-block w-100 h-100 object-fit-cover" style="filter: brightness(1.1);" alt="Villa 5">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev z-3" type="button" data-bs-target="#carouselVilla5" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+                            <button class="carousel-control-next z-3" type="button" data-bs-target="#carouselVilla5" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+                            <div class="image-overlay z-2"></div>
+                        </div>
+                        <div class="p-4 text-center">
+                            <div class="mb-2">
+                                <h4 class="theme-text syncopate-font fs-5 m-0 mb-1">Skyline Penthouse</h4>
+                                <p class="emerald-text fw-bold h5 m-0">US$ 4,500 / mes</p>
+                            </div>
+                            <p class="theme-muted small mb-4">3 Hab | 3.5 Baños | Amueblado Full</p>
+                            <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20el%20Skyline%20Penthouse." target="_blank" class="btn-molded-outline text-center magnetic">Agendar Visita</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-5 reveal-delay">
+                    <div class="molded-card magnetic-slight">
+                        <div id="carouselVilla6" class="carousel slide molded-img-placeholder p-0" data-bs-ride="carousel">
+                            <div class="glass-badge z-3">COLECCIÓN</div>
+                            <div class="carousel-inner h-100">
+                                <div class="carousel-item active h-100">
+                                    <img src="img/propiedades/villa-6.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Villa 6">
+                                </div>
+                                <div class="carousel-item h-100">
+                                    <img src="img/propiedades/villa-6.jpg" class="d-block w-100 h-100 object-fit-cover" style="filter: brightness(1.1);" alt="Villa 6">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev z-3" type="button" data-bs-target="#carouselVilla6" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+                            <button class="carousel-control-next z-3" type="button" data-bs-target="#carouselVilla6" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+                            <div class="image-overlay z-2"></div>
+                        </div>
+                        <div class="p-4 text-center">
+                            <div class="mb-2">
+                                <h4 class="theme-text syncopate-font fs-5 m-0 mb-1">Complejo Paraíso</h4>
+                                <p class="emerald-text fw-bold h5 m-0">Desde US$ 250,000</p>
+                            </div>
+                            <p class="theme-muted small mb-4">1 y 2 Hab | Amenidades Resort | ROI Alto</p>
+                            <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20el%20Complejo%20Paraíso." target="_blank" class="btn-molded-outline text-center magnetic">Solicitar Información</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="py-5 position-relative z-1" style="background-color: #030303;">
-        <div class="container py-5">
-            <div class="row align-items-center">
-                <div class="col-lg-5 reveal d-flex justify-content-center">
+    <section class="py-5 position-relative z-1 theme-bg-sec border-top">
+        <div class="container py-5 text-center">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-5 col-md-8 reveal d-flex justify-content-center mb-5 mb-lg-0">
                     <div class="advisor-frame-circle magnetic-slight">
                         <img src="img/perfil-jocelyn.png" alt="Jocelyn Advisor">
                     </div>
                 </div>
-                <div class="col-lg-7 ps-lg-5 text-center text-lg-start mt-5 mt-lg-0 reveal-right">
+                <div class="col-lg-6 col-md-10 reveal-right text-lg-start ps-lg-5">
                     <h5 class="emerald-text syncopate-font tracking-wide mb-3">TU ALIADA ESTRATÉGICA</h5>
-                    <h2 class="display-3 text-white luxury-font mb-4">Conocimiento que <br> <i class="text-white-50">crea legados.</i></h2>
-                    <p class="text-white-50 lead mb-5 fw-light">El mercado premium exige más que un vendedor; exige un estratega. Jocelyn redefine el estándar de confidencialidad y excelencia en Bienes Raíces, conectando a clientes de élite con inversiones que trascienden.</p>
-                    <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20gustaría%20agendar%20una%20sesión%20privada%20de%20asesoría." target="_blank" class="btn-molded-outline magnetic">Agendar Sesión Privada</a>
+                    <h2 class="display-3 theme-text luxury-font mb-4">Conocimiento que <br> <i class="theme-muted">crea legados.</i></h2>
+                    <p class="theme-muted lead mb-5 fw-light">El mercado premium exige más que un vendedor; exige un estratega. Jocelyn redefine el estándar de confidencialidad y excelencia en Bienes Raíces.</p>
+                    <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20gustaría%20agendar%20una%20sesión%20privada." target="_blank" class="btn-molded-outline magnetic">Agendar Sesión Privada</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <a href="https://wa.me/18492508144" class="whatsapp-float magnetic" target="_blank">
-        <svg viewBox="0 0 32 32" class="whatsapp-icon"><path d="M16 0c-8.837 0-16 7.163-16 16 0 2.825.737 5.475 2.025 7.775l-2.025 7.425 7.612-1.987c2.15 1.212 4.638 1.912 7.288 1.912 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.333c-2.387 0-4.625-.625-6.575-1.725l-.475-.262-4.5 1.175 1.2-4.387-.287-.462c-1.137-1.85-1.812-4.037-1.812-6.387 0-6.625 5.375-12 12-12s12 5.375 12 12-5.375 12-12 12zM22.5 19.333c-.35-.175-2.087-1.025-2.412-1.137s-.562-.175-.8.175-.925 1.137-1.137 1.375-.425.262-.775.087c-.35-.175-1.475-.55-2.812-1.737-1.037-.925-1.737-2.062-1.937-2.412s-.025-.537.15-.712c.162-.15.35-.412.525-.612s.237-.35.35-.575.062-.425-.025-.6-.8-1.937-1.1-2.65c-.287-.712-.587-.612-.8-.612s-.437-.012-.675-.012-.625.087-.95.437c-.325.35-1.237 1.212-1.237 2.95s1.262 3.412 1.437 3.65c.175.237 2.487 3.8 6.025 5.325.837.362 1.487.575 2 .737.837.262 1.6.225 2.2.137.675-.1 2.087-.85 2.375-1.675s.287-1.537.2-1.675-.312-.262-.662-.437z"/></svg>
-    </a>
-
-    <footer class="py-5 text-center position-relative z-1" style="background-color: #000;">
-        <p class="text-secondary small tracking-wide">© 2026 JOCELYN PRESTIGE. TODOS LOS DERECHOS RESERVADOS.</p>
-        <p class="small text-secondary tracking-wide">ARQUITECTURA DIGITAL POR <span class="emerald-text fw-bold">INTEGRATCORE</span></p>
+    <footer class="py-5 text-center position-relative z-1 theme-bg-footer">
+        <p class="theme-muted small tracking-wide">© 2026 BUSCO TU RENTA BY JOCELYN. TODOS LOS DERECHOS RESERVADOS.</p>
+        <p class="small theme-muted tracking-wide">ARQUITECTURA DIGITAL POR <span class="emerald-text fw-bold">INTEGRATCORE</span></p>
     </footer>
 
+    <a href="https://wa.me/18492508144" target="_blank" class="floating-wa magnetic" title="Contactar a Jocelyn">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>
 </body>
