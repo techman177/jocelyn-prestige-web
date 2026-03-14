@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <script>
+        // Verificación de sesión activa
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.replace('login.html');
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Admin | Busco Tu Renta by Jocelyn</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* DISEÑO DE PANEL INTEGRATCORE */
+        .sidebar {
+            background: #ffffff;
+            min-height: 100vh;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-link {
+            color: #6c757d;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 5px 15px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: #000;
+            color: #fff !important;
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+        }
+
+        /* FIX PARA MÓVIL (ELIMINA EL PEGADO) */
+        @media (max-width: 991px) {
+            .sidebar {
+                position: fixed;
+                width: 280px;
+                z-index: 1050;
+                left: -280px;
+                transition: 0.3s;
+            }
+
+            .sidebar.active {
+                left: 0;
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
+            }
+
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 1040;
+            }
+
+            .overlay.active {
+                display: block;
+            }
+        }
+
+        .stat-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-lg-2 sidebar p-0" id="sidebar">
+                <div class="p-4 text-center">
+                    <h5 class="fw-bold">IntegratCore <span class="text-primary">Admin</span></h5>
+                </div>
+                <div class="nav flex-column">
+                    <a href="#" class="nav-link active"><i class="bi bi-grid"></i> Dashboard</a>
+                    <a href="#" class="nav-link"><i class="bi bi-house-add"></i> Subir Villa</a>
+                    <a href="#" class="nav-link"><i class="bi bi-images"></i> Galería</a>
+                    <a href="#" class="nav-link"><i class="bi bi-chat-dots"></i> Mensajes</a>
+                    <hr class="mx-3">
+                    <a href="index.html" class="nav-link text-danger" onclick="sessionStorage.removeItem('isLoggedIn')"><i class="bi bi-box-arrow-left"></i> Salir al Sitio</a>
+                </div>
+            </nav>
+
+            <main class="col-lg-10 ms-sm-auto px-md-4">
+                <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom d-lg-none">
+                    <button class="btn btn-dark" id="btnToggle"><i class="bi bi-list"></i> Menú</button>
+                    <span class="fw-bold">Jocelyn Admin</span>
+                </div>
+
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                    <h1 class="h2 fw-bold">Bienvenida, Jocelyn</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <button type="button" class="btn btn-dark btn-sm rounded-pill px-4">+ Nueva Propiedad</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card stat-card p-4">
+                            <small class="text-muted">Villas Activas</small>
+                            <h2 class="fw-bold m-0">12</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card stat-card p-4">
+                            <small class="text-muted">Vistas hoy</small>
+                            <h2 class="fw-bold m-0">342</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card stat-card p-4 text-success">
+                            <small class="text-muted">WhatsApp Leads</small>
+                            <h2 class="fw-bold m-0">8</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card stat-card p-4 mt-2">
+                    <h5 class="fw-bold mb-4">Gestión de Propiedades</h5>
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Propiedad</th>
+                                    <th>Precio</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Villa Serena - Punta Cana</td>
+                                    <td>$450/noche</td>
+                                    <td><span class="badge bg-success-subtle text-success">Disponible</span></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-dark"><i
+                                                class="bi bi-pencil"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i
+                                                class="bi bi-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const btnToggle = document.getElementById('btnToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        // Función para abrir/cerrar menú
+        function toggleMenu() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        btnToggle.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        // BLOQUEO ANTI-PEGADO: Al hacer clic en cualquier link, el menú se quita solo
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 992) {
+                    toggleMenu();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
