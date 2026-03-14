@@ -1,21 +1,24 @@
 /* --- INTEGRATCORE $20K LUXURY ENGINE - MODERN PALETTE --- */
 
 :root {
-    /* Nueva Paleta: Preferencia Jocelyn (Azul Claro, Blanco, Esmeralda) */
-    --emerald: #00897B; /* Verde Esmeralda para el lujo */
-    --primary-blue: #E3F2FD; /* Azul moderno, suave y muy claro */
-    --text-main: #333333; 
-    --text-light: #F4F7F6;
-    --text-muted: #666666;
+    /* Paleta Premium: Azul Claro + Esmeralda (Preferencias Jocelyn) */
+    --emerald: #0E7C58;          /* Esmeralda premium */
+    --emerald-light: #E8F5F0;    /* Esmeralda muy claro (fondos) */
+    --primary-blue: #EBF4FF;     /* Azul claro perla */
+    --blue-mid: #1B3B5A;         /* Azul profundo para texto premium */
     
-    --bg-main: #FFFFFF; /* Fondo blanco puro */
-    --bg-sec: #FAFCFF;
-    --bg-footer: #F1F5F9;
-    --card-bg: rgba(255, 255, 255, 0.98);
-    --card-border: rgba(227, 242, 253, 0.8);
-    --glass-border: rgba(227, 242, 253, 0.5);
-    --nav-bg: rgba(255, 255, 255, 0.95); 
-    --nav-text: #333333;
+    --text-main: #1B3B5A;
+    --text-light: #F4F7F6;
+    --text-muted: #5D7A94;
+    
+    --bg-main: #FDFAF7;          /* Blanco Perla cálido */
+    --bg-sec: #F8F5F0;           /* Perla secundario */
+    --bg-footer: #F2EDE8;        /* Perla footer */
+    --card-bg: rgba(253, 250, 247, 0.98);
+    --card-border: rgba(14, 124, 88, 0.12);
+    --glass-border: rgba(14, 124, 88, 0.08);
+    --nav-bg: rgba(255, 255, 255, 0.95);
+    --nav-text: #1B3B5A;
 }
 
 html, body {
@@ -73,8 +76,37 @@ body {
     background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border); border-radius: 100px; box-shadow: 0 10px 30px rgba(27, 59, 90, 0.05);
     padding-top: 10px !important; padding-bottom: 10px !important; transition: background-color 0.5s ease;
+    overflow: hidden;
 }
 
+/* Logo en navbar */
+.nav-logo {
+    height: 90px;
+    max-height: none;
+    object-fit: contain;
+    /* Oscurecemos el logo blanco original para que contraste con el fondo perla */
+    filter: brightness(0.25) contrast(1.2);
+    position: relative;
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.theme-nav-text {
+    color: var(--blue-mid) !important;
+    text-shadow: none;
+}
+
+/* Texto de la marca */
+.navbar-brand {
+    min-width: 0;
+    flex-shrink: 1;
+    overflow: hidden;
+}
+.navbar-brand span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .hero-section {
     height: 100vh; display: flex; align-items: center; position: relative; z-index: 1;
     background: linear-gradient(rgba(250, 252, 255, 0.85), rgba(250, 252, 255, 0.95)), url('../img/fondo-principal.jpg') center/cover;
@@ -118,6 +150,8 @@ body {
     height: 380px; border-radius: 30px; position: relative; overflow: hidden; background: #EEF2F6;
 }
 .object-fit-cover { object-fit: cover; }
+.card-image-real { width: 100%; height: 100%; object-fit: cover; border-radius: 0; display: block; }
+.text-emerald { color: var(--emerald) !important; }
 
 .image-overlay {
     position: absolute; bottom: 0; left: 0; width: 100%; height: 30%;
@@ -189,6 +223,11 @@ body {
 @media (max-width: 768px) {
     .molded-img-placeholder { height: 280px; }
     .floating-wa { bottom: 20px; right: 20px; width: 50px; height: 50px; font-size: 26px; }
+    /* Navbar mobile fix */
+    .nav-logo { height: 48px; } /* Un poco más pequeño para dar aire al texto */
+    .navbar-brand span:first-child { font-size: 0.85rem !important; }
+    .navbar-brand span:last-child { font-size: 0.6rem !important; }
+    .nav-pill-container { padding-top: 15px; }
 }
 @media (max-width: 576px) {
     .advisor-frame-circle { width: 250px; height: 250px; }

@@ -69,6 +69,7 @@
         </div>
         <div class="offcanvas-body d-flex flex-column p-0 pt-3">
             <a href="javascript:void(0)" class="nav-link active mx-3" onclick="switchTab('propiedades')"><i class="fas fa-home"></i> Colección Villas</a>
+            <a href="index.html" class="nav-link mx-3" style="color: var(--blue-mid);"><i class="fas fa-arrow-left"></i> Ver la Web</a>
 
             <div class="mt-4 mb-3 mx-4">
                 <p class="small text-muted text-uppercase tracking-wide mb-2 fw-bold">Redes Oficiales</p>
@@ -89,6 +90,7 @@
                 <div class="syncopate-font fw-bold fs-5 mb-5 text-center">JOCELYN <br><span class="emerald-text">PRESTIGE</span></div>
                 <div class="d-flex flex-column h-75">
                     <a href="javascript:void(0)" class="nav-link active" id="btn-propiedades" onclick="switchTab('propiedades')"><i class="fas fa-home"></i> Colección</a>
+                    <a href="index.html" class="nav-link" style="color: var(--blue-mid);"><i class="fas fa-arrow-left"></i> Ver la Web</a>
 
                     <a href="login.html" class="nav-link logout-btn"><i class="fas fa-sign-out-alt"></i> Salir del Panel</a>
                 </div>
@@ -105,8 +107,8 @@
                     <div class="row g-4 mb-4">
                         <div class="col-6 col-md-4">
                             <div class="stat-card">
-                                <h2 class="emerald-text mb-0 display-5 fw-bold">DB</h2>
-                                <div class="small text-muted mt-2 text-uppercase tracking-wide">Base de Datos Activa</div>
+                                <h2 class="emerald-text mb-0 display-5 fw-bold" id="stat-count">—</h2>
+                                <div class="small text-muted mt-2 text-uppercase tracking-wide">Propiedades Publicadas</div>
                             </div>
                         </div>
                         <div class="col-6 col-md-4">
@@ -156,35 +158,44 @@
                 </div>
                 <div class="modal-body p-4 p-md-5">
                     <form id="propiedadForm" onsubmit="return false;">
-                        <h6 class="text-muted text-uppercase tracking-wide mb-3">Datos y Textos Principales</h6>
-                        <div class="row g-4 mb-5">
+                        <input type="hidden" id="form-id">
+                        <h6 class="text-muted text-uppercase tracking-wide mb-3">Datos Principales</h6>
+                        <div class="row g-4 mb-4">
                             <div class="col-md-8">
                                 <label class="form-label">Nombre de la Villa / Proyecto</label>
                                 <input type="text" class="form-control" id="form-nombre" placeholder="Ej: Villa Paraíso (Renta)">
-                                <small class="text-muted mt-1 d-block"><i class="fas fa-magic text-emerald"></i> Tip: Escribe la palabra "Renta" aquí para que salga la etiqueta verde en la web.</small>
+                                <small class="text-muted mt-1 d-block"><i class="fas fa-magic text-emerald"></i> Tip: Escribe "Renta" para que aparezca la etiqueta verde.</small>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Precio (US$)</label>
                                 <input type="text" class="form-control" id="form-precio" placeholder="Ej: 350,000 / mes">
                             </div>
-                            <div class="col-12">
-                                <label class="form-label text-emerald"><i class="fas fa-list-ul me-1"></i> Amenidades y Detalles</label>
-                                <textarea class="form-control form-textarea" id="form-amenidades" rows="3" placeholder="Ej: 3 Habitaciones | 2.5 Baños | Piscina Infinita..."></textarea>
-                            </div>
                         </div>
 
-                        <h6 class="text-muted text-uppercase tracking-wide mb-3">Contenido Multimedia</h6>
-                        <div class="row g-4 border rounded p-3 bg-light">
-                            <div class="col-12">
-                                <label class="form-label text-emerald">Subir Fotos (Puedes seleccionar varias)</label>
-                                <input type="file" class="form-control" id="form-fotos" accept="image/*" multiple>
-                            </div>
+                        <h6 class="text-muted text-uppercase tracking-wide mb-3">Descripción de la Propiedad</h6>
+                        <div class="mb-4">
+                            <label class="form-label text-emerald"><i class="fas fa-align-left me-1"></i> Descripción Completa</label>
+                            <textarea class="form-control form-textarea" id="form-descripcion" rows="4" placeholder="Describe la propiedad con todos los detalles: ubicación, ambiente, características especiales, estilo de vida que ofrece..."></textarea>
+                            <small class="text-muted mt-1 d-block">Este texto aparecerá en la tarjeta de la propiedad en la web.</small>
+                        </div>
+
+                        <h6 class="text-muted text-uppercase tracking-wide mb-3">Amenidades</h6>
+                        <div class="mb-4">
+                            <label class="form-label text-emerald"><i class="fas fa-list-ul me-1"></i> Lista de Amenidades</label>
+                            <textarea class="form-control form-textarea" id="form-amenidades" rows="2" placeholder="Ej: 3 Habitaciones | 2.5 Baños | Piscina Infinita | Vista al Mar"></textarea>
+                        </div>
+
+                        <h6 class="text-muted text-uppercase tracking-wide mb-3">Fotos</h6>
+                        <div class="border rounded p-3 bg-light">
+                            <label class="form-label text-emerald">Subir Fotos (Puedes seleccionar varias)</label>
+                            <input type="file" class="form-control" id="form-fotos" accept="image/*" multiple>
+                            <small class="text-muted mt-1 d-block" id="form-fotos-hint">Selecciona las fotos. Si no subes nuevas, se mantienen las anteriores.</small>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer border-top border-opacity-10 p-4">
                     <button type="button" class="btn-outline me-2" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn-main" onclick="saveDataToSupabase()"><i class="fas fa-cloud-upload-alt me-2"></i> Guardar y Publicar</button>
+                    <button type="button" class="btn-main" id="btn-guardar" onclick="saveDataToSupabase()"><i class="fas fa-cloud-upload-alt me-2"></i> Guardar y Publicar</button>
                 </div>
             </div>
         </div>
@@ -202,18 +213,23 @@
         // FUNCIÓN QUE CARGA LAS PROPIEDADES EN EL PANEL
         async function loadAdminProperties() {
             const listContainer = document.getElementById('admin-property-list');
+            const statCount = document.getElementById('stat-count');
             
             const { data, error } = await supabase.from('propiedades').select('*');
             
             if (error) { 
-                listContainer.innerHTML = '<p class="text-danger text-center">Error cargando base de datos.</p>'; 
+                listContainer.innerHTML = '<p class="text-danger text-center">Error cargando base de datos.</p>';
+                if(statCount) statCount.textContent = 'ERR';
                 return; 
             }
 
             if (!data || data.length === 0) {
                 listContainer.innerHTML = '<div class="col-12"><p class="text-muted text-center py-5 border rounded">El inventario está vacío. Haz clic en "Agregar Propiedad" para empezar.</p></div>';
+                if(statCount) statCount.textContent = '0';
                 return;
             }
+
+            if(statCount) statCount.textContent = data.length;
 
             listContainer.innerHTML = '';
             data.forEach((villa, index) => {
@@ -232,7 +248,6 @@
                 
                 if(fotosArray.length === 1) {
                     fotosArray.push('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800');
-                    fotosArray.push('https://images.unsplash.com/photo-1600607687930-cebc5a777227?auto=format&fit=crop&q=80&w=800');
                 }
 
                 let carouselId = `admin-carousel-${index}`;
@@ -253,20 +268,18 @@
                         <div class="molded-card">
                             <div id="${carouselId}" class="carousel slide molded-img-placeholder p-0" style="height: 200px;" data-bs-ride="carousel">
                                 ${badgeHtml}
-                                <div class="carousel-indicators z-3">
-                                    ${carouselIndicators}
-                                </div>
-                                <div class="carousel-inner h-100">
-                                    ${carouselInner}
-                                </div>
+                                <div class="carousel-indicators z-3">${carouselIndicators}</div>
+                                <div class="carousel-inner h-100">${carouselInner}</div>
                                 <button class="carousel-control-prev z-3" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
                                 <button class="carousel-control-next z-3" type="button" data-bs-target="#${carouselId}" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
                             </div>
                             <div class="p-3 text-center">
                                 <h5 class="theme-text fw-bold m-0 mb-1 fs-6">${villa.nombre}</h5>
                                 <p class="emerald-text fw-bold m-0 small">US$ ${villa.precio}</p>
-                                <div class="mt-3">
-                                    <button class="btn-outline text-danger border-danger w-100 py-1" onclick="deleteProperty('${villa.id}')"><i class="fas fa-trash me-1"></i> Borrar</button>
+                                <p class="text-muted small mt-1 mb-0" style="font-size:0.75rem; line-height:1.3; max-height:2.6em; overflow:hidden;">${villa.descripcion || villa.amenidades || ''}</p>
+                                <div class="mt-3 d-flex gap-2">
+                                    <button class="btn-outline w-50 py-1" style="font-size:0.8rem;" onclick="editProperty('${villa.id}')"><i class="fas fa-pen me-1"></i> Editar</button>
+                                    <button class="btn-outline text-danger border-danger w-50 py-1" style="font-size:0.8rem;" onclick="deleteProperty('${villa.id}')"><i class="fas fa-trash me-1"></i> Borrar</button>
                                 </div>
                             </div>
                         </div>
@@ -276,77 +289,119 @@
         }
 
         // CARGAR PROPIEDADES AL ABRIR EL PANEL
-        document.addEventListener('DOMContentLoaded', loadAdminProperties);
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAdminProperties();
+            // Limpiar el modal al cerrarse (quitar modo edicion)
+            document.getElementById('propertyModal').addEventListener('hidden.bs.modal', () => {
+                document.getElementById('propiedadForm').reset();
+                document.getElementById('form-id').value = '';
+                document.querySelector('.modal-title').innerHTML = '<i class="fas fa-key me-2"></i> Ficha de Propiedad';
+                document.getElementById('btn-guardar').innerHTML = '<i class="fas fa-cloud-upload-alt me-2"></i> Guardar y Publicar';
+                document.getElementById('form-fotos-hint').textContent = 'Selecciona las fotos de la propiedad.';
+            });
+        });
+
+        // FUNCIÓN PARA EDITAR PROPIEDAD (pre-llena el modal)
+        async function editProperty(id) {
+            const { data, error } = await supabase.from('propiedades').select('*').eq('id', id).single();
+            if (error || !data) { alert('No se pudo cargar la propiedad.'); return; }
+
+            document.getElementById('form-id').value = data.id;
+            document.getElementById('form-nombre').value = data.nombre || '';
+            document.getElementById('form-precio').value = data.precio || '';
+            document.getElementById('form-descripcion').value = data.descripcion || '';
+            document.getElementById('form-amenidades').value = data.amenidades || '';
+            document.getElementById('form-fotos-hint').textContent = 'Las fotos actuales se mantendrán si no subes nuevas.';
+            document.querySelector('.modal-title').innerHTML = '<i class="fas fa-pen me-2"></i> Editar Propiedad';
+            document.getElementById('btn-guardar').innerHTML = '<i class="fas fa-save me-2"></i> Guardar Cambios';
+
+            var modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('propertyModal'));
+            modal.show();
+        }
 
         // FUNCIÓN PARA ELIMINAR PROPIEDADES
         async function deleteProperty(id) {
-            if(!confirm("¿Deseas ELIMINAR esta propiedad? Se borrará de la página web inmediatamente.")) return;
-            
+            if(!confirm('¿Deseas ELIMINAR esta propiedad? Se borrará de la página web inmediatamente.')) return;
             const { error } = await supabase.from('propiedades').delete().eq('id', id);
-            
             if(error) {
-                alert("Error al eliminar: " + error.message);
+                alert('Error al eliminar: ' + error.message);
             } else {
-                alert("Propiedad eliminada de la base de datos.");
-                loadAdminProperties(); // Recarga la lista automáticamente
+                alert('Propiedad eliminada de la base de datos.');
+                loadAdminProperties();
             }
         }
 
-        // FUNCIÓN PARA GUARDAR PROPIEDADES
+        // FUNCIÓN PARA GUARDAR O ACTUALIZAR PROPIEDADES
         async function saveDataToSupabase() {
-            const nombre = document.getElementById('form-nombre').value;
-            const precio = document.getElementById('form-precio').value;
-            const amenidades = document.getElementById('form-amenidades').value;
-            const inputFotos = document.getElementById('form-fotos');
+            const editId    = document.getElementById('form-id').value;
+            const nombre    = document.getElementById('form-nombre').value;
+            const precio    = document.getElementById('form-precio').value;
+            const descripcion = document.getElementById('form-descripcion').value;
+            const amenidades  = document.getElementById('form-amenidades').value;
+            const inputFotos  = document.getElementById('form-fotos');
 
             if(!nombre || !precio) {
-                alert("Director, el Nombre y el Precio son obligatorios.");
+                alert('El Nombre y el Precio son obligatorios.');
                 return;
             }
 
-            const btn = document.querySelector('.btn-main');
+            const btn = document.getElementById('btn-guardar');
             const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Subiendo...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Guardando...';
             btn.disabled = true;
 
-            let fotosArray = []; 
+            let fotosArray = [];
+            let mantuvoFotos = false;
 
             if(inputFotos.files && inputFotos.files.length > 0) {
+                // Subir fotos nuevas
                 for (let i = 0; i < inputFotos.files.length; i++) {
                     const fotoOriginal = inputFotos.files[i];
                     const fileExt = fotoOriginal.name.split('.').pop();
-                    const fileName = `${Date.now()}_${i}.${fileExt}`;
-                    const filePath = `villas/${fileName}`;
+                    const fileName = `villas/${Date.now()}_${i}.${fileExt}`;
+                    const filePath = fileName;
 
-                    const { data: uploadData, error: uploadError } = await supabase.storage
+                    const { error: uploadError } = await supabase.storage
                         .from('galeria')
-                        .upload(filePath, fotoOriginal);
+                        .upload(filePath, fotoOriginal, { upsert: true });
 
                     if (!uploadError) {
                         const { data: publicURLData } = supabase.storage.from('galeria').getPublicUrl(filePath);
                         fotosArray.push(publicURLData.publicUrl);
                     }
                 }
+            } else if(editId) {
+                // Mantener las fotos existentes si es edicion sin nuevas fotos
+                const { data: existing } = await supabase.from('propiedades').select('fotos').eq('id', editId).single();
+                if(existing && existing.fotos) { fotosArray = existing.fotos; }
+                mantuvoFotos = true;
             } else {
-                // Si no suben foto, se usa un diseño placeholder de la línea blanca ultra-moderna
                 fotosArray = [
                     'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800',
                     'https://images.unsplash.com/photo-1600607687930-cebc5a777227?auto=format&fit=crop&q=80&w=800'
                 ];
             }
 
-            const { data, error } = await supabase
-                .from('propiedades')
-                .insert([{ nombre: nombre, precio: precio, amenidades: amenidades, fotos: fotosArray }]);
+            const payload = { nombre, precio, descripcion, amenidades, fotos: fotosArray };
+            let dbError = null;
 
-            if (error) {
-                alert("Asegúrate de crear la tabla 'propiedades'. Error: " + error.message);
+            if(editId) {
+                // MODO EDICION: UPDATE
+                const { error } = await supabase.from('propiedades').update(payload).eq('id', editId);
+                dbError = error;
             } else {
-                alert("¡Propiedad Guardada con Éxito!");
-                document.getElementById('propiedadForm').reset();
-                var modal = document.getElementById('propertyModal');
-                bootstrap.Modal.getInstance(modal).hide();
-                loadAdminProperties(); // Recargar la lista tras guardar
+                // MODO NUEVO: INSERT
+                const { error } = await supabase.from('propiedades').insert([payload]);
+                dbError = error;
+            }
+
+            if (dbError) {
+                alert('Error al guardar: ' + dbError.message);
+            } else {
+                alert(editId ? '¡Propiedad actualizada con éxito!' : '¡Propiedad guardada con éxito!');
+                var modalEl = document.getElementById('propertyModal');
+                bootstrap.Modal.getOrCreateInstance(modalEl).hide();
+                loadAdminProperties();
             }
 
             btn.innerHTML = originalText;

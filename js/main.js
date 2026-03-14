@@ -189,7 +189,17 @@ async function cargarVillasDesdeBD() {
             return;
         }
 
-        if(propiedades && propiedades.length > 0) {
+        if(!propiedades || propiedades.length === 0) {
+            contenedorVillas.innerHTML = `
+                <div class="col-12 text-center py-5">
+                    <p class="theme-muted"><i class="fas fa-gem me-2 emerald-text"></i>Próximamente nuevas propiedades exclusivas.</p>
+                    <a href="https://api.whatsapp.com/send?phone=18492508144" target="_blank" class="btn-molded-outline magnetic mt-3 d-inline-block">Consultar Disponibilidad</a>
+                </div>
+            `;
+            return;
+        }
+
+        if(propiedades.length > 0) {
             contenedorVillas.innerHTML = ''; 
             
             // Configura el idioma actual para los botones
@@ -265,7 +275,7 @@ async function cargarVillasDesdeBD() {
                                     <h4 class="theme-text syncopate-font fs-5 m-0 mb-1">${villa.nombre}</h4>
                                     <p class="emerald-text fw-bold h5 m-0">US$ ${villa.precio}</p>
                                 </div>
-                                <p class="theme-muted small mb-4">${villa.amenidades || 'Detalles exclusivos de alto nivel.'}</p>
+                                <p class="theme-muted small mb-4">${villa.descripcion || villa.amenidades || 'Detalles exclusivos de alto nivel.'}</p>
                                 <a href="https://api.whatsapp.com/send?phone=18492508144&text=${encodedWa}" target="_blank" class="btn-molded-outline text-center magnetic">${btnText}</a>
                             </div>
                         </div>
