@@ -1,18 +1,18 @@
 /* --- INTEGRATCORE $20K LUXURY ENGINE - DUAL THEME --- */
 
 :root {
-    /* Modo Claro (Default) */
-    --emerald: #2e8b57;
-    --text-main: #111111;
-    --text-muted: #666666;
-    --bg-main: #FAFAFA;
+    /* Modo Claro ($100K Pearl White Edition) */
+    --emerald: #114b2d; /* Verde Inglés/Luxury */
+    --text-main: #2b2b2b; /* Grafito suave para la vista */
+    --text-muted: #737373;
+    --bg-main: #FDFCF0; /* Blanco Perla / Marfil */
     --bg-sec: #FFFFFF;
-    --bg-footer: #f8f9fa;
-    --card-bg: #FFFFFF;
-    --card-border: rgba(0,0,0,0.05);
-    --glass-border: rgba(0, 0, 0, 0.08);
-    --nav-bg: rgba(255, 255, 255, 0.9);
-    --nav-text: #111111;
+    --bg-footer: #F5F4E8;
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --card-border: rgba(0,0,0,0.03);
+    --glass-border: rgba(0, 0, 0, 0.05);
+    --nav-bg: rgba(253, 252, 240, 0.85); /* Perla translúcido */
+    --nav-text: #2b2b2b;
 }
 
 [data-theme="dark"] {

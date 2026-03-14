@@ -36,9 +36,30 @@
                 </a>
                 
                 <div class="ms-auto d-flex align-items-center gap-3 gap-md-4">
+                    <!-- Redes Sociales -->
+                    <div class="d-none d-md-flex gap-3 align-items-center me-3 border-end pe-4 border-secondary border-opacity-25">
+                        <a href="https://instagram.com/jocelynprestige" target="_blank" class="theme-nav-text text-decoration-none magnetic" style="font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
+                        <a href="https://facebook.com/jocelynprestige" target="_blank" class="theme-nav-text text-decoration-none magnetic" style="font-size: 1.2rem;"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+
+                    <!-- Botón de Tema (Dark/Light) -->
                     <button id="theme-toggle" class="btn btn-link text-decoration-none p-0 magnetic theme-nav-text" style="font-size: 1.4rem;">
                         <i class="fas fa-moon"></i>
                     </button>
+                    
+                    <!-- Selector de Idioma -->
+                    <div class="dropdown">
+                        <button class="btn btn-link text-decoration-none p-0 theme-nav-text dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: 500;">
+                            <i class="fas fa-globe me-1"></i> ES
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="languageDropdown" style="border-radius: 15px; border: 1px solid var(--glass-border); background: var(--nav-bg); backdrop-filter: blur(10px);">
+                            <li><a class="dropdown-item" href="#" onclick="changeLanguage('es')">🇪🇸 Español</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeLanguage('en')">🇺🇸 English</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeLanguage('it')">🇮🇹 Italiano</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeLanguage('zh')">🇨🇳 中文 (Chino)</a></li>
+                        </ul>
+                    </div>
+
                     <a href="https://wa.me/18492508144" class="btn-emerald-pill magnetic d-none d-md-inline-block">EXPERIENCIA VIP</a>
                 </div>
             </div>
@@ -70,146 +91,6 @@
                 <p class="theme-muted d-none d-md-block m-0 tracking-wide small fw-bold">VENTAS Y RENTAS EXCLUSIVAS</p>
             </div>
             
-            <div class="row g-5 justify-content-center">
-                <div class="col-md-6 col-lg-5 reveal">
-                    <div class="molded-card magnetic-slight">
-                        <div id="carouselVilla1" class="carousel slide molded-img-placeholder p-0" data-bs-ride="carousel">
-                            <div class="glass-badge z-3">COLECCIÓN</div>
-                            <div class="carousel-inner h-100">
-                                <div class="carousel-item active h-100">
-                                    <img src="img/propiedades/villa-1.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Villa 1">
-                                </div>
-                                <div class="carousel-item h-100">
-                                    <img src="img/propiedades/villa-1.jpg" class="d-block w-100 h-100 object-fit-cover" style="filter: brightness(1.1);" alt="Villa 1">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev z-3" type="button" data-bs-target="#carouselVilla1" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
-                            <button class="carousel-control-next z-3" type="button" data-bs-target="#carouselVilla1" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
-                            <div class="image-overlay z-2"></div>
-                        </div>
-                        <div class="p-4 text-center">
-                            <div class="mb-2">
-                                <h4 class="theme-text syncopate-font fs-5 m-0 mb-1">Residencia Alpha</h4>
-                                <p class="emerald-text fw-bold h5 m-0">US$ 295,000</p>
-                            </div>
-                            <p class="theme-muted small mb-4">2 Hab | 2.5 Baños | Diseño Contemporáneo</p>
-                            <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20la%20Residencia%20Alpha." target="_blank" class="btn-molded-outline text-center magnetic">Solicitar Información</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-5 reveal-delay">
-                    <div class="molded-card magnetic-slight">
-                        <div id="carouselVilla2" class="carousel slide molded-img-placeholder p-0" data-bs-ride="carousel">
-                            <div class="glass-badge badge-renta z-3">EN RENTA</div>
-                            <div class="carousel-inner h-100">
-                                <div class="carousel-item active h-100">
-                                    <img src="img/propiedades/villa-2.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Villa 2">
-                                </div>
-                                <div class="carousel-item h-100">
-                                    <img src="img/propiedades/villa-2.jpg" class="d-block w-100 h-100 object-fit-cover" style="filter: brightness(1.1);" alt="Villa 2">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev z-3" type="button" data-bs-target="#carouselVilla2" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
-                            <button class="carousel-control-next z-3" type="button" data-bs-target="#carouselVilla2" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
-                            <div class="image-overlay z-2"></div>
-                        </div>
-                        <div class="p-4 text-center">
-                            <div class="mb-2">
-                                <h4 class="theme-text syncopate-font fs-5 m-0 mb-1">Villa Vista Verde</h4>
-                                <p class="emerald-text fw-bold h5 m-0">US$ 3,500 / mes</p>
-                            </div>
-                            <p class="theme-muted small mb-4">3 Hab | 3 Baños | Entorno Natural</p>
-                            <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20la%20Villa%20Vista%20Verde." target="_blank" class="btn-molded-outline text-center magnetic">Agendar Visita</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-5 reveal">
-                    <div class="molded-card magnetic-slight">
-                        <div id="carouselVilla3" class="carousel slide molded-img-placeholder p-0" data-bs-ride="carousel">
-                            <div class="glass-badge z-3">COLECCIÓN</div>
-                            <div class="carousel-inner h-100">
-                                <div class="carousel-item active h-100">
-                                    <img src="img/propiedades/villa-3.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Villa 3">
-                                </div>
-                                <div class="carousel-item h-100">
-                                    <img src="img/propiedades/villa-3.jpg" class="d-block w-100 h-100 object-fit-cover" style="filter: brightness(1.1);" alt="Villa 3">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev z-3" type="button" data-bs-target="#carouselVilla3" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
-                            <button class="carousel-control-next z-3" type="button" data-bs-target="#carouselVilla3" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
-                            <div class="image-overlay z-2"></div>
-                        </div>
-                        <div class="p-4 text-center">
-                            <div class="mb-2">
-                                <h4 class="theme-text syncopate-font fs-5 m-0 mb-1">Cabaña de Lujo</h4>
-                                <p class="emerald-text fw-bold h5 m-0">US$ 320,000</p>
-                            </div>
-                            <p class="theme-muted small mb-4">3 Hab | 2 Baños | Acabados en Madera</p>
-                            <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20la%20Cabaña%20de%20Lujo." target="_blank" class="btn-molded-outline text-center magnetic">Solicitar Información</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-5 reveal-delay">
-                    <div class="molded-card magnetic-slight">
-                        <div id="carouselVilla4" class="carousel slide molded-img-placeholder p-0" data-bs-ride="carousel">
-                            <div class="glass-badge z-3">COLECCIÓN</div>
-                            <div class="carousel-inner h-100">
-                                <div class="carousel-item active h-100">
-                                    <img src="img/propiedades/villa-4.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Villa 4">
-                                </div>
-                                <div class="carousel-item h-100">
-                                    <img src="img/propiedades/villa-4.jpg" class="d-block w-100 h-100 object-fit-cover" style="filter: brightness(1.1);" alt="Villa 4">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev z-3" type="button" data-bs-target="#carouselVilla4" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
-                            <button class="carousel-control-next z-3" type="button" data-bs-target="#carouselVilla4" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
-                            <div class="image-overlay z-2"></div>
-                        </div>
-                        <div class="p-4 text-center">
-                            <div class="mb-2">
-                                <h4 class="theme-text syncopate-font fs-5 m-0 mb-1">Residencia Nocturna</h4>
-                                <p class="emerald-text fw-bold h5 m-0">US$ 450,000</p>
-                            </div>
-                            <p class="theme-muted small mb-4">4 Hab | 4.5 Baños | Iluminación Premium</p>
-                            <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20la%20Residencia%20Nocturna." target="_blank" class="btn-molded-outline text-center magnetic">Solicitar Información</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-5 reveal">
-                    <div class="molded-card magnetic-slight">
-                        <div id="carouselVilla5" class="carousel slide molded-img-placeholder p-0" data-bs-ride="carousel">
-                            <div class="glass-badge badge-renta z-3">EN RENTA</div>
-                            <div class="carousel-inner h-100">
-                                <div class="carousel-item active h-100">
-                                    <img src="img/propiedades/villa-5.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Villa 5">
-                                </div>
-                                <div class="carousel-item h-100">
-                                    <img src="img/propiedades/villa-5.jpg" class="d-block w-100 h-100 object-fit-cover" style="filter: brightness(1.1);" alt="Villa 5">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev z-3" type="button" data-bs-target="#carouselVilla5" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
-                            <button class="carousel-control-next z-3" type="button" data-bs-target="#carouselVilla5" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
-                            <div class="image-overlay z-2"></div>
-                        </div>
-                        <div class="p-4 text-center">
-                            <div class="mb-2">
-                                <h4 class="theme-text syncopate-font fs-5 m-0 mb-1">Skyline Penthouse</h4>
-                                <p class="emerald-text fw-bold h5 m-0">US$ 4,500 / mes</p>
-                            </div>
-                            <p class="theme-muted small mb-4">3 Hab | 3.5 Baños | Amueblado Full</p>
-                            <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20me%20interesa%20el%20Skyline%20Penthouse." target="_blank" class="btn-molded-outline text-center magnetic">Agendar Visita</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-5 reveal-delay">
-                    <div class="molded-card magnetic-slight">
-                        <div id="carouselVilla6" class="carousel slide molded-img-placeholder p-0" data-bs-ride="carousel">
-                            <div class="glass-badge z-3">COLECCIÓN</div>
                             <div class="carousel-inner h-100">
                                 <div class="carousel-item active h-100">
                                     <img src="img/propiedades/villa-6.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Villa 6">
