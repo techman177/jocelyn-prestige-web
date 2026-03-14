@@ -78,9 +78,9 @@
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body d-flex flex-column p-0 pt-3">
-            <a href="#" class="nav-link active mx-3" onclick="switchTab('propiedades')"><i class="fas fa-home"></i> Colección Villas</a>
-            <a href="#" class="nav-link mx-3" onclick="switchTab('textos')"><i class="fas fa-pen-nib"></i> Textos de la Web</a>
-            <a href="#" class="nav-link mx-3" onclick="switchTab('redes')"><i class="fas fa-share-alt"></i> Redes & Contacto</a>
+            <a href="javascript:void(0)" class="nav-link active mx-3" onclick="switchTab('propiedades')"><i class="fas fa-home"></i> Colección Villas</a>
+            <a href="javascript:void(0)" class="nav-link mx-3" onclick="switchTab('textos')"><i class="fas fa-pen-nib"></i> Textos de la Web</a>
+            <a href="javascript:void(0)" class="nav-link mx-3" onclick="switchTab('redes')"><i class="fas fa-share-alt"></i> Redes & Contacto</a>
             <a href="login.html" class="nav-link logout-btn mx-3 mt-auto mb-4"><i class="fas fa-sign-out-alt"></i> Salir</a>
         </div>
     </div>
@@ -90,9 +90,9 @@
             <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sticky-top">
                 <div class="syncopate-font fw-bold fs-5 mb-5 text-center">JOCELYN <br><span class="emerald-text">PRESTIGE</span></div>
                 <div class="d-flex flex-column h-75">
-                    <a href="#" class="nav-link active" id="btn-propiedades" onclick="switchTab('propiedades')"><i class="fas fa-home"></i> Colección</a>
-                    <a href="#" class="nav-link" id="btn-textos" onclick="switchTab('textos')"><i class="fas fa-pen-nib"></i> Textos Web</a>
-                    <a href="#" class="nav-link" id="btn-redes" onclick="switchTab('redes')"><i class="fas fa-user-edit"></i> Perfil & Redes</a>
+                    <a href="javascript:void(0)" class="nav-link active" id="btn-propiedades" onclick="switchTab('propiedades')"><i class="fas fa-home"></i> Colección</a>
+                    <a href="javascript:void(0)" class="nav-link" id="btn-textos" onclick="switchTab('textos')"><i class="fas fa-pen-nib"></i> Textos Web</a>
+                    <a href="javascript:void(0)" class="nav-link" id="btn-redes" onclick="switchTab('redes')"><i class="fas fa-user-edit"></i> Perfil & Redes</a>
                     <a href="login.html" class="nav-link logout-btn"><i class="fas fa-sign-out-alt"></i> Salir del Panel</a>
                 </div>
             </div>
@@ -347,19 +347,20 @@
 
         // CAMBIO DE PESTAÑAS SEGURO (Evita que el menú se quede pegado)
         function switchTab(tabId) {
-            if(window.event) window.event.preventDefault();
             document.querySelectorAll('.tab-section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
-            document.getElementById('tab-' + tabId).classList.add('active');
+            
+            const tabEl = document.getElementById('tab-' + tabId);
+            if(tabEl) tabEl.classList.add('active');
             
             const btnDesktop = document.getElementById('btn-' + tabId);
             if(btnDesktop) btnDesktop.classList.add('active');
             
+            // Cerrar menú en móviles de forma segura simulando el clic en el botón de cerrar
             const offcanvasElement = document.getElementById('mobileMenu');
-            if(offcanvasElement) {
-                let bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasElement);
-                if (!bsOffcanvas) bsOffcanvas = new bootstrap.Offcanvas(offcanvasElement);
-                bsOffcanvas.hide();
+            if(offcanvasElement && offcanvasElement.classList.contains('show')) {
+                const btnClose = offcanvasElement.querySelector('.btn-close');
+                if(btnClose) btnClose.click();
             }
         }
     </script>
