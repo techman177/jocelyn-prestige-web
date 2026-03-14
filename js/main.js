@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    if(supabaseClient && document.querySelector('#catalogo .row')) {
+    if(supabaseClient && document.getElementById('dinamic-properties')) {
         cargarVillasDesdeBD();
     }
 });
@@ -195,7 +195,7 @@ window.onscroll = function() {
 };
 
 async function cargarVillasDesdeBD() {
-    const contenedorVillas = document.querySelector('#catalogo .row');
+    const contenedorVillas = document.getElementById('dinamic-properties');
     if(!contenedorVillas) return;
 
     try {
