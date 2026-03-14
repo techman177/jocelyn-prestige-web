@@ -20,7 +20,11 @@
     --nav-bg: rgba(255, 255, 255, 0.95);
     --nav-text: #1B3B5A;
 
-    color-scheme: light;         /* Forzamos modo claro en el navegador */
+    color-scheme: light only !important; /* Forzamos modo claro estricto */
+}
+
+html {
+    background-color: var(--bg-main) !important;
 }
 
 html, body {
@@ -35,6 +39,8 @@ body {
     font-family: 'Poppins', sans-serif;
     -webkit-font-smoothing: antialiased;
     transition: background-color 0.5s ease, color 0.5s ease;
+    /* Evita que Opera invierta colores */
+    color-scheme: light only !important;
 }
 
 .theme-text { color: var(--text-main) !important; transition: color 0.5s ease; }
