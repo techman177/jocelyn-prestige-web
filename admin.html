@@ -62,15 +62,23 @@
         </button>
     </nav>
 
-    <div class="offcanvas offcanvas-start bg-dark border-end border-secondary" tabindex="-1" id="mobileMenu">
-        <div class="offcanvas-header border-bottom border-secondary">
+    <div class="offcanvas offcanvas-start bg-white shadow border-end border-opacity-10" tabindex="-1" id="mobileMenu">
+        <div class="offcanvas-header border-bottom border-opacity-10">
             <h5 class="offcanvas-title syncopate-font emerald-text">PRESTIGE PANEL</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+            <button type="button" class="btn-close " data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body d-flex flex-column p-0 pt-3">
             <a href="javascript:void(0)" class="nav-link active mx-3" onclick="switchTab('propiedades')"><i class="fas fa-home"></i> Colección Villas</a>
-            <a href="javascript:void(0)" class="nav-link mx-3" onclick="switchTab('textos')"><i class="fas fa-pen-nib"></i> Textos de la Web</a>
-            <a href="javascript:void(0)" class="nav-link mx-3" onclick="switchTab('redes')"><i class="fas fa-share-alt"></i> Redes & Contacto</a>
+
+            <div class="mt-4 mb-3 mx-4">
+                <p class="small text-muted text-uppercase tracking-wide mb-2 fw-bold">Redes Oficiales</p>
+                <div class="d-flex gap-3">
+                    <a href="https://www.facebook.com/share/1c37MekKvW/?mibextid=wwXIfr" target="_blank" class="theme-nav-text text-decoration-none social-icon-esmeralda" style="font-size: 1.5rem;"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/service_inmobilliare_?igsh=a3Vhc296ZnplYjl5&utm_source=qr" target="_blank" class="theme-nav-text text-decoration-none social-icon-esmeralda" style="font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@buscoturenta?_r=1&_t=ZS-94gTpThDrxE" target="_blank" class="theme-nav-text text-decoration-none social-icon-esmeralda" style="font-size: 1.5rem;"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+
             <a href="login.html" class="nav-link logout-btn mx-3 mt-auto mb-4"><i class="fas fa-sign-out-alt"></i> Salir</a>
         </div>
     </div>
@@ -81,8 +89,7 @@
                 <div class="syncopate-font fw-bold fs-5 mb-5 text-center">JOCELYN <br><span class="emerald-text">PRESTIGE</span></div>
                 <div class="d-flex flex-column h-75">
                     <a href="javascript:void(0)" class="nav-link active" id="btn-propiedades" onclick="switchTab('propiedades')"><i class="fas fa-home"></i> Colección</a>
-                    <a href="javascript:void(0)" class="nav-link" id="btn-textos" onclick="switchTab('textos')"><i class="fas fa-pen-nib"></i> Textos Web</a>
-                    <a href="javascript:void(0)" class="nav-link" id="btn-redes" onclick="switchTab('redes')"><i class="fas fa-user-edit"></i> Perfil & Redes</a>
+
                     <a href="login.html" class="nav-link logout-btn"><i class="fas fa-sign-out-alt"></i> Salir del Panel</a>
                 </div>
             </div>
@@ -99,20 +106,20 @@
                         <div class="col-6 col-md-4">
                             <div class="stat-card">
                                 <h2 class="emerald-text mb-0 display-5 fw-bold">DB</h2>
-                                <div class="small text-white-50 mt-2 text-uppercase tracking-wide">Base de Datos Activa</div>
+                                <div class="small text-muted mt-2 text-uppercase tracking-wide">Base de Datos Activa</div>
                             </div>
                         </div>
                         <div class="col-6 col-md-4">
                             <div class="stat-card">
-                                <h2 class="text-white mb-0 display-5 fw-bold"><i class="fas fa-cloud"></i></h2>
-                                <div class="small text-white-50 mt-2 text-uppercase tracking-wide">Conexión Supabase</div>
+                                <h2 class="theme-text mb-0 display-5 fw-bold"><i class="fas fa-cloud"></i></h2>
+                                <div class="small text-muted mt-2 text-uppercase tracking-wide">Conexión Supabase</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="dashboard-card">
-                        <div class="d-flex justify-content-between align-items-center border-bottom border-secondary pb-4 mb-4">
-                            <h4 class="h5 m-0"><i class="fas fa-building text-white-50 me-2"></i> Inventario Real</h4>
+                        <div class="d-flex justify-content-between align-items-center border-bottom border-opacity-10 pb-4 mb-4">
+                            <h4 class="h5 m-0"><i class="fas fa-building text-muted me-2"></i> Inventario Real</h4>
                             <button class="btn-main" data-bs-toggle="modal" data-bs-target="#propertyModal"><i class="fas fa-plus me-2"></i> Agregar Propiedad</button>
                         </div>
                         
@@ -125,50 +132,13 @@
                     </div>
                 </div>
 
-                <div id="tab-textos" class="tab-section">
-                    <div class="dashboard-card">
-                        <h4 class="h5 border-bottom border-secondary pb-4 mb-4"><i class="fas fa-heading text-white-50 me-2"></i> Textos Principales</h4>
-                        <form onsubmit="return false;">
-                            <div class="mb-4">
-                                <label class="form-label">Título Principal</label>
-                                <input type="text" class="form-control" value="El Arte de Vivir Bien.">
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label">Subtítulo Principal</label>
-                                <input type="text" class="form-control" value="Selección inmobiliaria de ultra-lujo en la República Dominicana.">
-                            </div>
-                            <h4 class="h5 border-bottom pb-4 mb-4 mt-5"><i class="fas fa-id-badge text-muted me-2"></i> Tu Perfil</h4>
-                            <div class="mb-4">
-                                <label class="form-label">Descripción de Biografía</label>
-                                <textarea class="form-control form-textarea" rows="4">El mercado premium exige más que un vendedor; exige un estratega. Jocelyn redefine el estándar de confidencialidad y excelencia en Bienes Raíces.</textarea>
-                            </div>
-                        </form>
-                    </div>
-                </div>
 
-                <div id="tab-redes" class="tab-section">
-                    <div class="dashboard-card">
-                        <h4 class="h5 border-bottom border-secondary pb-4 mb-4"><i class="fas fa-mobile-alt text-white-50 me-2"></i> Redes & Contacto</h4>
-                        <form onsubmit="return false;">
-                            <div class="row g-4">
-                                <div class="col-md-6">
-                                    <label class="form-label"><i class="fab fa-whatsapp text-success me-1"></i> WhatsApp de Ventas</label>
-                                    <input type="text" class="form-control" value="18492508144">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label"><i class="fab fa-instagram text-danger me-1"></i> Link de Instagram</label>
-                                    <input type="url" class="form-control" placeholder="https://instagram.com/jocelynprestige">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
 
-                <div class="text-center mt-5 mb-2 border-top border-secondary pt-4">
-                    <p class="small text-white-50 tracking-wide mb-1">SOFTWARE ADMINISTRATIVO EXCLUSIVO DE</p>
+                <div class="text-center mt-5 mb-2 border-top border-opacity-10 pt-4">
+                    <p class="small text-muted tracking-wide mb-1">SOFTWARE ADMINISTRATIVO EXCLUSIVO DE</p>
                     <b class="emerald-text d-inline-block mb-3" style="letter-spacing: 3px; font-size: 1.1rem;">INTEGRATCORE</b>
                     <br>
-                    <a href="mailto:contact@integratcore.com" class="text-white-50 small text-decoration-none bg-dark px-3 py-2 rounded-pill border border-secondary">
+                    <a href="mailto:contact@integratcore.com" class="text-muted small text-decoration-none bg-white shadow px-3 py-2 rounded-pill border border-opacity-10">
                         <i class="fas fa-headset me-1 text-emerald"></i> Soporte Técnico: <b>contact@integratcore.com</b>
                     </a>
                 </div>
@@ -179,10 +149,10 @@
 
     <div class="modal fade" id="propertyModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content bg-dark border-secondary" style="border-radius: 20px;">
-                <div class="modal-header border-bottom border-secondary p-4">
+            <div class="modal-content bg-white shadow border-opacity-10" style="border-radius: 20px;">
+                <div class="modal-header border-bottom border-opacity-10 p-4">
                     <h5 class="modal-title syncopate-font emerald-text"><i class="fas fa-key me-2"></i> Ficha de Propiedad</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close " data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body p-4 p-md-5">
                     <form id="propiedadForm" onsubmit="return false;">
@@ -191,7 +161,7 @@
                             <div class="col-md-8">
                                 <label class="form-label">Nombre de la Villa / Proyecto</label>
                                 <input type="text" class="form-control" id="form-nombre" placeholder="Ej: Villa Paraíso (Renta)">
-                                <small class="text-white-50 mt-1 d-block"><i class="fas fa-magic text-emerald"></i> Tip: Escribe la palabra "Renta" aquí para que salga la etiqueta verde en la web.</small>
+                                <small class="text-muted mt-1 d-block"><i class="fas fa-magic text-emerald"></i> Tip: Escribe la palabra "Renta" aquí para que salga la etiqueta verde en la web.</small>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Precio (US$)</label>
@@ -206,13 +176,13 @@
                         <h6 class="text-muted text-uppercase tracking-wide mb-3">Contenido Multimedia</h6>
                         <div class="row g-4 border rounded p-3 bg-light">
                             <div class="col-12">
-                                <label class="form-label text-emerald">Subir Foto Principal</label>
-                                <input type="file" class="form-control" id="form-fotos" accept="image/*">
+                                <label class="form-label text-emerald">Subir Fotos (Puedes seleccionar varias)</label>
+                                <input type="file" class="form-control" id="form-fotos" accept="image/*" multiple>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer border-top border-secondary p-4">
+                <div class="modal-footer border-top border-opacity-10 p-4">
                     <button type="button" class="btn-outline me-2" data-bs-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn-main" onclick="saveDataToSupabase()"><i class="fas fa-cloud-upload-alt me-2"></i> Guardar y Publicar</button>
                 </div>
@@ -240,7 +210,7 @@
                 return; 
             }
 
-            if (data.length === 0) {
+            if (!data || data.length === 0) {
                 listContainer.innerHTML = '<div class="col-12"><p class="text-muted text-center py-5 border rounded">El inventario está vacío. Haz clic en "Agregar Propiedad" para empezar.</p></div>';
                 return;
             }
@@ -339,31 +309,35 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Subiendo...';
             btn.disabled = true;
 
-            let fotoUrlFinal = "img/propiedades/villa-1.jpg"; 
+            let fotosArray = []; 
 
-            if(inputFotos.files.length > 0) {
-                const fotoOriginal = inputFotos.files[0];
-                const fileExt = fotoOriginal.name.split('.').pop();
-                const fileName = `${Math.random()}.${fileExt}`;
-                const filePath = `villas/${fileName}`;
+            if(inputFotos.files && inputFotos.files.length > 0) {
+                for (let i = 0; i < inputFotos.files.length; i++) {
+                    const fotoOriginal = inputFotos.files[i];
+                    const fileExt = fotoOriginal.name.split('.').pop();
+                    const fileName = `${Date.now()}_${i}.${fileExt}`;
+                    const filePath = `villas/${fileName}`;
 
-                const { data: uploadData, error: uploadError } = await supabase.storage
-                    .from('galeria')
-                    .upload(filePath, fotoOriginal);
+                    const { data: uploadData, error: uploadError } = await supabase.storage
+                        .from('galeria')
+                        .upload(filePath, fotoOriginal);
 
-                if (uploadError) {
-                    alert("Asegúrate de haber creado el bucket 'galeria' y ponerlo Público. Error: " + uploadError.message);
-                    btn.innerHTML = originalText; btn.disabled = false;
-                    return;
+                    if (!uploadError) {
+                        const { data: publicURLData } = supabase.storage.from('galeria').getPublicUrl(filePath);
+                        fotosArray.push(publicURLData.publicUrl);
+                    }
                 }
-
-                const { data: publicURLData } = supabase.storage.from('galeria').getPublicUrl(filePath);
-                fotoUrlFinal = publicURLData.publicUrl;
+            } else {
+                // Si no suben foto, se usa un diseño placeholder de la línea blanca ultra-moderna
+                fotosArray = [
+                    'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800',
+                    'https://images.unsplash.com/photo-1600607687930-cebc5a777227?auto=format&fit=crop&q=80&w=800'
+                ];
             }
 
             const { data, error } = await supabase
                 .from('propiedades')
-                .insert([{ nombre: nombre, precio: precio, amenidades: amenidades, fotos: [fotoUrlFinal] }]);
+                .insert([{ nombre: nombre, precio: precio, amenidades: amenidades, fotos: fotosArray }]);
 
             if (error) {
                 alert("Asegúrate de crear la tabla 'propiedades'. Error: " + error.message);

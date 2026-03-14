@@ -101,28 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 700);
     }
 
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    if(themeToggleBtn) {
-        const themeIcon = themeToggleBtn.querySelector('i');
-        const currentTheme = localStorage.getItem('theme') || 'light'; 
 
-        if (currentTheme === 'dark') {
-            document.body.setAttribute('data-theme', 'dark');
-            themeIcon.classList.replace('fa-moon', 'fa-sun');
-        }
-
-        themeToggleBtn.addEventListener('click', () => {
-            if (document.body.getAttribute('data-theme') === 'dark') {
-                document.body.removeAttribute('data-theme');
-                themeIcon.classList.replace('fa-sun', 'fa-moon');
-                localStorage.setItem('theme', 'light');
-            } else {
-                document.body.setAttribute('data-theme', 'dark');
-                themeIcon.classList.replace('fa-moon', 'fa-sun');
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-    }
 
     const dot = document.querySelector(".cursor-dot");
     const out = document.querySelector(".cursor-outline");
@@ -184,12 +163,14 @@ window.onscroll = function() {
     if(pill) {
         if (window.scrollY > 100) {
             pill.style.padding = "10px 20px";
-            pill.style.background = "rgba(0, 0, 0, 0.85)";
-            pill.style.borderColor = "rgba(80, 200, 120, 0.3)";
+            pill.style.background = "rgba(255, 255, 255, 0.95)";
+            pill.style.borderColor = "rgba(14, 124, 88, 0.2)";
+            pill.style.boxShadow = "0 10px 20px rgba(27,59,90,0.05)";
         } else {
             pill.style.padding = "20px 25px";
-            pill.style.background = "rgba(5, 5, 5, 0.5)";
-            pill.style.borderColor = "rgba(255, 255, 255, 0.08)";
+            pill.style.background = "rgba(250, 252, 255, 0.9)";
+            pill.style.borderColor = "rgba(27, 59, 90, 0.05)";
+            pill.style.boxShadow = "0 10px 30px rgba(27,59,90,0.05)";
         }
     }
 };
