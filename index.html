@@ -3,180 +3,896 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Busco Tu Renta by Jocelyn | Propiedades de Lujo en República Dominicana</title>
-    <meta name="description" content="Busco Tu Renta by Jocelyn — Selección exclusiva de propiedades de ultra-lujo en venta y renta en la República Dominicana. Villas, penthouses y residencias premium.">
-    <meta name="color-scheme" content="light">
-
-    <!-- Open Graph (Facebook, WhatsApp, Google) -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.buscoturentabyjocelyn.com/">
-    <meta property="og:title" content="Busco Tu Renta by Jocelyn | Propiedades de Lujo RD">
-    <meta property="og:description" content="Selección exclusiva de villas, penthouses y residencias de ultra-lujo en venta y renta en la República Dominicana.">
-    <meta property="og:image" content="https://www.buscoturentabyjocelyn.com/img/logo.png">
-    <meta property="og:site_name" content="Busco Tu Renta by Jocelyn">
-    <meta property="og:locale" content="es_DO">
-
-    <!-- Twitter / X Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Busco Tu Renta by Jocelyn | Propiedades de Lujo RD">
-    <meta name="twitter:description" content="Selección exclusiva de propiedades de ultra-lujo en la República Dominicana.">
-    <meta name="twitter:image" content="https://www.buscoturentabyjocelyn.com/img/logo.png">
-
-    <!-- SEO Additional -->
-    <meta name="robots" content="index, follow">
-    <meta name="author" content="Jocelyn Prestige">
-    <link rel="canonical" href="https://www.buscoturentabyjocelyn.com/">
-
+    <meta name="description" content="Busco tu Renta by Jocelyn - Asesoría inmobiliaria de lujo en República Dominicana">
+    <title>Busco tu Renta by Jocelyn | Bienes Raíces de Lujo</title>
+    
+    <!-- Bootstrap 5 + Fuentes Premium -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Syncopate:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <style>
+        /* ===== VARIABLES LUXURY ===== */
+        :root {
+            --negro-onice: #0b0b0b;
+            --dorado-lujo: #CFA04E;
+            --dorado-hover: #e6b86a;
+            --gris-oscuro: #161616;
+            --gris-borde: #2a2a2a;
+            --blanco: #ffffff;
+            --sombra-dorado: 0 10px 40px rgba(207, 160, 78, 0.25);
+        }
+
+        /* ===== BASE ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--negro-onice);
+            color: var(--blanco);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* ===== UTILIDADES ===== */
+        .texto-dorado { color: var(--dorado-lujo) !important; }
+        .bg-onice { background-color: var(--negro-onice) !important; }
+        .bg-gris-lujo { background-color: var(--gris-oscuro) !important; }
+        .border-dorado { border-color: var(--dorado-lujo) !important; }
+        
+        /* ===== ANIMACIONES ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+            50% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+        }
+
+        /* ===== NAVBAR GLASSMORPHISM ===== */
+        .nav-glass {
+            background: rgba(11, 11, 11, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(207, 160, 78, 0.4);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+            z-index: 1030;
+        }
+        .nav-glass.scrolled {
+            padding: 10px 0;
+            background: rgba(11, 11, 11, 0.98);
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+        }
+        .brand-lujo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--dorado-lujo);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .brand-lujo span {
+            color: var(--blanco);
+            font-weight: 400;
+            font-size: 1rem;
+        }
+        .nav-link {
+            color: rgba(255,255,255,0.85) !important;
+            font-weight: 400;
+            margin: 0 8px;
+            transition: color 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--dorado-lujo) !important;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: 
+                linear-gradient(135deg, rgba(11,11,11,0.92) 0%, rgba(11,11,11,0.85) 50%, rgba(207,160,78,0.08) 100%),
+                url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80') center/cover no-repeat fixed;
+            position: relative;
+            padding-top: 80px;
+            text-align: center;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at bottom, rgba(207,160,78,0.12) 0%, transparent 65%);
+            pointer-events: none;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+        .titulo-lujo {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 7vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--blanco) 0%, var(--dorado-lujo) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+
+        /* ===== BOTONES PREMIUM ===== */
+        .btn-dorado {
+            background: linear-gradient(135deg, var(--dorado-lujo), var(--dorado-hover));
+            color: #000 !important;
+            border: none;
+            border-radius: 50px;
+            padding: 14px 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.35s ease;
+            box-shadow: var(--sombra-dorado);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-dorado::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        .btn-dorado:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(207, 160, 78, 0.45);
+        }
+        .btn-dorado:hover::before {
+            left: 100%;
+        }
+        .btn-outline-dorado {
+            border: 2px solid var(--dorado-lujo);
+            color: var(--dorado-lujo) !important;
+            border-radius: 50px;
+            padding: 12px 35px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+            background: transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-outline-dorado:hover {
+            background: var(--dorado-lujo);
+            color: #000 !important;
+            transform: translateY(-3px);
+            box-shadow: var(--sombra-dorado);
+        }
+
+        /* ===== SECCIÓN SOBRE JOCELYN ===== */
+        .about-section {
+            padding: 7rem 0;
+            background: linear-gradient(180deg, var(--negro-onice) 0%, var(--gris-oscuro) 100%);
+        }
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 5rem;
+            align-items: center;
+        }
+        .about-image-wrapper {
+            position: relative;
+        }
+        .about-image-frame {
+            width: 100%;
+            max-width: 420px;
+            aspect-ratio: 4/5;
+            border-radius: 35px;
+            border: 4px solid var(--dorado-lujo);
+            overflow: hidden;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+            box-shadow: 0 35px 70px rgba(0,0,0,0.75);
+            position: relative;
+        }
+        .about-image-frame::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(207,160,78,0.15));
+            pointer-events: none;
+        }
+        .about-image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+        .about-image-frame:hover img {
+            transform: scale(1.03);
+        }
+        .badge-experiencia {
+            position: absolute;
+            bottom: -15px;
+            right: 20px;
+            background: var(--dorado-lujo);
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 8px 25px rgba(207,160,78,0.4);
+            z-index: 2;
+        }
+        .about-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        .about-content p {
+            color: rgba(255,255,255,0.88);
+            margin-bottom: 1.5rem;
+            font-size: 1.08rem;
+            font-weight: 300;
+        }
+        .firma-jocelyn {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--dorado-lujo);
+            margin: 2rem 0 1rem;
+            font-style: italic;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 1.2rem 0.8rem;
+            background: rgba(207, 160, 78, 0.08);
+            border-radius: 16px;
+            border: 1px solid rgba(207, 160, 78, 0.25);
+            transition: transform 0.3s;
+        }
+        .stat-item:hover {
+            transform: translateY(-5px);
+            background: rgba(207, 160, 78, 0.15);
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dorado-lujo);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.75);
+            margin-top: 0.3rem;
+            font-weight: 400;
+        }
+
+        /* ===== PROPIEDADES ===== */
+        .propiedades-section {
+            padding: 6rem 0;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+        .section-header p {
+            color: rgba(255,255,255,0.75);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+        .propiedades-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2.5rem;
+        }
+        .tarjeta-luxury {
+            background: linear-gradient(145deg, var(--gris-oscuro), #0f0f0f);
+            border: 1px solid var(--gris-borde);
+            border-radius: 28px;
+            overflow: hidden;
+            transition: all 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .tarjeta-luxury:hover {
+            transform: translateY(-14px);
+            border-color: var(--dorado-lujo);
+            box-shadow: 0 30px 70px rgba(207, 160, 78, 0.28);
+        }
+        .propiedad-img-container {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+        .propiedad-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+        .tarjeta-luxury:hover .propiedad-img {
+            transform: scale(1.12);
+        }
+        .badge-destacado {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--dorado-lujo);
+            color: #000;
+            padding: 6px 18px;
+            border-radius: 25px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 5px 20px rgba(207,160,78,0.4);
+        }
+        .propiedad-content {
+            padding: 1.8rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .propiedad-titulo {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dorado-lujo);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+        .propiedad-ubicacion {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: rgba(255,255,255,0.75);
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+        }
+        .propiedad-precio {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--blanco);
+            margin: 0.8rem 0;
+        }
+        .propiedad-features {
+            display: flex;
+            gap: 1.2rem;
+            margin: 1rem 0 1.2rem;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.85);
+            flex-wrap: wrap;
+        }
+        .propiedad-features span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .propiedad-desc {
+            color: rgba(255,255,255,0.75);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+        .propiedad-actions {
+            padding-top: 1rem;
+            border-top: 1px solid var(--gris-borde);
+            margin-top: auto;
+        }
+
+        /* ===== WHATSAPP FLOTANTE ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            background: #25D366;
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            text-decoration: none;
+            box-shadow: 0 10px 35px rgba(37, 211, 102, 0.5);
+            transition: all 0.35s;
+            z-index: 1000;
+            animation: pulse 2.5s infinite;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.12) rotate(5deg);
+            box-shadow: 0 15px 45px rgba(37, 211, 102, 0.7);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #050505;
+            border-top: 1px solid var(--gris-borde);
+            padding: 4rem 0 2.5rem;
+            text-align: center;
+        }
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--dorado-lujo);
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .footer-tagline {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid var(--gris-borde);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blanco);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        .social-links a:hover {
+            border-color: var(--dorado-lujo);
+            color: var(--dorado-lujo);
+            transform: translateY(-4px);
+            background: rgba(207,160,78,0.1);
+        }
+        .footer-credits {
+            color: #444;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+        .footer-credits .texto-dorado {
+            color: var(--dorado-lujo);
+        }
+
+        /* ===== LOADING ===== */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            color: rgba(255,255,255,0.7);
+        }
+        .spinner-dorado {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(207,160,78,0.3);
+            border-top-color: var(--dorado-lujo);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 991px) {
+            .about-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+            .stats-grid {
+                justify-content: center;
+            }
+            .hero-subtitle {
+                font-size: 1.15rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .propiedades-grid {
+                grid-template-columns: 1fr;
+            }
+            .titulo-lujo {
+                font-size: 2.3rem;
+            }
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+            .stat-number {
+                font-size: 1.6rem;
+            }
+            .whatsapp-float {
+                width: 55px;
+                height: 55px;
+                font-size: 1.7rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .brand-lujo {
+                font-size: 1.3rem;
+            }
+            .btn-dorado, .btn-outline-dorado {
+                padding: 11px 25px;
+                font-size: 0.95rem;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
-
-    <div id="preloader" class="theme-bg-sec">
-        <h2 class="luxury-font emerald-text pulse-slow text-center" style="line-height: 1.2;">
-            BUSCO TU RENTA <br>
-            <span class="theme-text fs-4 syncopate-font" style="letter-spacing: 3px;">BY JOCELYN</span>
-        </h2>
-    </div>
-
-    <div class="noise-overlay"></div>
-
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container nav-pill-container">
-            <div class="nav-glass-pill d-flex align-items-center w-100 px-4 py-3">
-                <a class="navbar-brand d-flex align-items-center magnetic" href="#">
-                    <img src="img/logo.png" alt="Logo Jocelyn Prestige" class="nav-logo me-2 me-md-3">
-                    <div class="d-flex flex-column justify-content-center">
-                        <span class="syncopate-font theme-nav-text fw-bold tracking-wide" style="font-size: 1.2rem;">BUSCO TU RENTA</span>
-                        <span class="emerald-text syncopate-font fw-bold" style="font-size: 0.75rem; letter-spacing: 3px;">BY JOCELYN</span>
-                    </div>
-                </a>
-                
-                <div class="ms-auto d-flex align-items-center gap-3 gap-md-4">
-                    <div class="d-none d-lg-flex align-items-center gap-3 ms-4 border-start ps-4 border-opacity-10">
-                        <a href="https://www.facebook.com/share/1c37MekKvW/?mibextid=wwXIfr" target="_blank" class="theme-nav-text text-decoration-none magnetic social-icon-esmeralda" style="font-size: 1.2rem;"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/service_inmobilliare_?igsh=a3Vhc296ZnplYjl5&utm_source=qr" target="_blank" class="theme-nav-text text-decoration-none magnetic social-icon-esmeralda" style="font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.tiktok.com/@buscoturenta?_r=1&_t=ZS-94gTpThDrxE" target="_blank" class="theme-nav-text text-decoration-none magnetic social-icon-esmeralda" style="font-size: 1.2rem;"><i class="fab fa-tiktok"></i></a>
-                    </div>
-
-
-                    <!-- Selector de Idioma (Desktop) -->
-                    <div class="dropdown d-none d-lg-block">
-                        <button class="btn btn-link text-decoration-none p-0 theme-nav-text dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight: 500;">
-                            <i class="fas fa-globe me-1"></i> ES
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="languageDropdown" style="border-radius: 15px; border: 1px solid var(--glass-border); background: var(--nav-bg); backdrop-filter: blur(10px);">
-                            <li><a class="dropdown-item" href="#" onclick="changeLanguage('es')">🇪🇸 Español</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="changeLanguage('en')">🇺🇸 English</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="changeLanguage('it')">🇮🇹 Italiano</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="changeLanguage('zh')">🇨🇳 中文 (Chino)</a></li>
-                        </ul>
-                    </div>
-
-                    <a href="https://api.whatsapp.com/send?phone=18492508144" target="_blank" class="btn-emerald-pill magnetic d-none d-md-inline-block">EXPERIENCIA VIP</a>
-
-                    <!-- Botón Menú Móvil -->
-                    <button class="btn btn-link text-decoration-none p-0 theme-nav-text d-lg-none ms-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#publicMobileMenu" style="font-size: 1.5rem;">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </div>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top nav-glass navbar-dark">
+        <div class="container">
+            <a class="brand-lujo" href="#">
+                <i class="bi bi-house-heart"></i>
+                Busco tu Renta <span>by Jocelyn</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center gap-lg-4 gap-2">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sobre-mi">Sobre Mí</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#propiedades">Propiedades</a></li>
+                    <li class="nav-item">
+                        <a href="https://wa.me/18492508144" class="btn btn-dorado btn-sm">
+                            <i class="bi bi-whatsapp"></i> <span class="d-none d-lg-inline">Contactar</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Menú Móvil Offcanvas -->
-    <div class="offcanvas offcanvas-end bg-white shadow" tabindex="-1" id="publicMobileMenu" style="border-left: 1px solid var(--glass-border);">
-        <div class="offcanvas-header border-bottom border-opacity-10 py-4">
-            <h5 class="offcanvas-title syncopate-font emerald-text fw-bold">MENÚ <span class="theme-text">VIP</span></h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body d-flex flex-column p-4">
-            <a href="#catalogo" class="text-decoration-none theme-text fw-bold fs-5 mb-4 border-bottom pb-3" data-bs-dismiss="offcanvas">Colección</a>
-            <a href="https://api.whatsapp.com/send?phone=18492508144" target="_blank" class="text-decoration-none theme-text fw-bold fs-5 mb-4 border-bottom pb-3">Agendar Sesión</a>
-            
-            <div class="mt-auto mb-4">
-                <p class="small text-muted text-uppercase tracking-wide mb-3 fw-bold">Redes Sociales</p>
-                <div class="d-flex gap-4">
-                    <a href="https://www.facebook.com/share/1c37MekKvW/?mibextid=wwXIfr" target="_blank" class="theme-nav-text text-decoration-none social-icon-esmeralda" style="font-size: 1.8rem;"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/service_inmobilliare_?igsh=a3Vhc296ZnplYjl5&utm_source=qr" target="_blank" class="theme-nav-text text-decoration-none social-icon-esmeralda" style="font-size: 1.8rem;"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.tiktok.com/@buscoturenta?_r=1&_t=ZS-94gTpThDrxE" target="_blank" class="theme-nav-text text-decoration-none social-icon-esmeralda" style="font-size: 1.8rem;"><i class="fab fa-tiktok"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <header class="hero-section">
-        <div class="hero-glow"></div>
-        <div class="container text-center hero-content">
-            <h1 class="display-1 luxury-font theme-text mb-4 reveal">
-                El Arte de <br> <i class="emerald-text">Vivir Bien.</i>
-            </h1>
-            <p class="lead theme-muted mb-5 reveal-delay fw-light tracking-wide mx-auto" style="max-width: 600px;">
-                Selección inmobiliaria de ultra-lujo en la República Dominicana.
-            </p>
-            <div class="reveal-delay-2">
-                <a href="#catalogo" class="btn-molded-main magnetic">Explorar Colección</a>
+    <!-- HERO SECTION -->
+    <header id="inicio" class="hero-section">
+        <div class="hero-content reveal">
+            <h1 class="titulo-lujo">Encuentra el hogar que mereces</h1>
+            <p class="hero-subtitle">Asesoría inmobiliaria exclusiva en República Dominicana. Tu tranquilidad en manos profesionales con atención personalizada y resultados excepcionales.</p>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="#propiedades" class="btn btn-dorado">
+                    <i class="bi bi-search"></i> Explorar Propiedades
+                </a>
+                <a href="#sobre-mi" class="btn btn-outline-dorado">
+                    <i class="bi bi-person"></i> Conóceme
+                </a>
             </div>
         </div>
     </header>
 
-    <section id="catalogo" class="py-5 position-relative z-1">
-        <div class="container py-5">
-            <div class="d-flex justify-content-between align-items-end mb-5 reveal">
-                <div>
-                    <h2 class="display-4 theme-text luxury-font m-0">La <span class="emerald-text">Colección</span></h2>
-                    <div class="emerald-pill-line mt-3"></div>
-                </div>
-                <p class="theme-muted d-none d-md-block m-0 tracking-wide small fw-bold">VENTAS Y RENTAS EXCLUSIVAS</p>
-            </div>
-            
-            <div class="row g-4 justify-content-center" id="dinamic-properties">
-                <div class="col-12 text-center py-5">
-                    <p class="theme-text mb-2"><i class="fas fa-spinner fa-spin me-2"></i> Obteniendo portfolio confidencial...</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-5 position-relative z-1 theme-bg-sec border-top">
-        <div class="container py-5 text-center">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-lg-5 col-md-8 reveal d-flex justify-content-center mb-5 mb-lg-0">
-                    <div class="advisor-frame-circle magnetic-slight">
-                        <img src="img/perfil-jocelyn.png" alt="Jocelyn Advisor">
+    <!-- SOBRE JOCELYN -->
+    <section id="sobre-mi" class="about-section">
+        <div class="container">
+            <div class="about-container">
+                <div class="about-image-wrapper reveal">
+                    <div class="about-image-frame">
+                        <img src="img/jocelyn.jpg" alt="Jocelyn - Asesora Inmobiliaria" 
+                             onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80'">
+                    </div>
+                    <div class="badge-experiencia">
+                        <i class="bi bi-star-fill"></i> +8 años de experiencia
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-10 reveal-right text-lg-start ps-lg-5">
-                    <h5 class="emerald-text syncopate-font tracking-wide mb-3">TU ALIADA ESTRATÉGICA</h5>
-                    <h2 class="display-3 theme-text luxury-font mb-4">Conocimiento que <br> <i class="theme-muted">crea legados.</i></h2>
-                    <p class="theme-muted lead mb-5 fw-light">El mercado premium exige más que un vendedor; exige un estratega. Jocelyn redefine el estándar de confidencialidad y excelencia en Bienes Raíces.</p>
-                    <a href="https://api.whatsapp.com/send?phone=18492508144&text=Hola%20Jocelyn,%20me%20gustaría%20agendar%20una%20sesión%20privada." target="_blank" class="btn-molded-outline magnetic">Agendar Sesión Privada</a>
+                <div class="about-content reveal">
+                    <h2 class="texto-dorado">Hola, soy <span class="text-white">Jocelyn</span></h2>
+                    <p>Especialista en bienes raíces de lujo con años de experiencia conectando a personas con propiedades que transforman vidas. Mi pasión es hacer realidad tus sueños inmobiliarios.</p>
+                    <p>Mi enfoque se basa en la <strong>transparencia total</strong>, la <strong>atención personalizada</strong> y el <strong>conocimiento profundo</strong> del mercado de lujo en Punta Cana, La Romana, Santo Domingo y zonas exclusivas de montaña.</p>
+                    <p class="firma-jocelyn">~ Jocelyn</p>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">150+</div>
+                            <div class="stat-label">Clientes felices</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">$50M+</div>
+                            <div class="stat-label">En ventas</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">Satisfacción</div>
+                        </div>
+                    </div>
+                    
+                    <a href="https://wa.me/18492508144" class="btn btn-dorado mt-4 d-inline-flex align-items-center gap-2">
+                        <i class="bi bi-chat-dots"></i> Agendar consulta gratuita
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-5 text-center position-relative z-1 theme-bg-footer">
-        <div class="d-flex justify-content-center gap-4 mb-4">
-            <a href="https://www.facebook.com/share/1c37MekKvW/?mibextid=wwXIfr" target="_blank" class="theme-nav-text text-decoration-none social-icon-esmeralda" style="font-size: 1.5rem;"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/service_inmobilliare_?igsh=a3Vhc296ZnplYjl5&utm_source=qr" target="_blank" class="theme-nav-text text-decoration-none social-icon-esmeralda" style="font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@buscoturenta?_r=1&_t=ZS-94gTpThDrxE" target="_blank" class="theme-nav-text text-decoration-none social-icon-esmeralda" style="font-size: 1.5rem;"><i class="fab fa-tiktok"></i></a>
+    <!-- PROPIEDADES -->
+    <section id="propiedades" class="propiedades-section bg-onice">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="fw-bold texto-dorado">Propiedades Exclusivas</h2>
+                <p>Cada propiedad es seleccionada cuidadosamente para ofrecer calidad, ubicación privilegiada y valor excepcional.</p>
+            </div>
+
+            <div class="propiedades-grid" id="propiedades-container">
+                <!-- Loading state -->
+                <div class="loading-container col-12">
+                    <div class="spinner-dorado"></div>
+                    <p>Cargando propiedades exclusivas...</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5 reveal">
+                <a href="https://wa.me/18492508144?text=Hola%20Jocelyn,%20busco%20una%20propiedad%20específica" 
+                   class="btn btn-outline-dorado" target="_blank">
+                    <i class="bi bi-plus-circle"></i> ¿Buscas algo específico? Hablemos
+                </a>
+            </div>
         </div>
-        <p class="theme-muted small tracking-wide">© 2026 BUSCO TU RENTA BY JOCELYN. TODOS LOS DERECHOS RESERVADOS.</p>
-        <p class="small theme-muted tracking-wide">ARQUITECTURA DIGITAL POR <span class="emerald-text fw-bold">INTEGRATCORE</span></p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <span class="footer-brand">Busco tu Renta by Jocelyn</span>
+            <p class="footer-tagline">Bienes Raíces de Lujo | República Dominicana</p>
+            
+            <div class="social-links">
+                <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                <a href="https://wa.me/18492508144" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+            </div>
+            
+            <p class="text-secondary small mb-0">
+                © <span id="year"></span> Busco tu Renta by Jocelyn. Todos los derechos reservados.<br>
+                <span class="footer-credits">Desarrollado con <span class="texto-dorado">❤</span> por <span class="texto-dorado">IntegratCore</span></span>
+            </p>
+            
+            <div class="mt-3">
+                <small class="text-secondary">
+                    <a href="admin.html" class="texto-dorado text-decoration-none">Panel Admin</a>
+                </small>
+            </div>
+        </div>
     </footer>
 
-    <a href="https://api.whatsapp.com/send?phone=18492508144" target="_blank" class="floating-wa magnetic" title="Contactar a Jocelyn">
-        <i class="fab fa-whatsapp"></i>
+    <!-- WHATSAPP FLOTANTE -->
+    <a href="https://wa.me/18492508144" class="whatsapp-float" target="_blank" aria-label="Contactar por WhatsApp">
+        <i class="bi bi-whatsapp"></i>
     </a>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    
+    <script>
+        // ===== INICIALIZAR SUPABASE =====
+        const { createClient } = supabase;
+        const db = createClient(CONFIG.supabase.url, CONFIG.supabase.key);
+
+        // ===== AÑO DINÁMICO =====
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // ===== ANIMACIÓN SCROLL REVEAL =====
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const triggerPoint = window.innerHeight * 0.85;
+                if (elementTop < triggerPoint) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+        document.addEventListener('DOMContentLoaded', revealOnScroll);
+
+        // ===== NAVBAR SCROLL EFFECT =====
+        const navbar = document.querySelector('.nav-glass');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ===== CARGAR PROPIEDADES DESDE SUPABASE =====
+        async function cargarPropiedades() {
+            const container = document.getElementById('propiedades-container');
+            
+            try {
+                const { data: propiedades, error } = await db
+                    .from('propiedades')
+                    .select('*')
+                    .eq('activo', true)
+                    .order('destacado', { ascending: false })
+                    .order('created_at', { ascending: false })
+                    .limit(12);
+
+                if (error) throw error;
+
+                if (!propiedades || propiedades.length === 0) {
+                    // Fallback: mostrar propiedades estáticas si no hay en BD
+                    container.innerHTML = propiedadesEstaticas();
+                    return;
+                }
+
+                container.innerHTML = propiedades.map(prop => tarjetaPropiedad(prop)).join('');
+                
+                // Re-trigger reveal animations
+                setTimeout(revealOnScroll, 100);
+
+            } catch (err) {
+                console.error('Error cargando propiedades:', err);
+                container.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <p class="text-secondary">Próximamente nuevas propiedades exclusivas.</p>
+                        <a href="https://wa.me/${CONFIG.whatsapp}" class="btn btn-outline-dorado mt-3" target="_blank">
+                            <i class="bi bi-whatsapp"></i> Contáctame para oportunidades off-market
+                        </a>
+                    </div>
+                `;
+            }
+        }
+
+        // ===== GENERAR TARJETA DE PROPIEDAD =====
+        function tarjetaPropiedad(p) {
+            const precio = p.precio_usd ? `US$ ${parseInt(p.precio_usd).toLocaleString('es-DO')}` : 'Consultar';
+            const img = p.imagen_url || CONFIG.images.placeholder;
+            const whatsappMsg = encodeURIComponent(`Hola Jocelyn, me interesa: ${p.titulo} - ${p.ubicacion}`);
+            
+            return `
+                <article class="tarjeta-luxury reveal">
+                    <div class="propiedad-img-container">
+                        <img src="${img}" 
+                             class="propiedad-img" 
+                             alt="${p.titulo}"
+                             onerror="this.src='${CONFIG.images.placeholder}'">
+                        ${p.destacado ? '<span class="badge-destacado"><i class="bi bi-star-fill"></i> Destacada</span>' : ''}
+                    </div>
+                    <div class="propiedad-content">
+                        <h5 class="propiedad-titulo">${p.titulo}</h5>
+                        <p class="propiedad-ubicacion"><i class="bi bi-geo-alt"></i> ${p.ubicacion}</p>
+                        <p class="propiedad-precio">${precio}</p>
+                        
+                        <div class="propiedad-features">
+                            ${p.habitaciones ? `<span><i class="bi bi-door-open"></i> ${p.habitaciones} hab</span>` : ''}
+                            ${p.banos ? `<span><i class="bi bi-droplet"></i> ${p.banos} baños</span>` : ''}
+                            ${p.metros2 ? `<span><i class="bi bi-rulers"></i> ${p.metros2} m²</span>` : ''}
+                        </div>
+                        
+                        ${p.descripcion_corta ? `<p class="propiedad-desc">${p.descripcion_corta}</p>` : ''}
+                        
+                        <div class="propiedad-actions">
+                            <a href="https://wa.me/${CONFIG.whatsapp}?text=${whatsappMsg}" 
+                               class="btn btn-outline-dorado w-100 text-center" target="_blank">
+                                <i class="bi bi-whatsapp"></i> Solicitar Información
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+
+        // ===== PROPIEDADES ESTÁTICAS (FALLBACK) =====
+        function propiedadesEstaticas() {
+            const props = [
+                { titulo: 'Villa Casa de Campo', ubicacion: 'La Romana', precio: 2980000, img: 'img/villa-1.jpg', hab: 5, banos: 6, m2: 850 },
+                { titulo: 'Villa Montaña (Amarilla)', ubicacion: 'Proyecto de Montaña', precio: 295000, img: 'img/villa-2.jpg', hab: 3, banos: 3, m2: 280 },
+                { titulo: 'Villa Premium (Mamey)', ubicacion: 'Proyecto de Montaña', precio: 375000, img: 'img/villa-3.jpg', hab: 4, banos: 4, m2: 320 },
+                { titulo: 'Villa Montaña (Roja)', ubicacion: 'Proyecto de Montaña', precio: 300000, img: 'img/villa-4.jpg', hab: 3, banos: 3, m2: 290 },
+                { titulo: 'Villa Premium (Azul)', ubicacion: 'Proyecto de Montaña', precio: 380000, img: 'img/villa-5.jpg', hab: 4, banos: 4, m2: 340 },
+                { titulo: 'Villa de Montaña (Verde)', ubicacion: 'Proyecto de Montaña', precio: 230000, img: 'img/villa-6.jpg', hab: 3, banos: 2, m2: 250 }
+            ];
+            
+            return props.map(p => `
+                <article class="tarjeta-luxury reveal">
+                    <div class="propiedad-img-container">
+                        <img src="${p.img}" class="propiedad-img" alt="${p.titulo}" onerror="this.src='${CONFIG.images.placeholder}'">
+                    </div>
+                    <div class="propiedad-content">
+                        <h5 class="propiedad-titulo">${p.titulo}</h5>
+                        <p class="propiedad-ubicacion"><i class="bi bi-geo-alt"></i> ${p.ubicacion}</p>
+                        <p class="propiedad-precio">US$ ${p.precio.toLocaleString('es-DO')}</p>
+                        <div class="propiedad-features">
+                            <span><i class="bi bi-door-open"></i> ${p.hab} hab</span>
+                            <span><i class="bi bi-droplet"></i> ${p.banos} baños</span>
+                            <span><i class="bi bi-rulers"></i> ${p.m2} m²</span>
+                        </div>
+                        <div class="propiedad-actions">
+                            <a href="https://wa.me/${CONFIG.whatsapp}?text=Me%20interesa:%20${encodeURIComponent(p.titulo)}" 
+                               class="btn btn-outline-dorado w-100 text-center" target="_blank">
+                                <i class="bi bi-whatsapp"></i> Solicitar Información
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // ===== INICIALIZAR =====
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scroll para anchors
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // Cerrar menú móvil si está abierto
+                        const navbarCollapse = document.querySelector('.navbar-collapse');
+                        if (navbarCollapse.classList.contains('show')) {
+                            bootstrap.Collapse.getInstance(navbarCollapse).hide();
+                        }
+                    }
+                });
+            });
+            
+            // Cargar propiedades
+            cargarPropiedades();
+        });
+    </script>
 </body>
 </html>

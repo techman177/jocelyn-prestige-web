@@ -1,431 +1,754 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-    <script>
-        // Verificación de sesión activa
-        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
-            window.location.replace('login.html');
-        }
-    </script>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Prestige | IntegratCore</title>
-    
+    <title>Panel Admin - Busco tu Renta by Jocelyn</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
-        /* Admin UI Overrides */
-        body { background: var(--bg-main); color: var(--text-main); font-family: 'Poppins', sans-serif; min-height: 100vh; overflow-x: hidden; }
+        :root { 
+            --dorado: #CFA04E; 
+            --dorado-hover: #e6b86a;
+            --oscuro: #0b0b0b; 
+            --gris: #161616;
+            --gris-borde: #2a2a2a;
+            --blanco: #ffffff;
+            --success: #198754;
+            --danger: #dc3545;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: var(--oscuro); 
+            color: var(--blanco); 
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+        }
         
-        .admin-navbar { background: var(--nav-bg); backdrop-filter: blur(15px); border-bottom: 1px solid var(--glass-border); padding: 15px 20px; z-index: 1000; }
-        .navbar-toggler { border: none; color: var(--text-main); font-size: 1.5rem; }
+        /* LOGIN SCREEN */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .login-card {
+            background: var(--gris);
+            border: 1px solid var(--gris-borde);
+            border-radius: 24px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+        .login-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--dorado);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .form-control {
+            background: #0f0f0f;
+            border: 1px solid var(--gris-borde);
+            color: var(--blanco);
+            border-radius: 12px;
+            padding: 12px 16px;
+        }
+        .form-control:focus {
+            background: #0f0f0f;
+            border-color: var(--dorado);
+            color: var(--blanco);
+            box-shadow: 0 0 0 0.25rem rgba(207,160,78,0.25);
+        }
+        .btn-dorado {
+            background: linear-gradient(135deg, var(--dorado), var(--dorado-hover));
+            color: #000 !important;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        .btn-dorado:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(207,160,78,0.4);
+        }
+        .btn-outline-dorado {
+            border: 1px solid var(--dorado);
+            color: var(--dorado) !important;
+            border-radius: 12px;
+            padding: 10px 20px;
+            background: transparent;
+            transition: all 0.3s;
+        }
+        .btn-outline-dorado:hover {
+            background: var(--dorado);
+            color: #000 !important;
+        }
         
-        .sidebar { background: var(--bg-sec); border-right: 1px solid var(--card-border); height: 100vh; padding: 40px 20px; box-shadow: 5px 0 30px rgba(0,0,0,0.03); }
-        .nav-link { color: var(--text-muted); padding: 15px 20px; border-radius: 12px; margin-bottom: 8px; transition: all 0.4s ease; display: flex; align-items: center; gap: 15px; font-weight: 500; }
-        .nav-link:hover, .nav-link.active { background: rgba(17, 75, 45, 0.05); color: var(--emerald); transform: translateX(5px); border-left: 3px solid var(--emerald); }
-        .nav-link i { width: 20px; text-align: center; font-size: 1.1rem; }
-        .logout-btn { color: #ff4757; margin-top: auto; }
-        .logout-btn:hover { background: rgba(255, 71, 87, 0.1); color: #ff4757; border-left-color: #ff4757; }
-
-        .main-wrapper { padding: 40px; }
-        .tab-section { display: none; animation: fadeIn 0.5s ease-out forwards; }
-        .tab-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* DASHBOARD */
+        .dashboard-container { display: none; }
+        .sidebar {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #000, var(--gris));
+            border-right: 1px solid rgba(207,160,78,0.3);
+            width: 260px;
+            position: fixed;
+            padding: 20px 0;
+            z-index: 100;
+        }
+        .sidebar-brand {
+            font-family: 'Playfair Display', serif;
+            color: var(--dorado);
+            font-size: 1.4rem;
+            padding: 0 24px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+        .sidebar-brand small {
+            display: block;
+            color: var(--blanco);
+            font-size: 0.85rem;
+            font-family: 'Poppins', sans-serif;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+        .nav-link {
+            color: rgba(255,255,255,0.85);
+            padding: 14px 24px;
+            border-left: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 400;
+            transition: all 0.2s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--dorado);
+            background: rgba(207,160,78,0.12);
+            border-left-color: var(--dorado);
+        }
+        .nav-link i { width: 20px; text-align: center; }
         
-        .dashboard-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 24px; padding: 30px; margin-bottom: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.03); }
-        .stat-card { text-align: center; padding: 30px; border-radius: 24px; background: #fff; border: 1px solid var(--card-border); box-shadow: 0 10px 20px rgba(0,0,0,0.02); transition: 0.3s; }
+        .main-content {
+            margin-left: 260px;
+            padding: 30px;
+        }
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gris-borde);
+        }
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--dorado);
+        }
         
-        .form-control, .form-textarea, .modal-content { background: #fff; border: 1px solid rgba(0,0,0,0.1); color: var(--text-main); border-radius: 12px; padding: 15px; font-weight: 400; }
-        .form-control:focus, .form-textarea:focus { background: #fff; color: var(--text-main); border-color: var(--emerald); box-shadow: 0 0 0 0.25rem rgba(17, 75, 45, 0.1); outline: none; }
-        .form-label { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+        /* CARDS & TABLES */
+        .card-admin {
+            background: var(--gris);
+            border: 1px solid var(--gris-borde);
+            border-radius: 16px;
+            margin-bottom: 20px;
+        }
+        .card-admin .card-header {
+            background: rgba(207,160,78,0.12);
+            border-bottom: 1px solid rgba(207,160,78,0.3);
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            color: var(--dorado);
+            border-radius: 16px 16px 0 0 !important;
+        }
+        .card-admin .card-body { padding: 1.5rem; }
         
-        .btn-main { background: var(--emerald); color: #fff; font-weight: 600; border-radius: 50px; padding: 12px 30px; border: none; transition: 0.3s; text-transform: uppercase; font-size: 0.85rem; box-shadow: 0 4px 10px rgba(17, 75, 45, 0.2); }
-        .btn-main:hover { background: #000; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.2); color: #fff; }
-        .btn-outline { border: 1px solid var(--emerald); color: var(--emerald); border-radius: 50px; padding: 10px 25px; background: transparent; transition: 0.3s; font-size: 0.85rem; }
-        .btn-outline:hover { background: var(--emerald); color: #fff; }
-
-        @media (max-width: 768px) {
-            .sidebar { display: none; }
-            .main-wrapper { padding: 20px; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: rgba(207,160,78,0.08);
+            border: 1px solid rgba(207,160,78,0.25);
+            border-radius: 14px;
+            padding: 1.2rem;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dorado);
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.75);
+        }
+        
+        .table-admin {
+            color: var(--blanco);
+            margin-bottom: 0;
+        }
+        .table-admin th {
+            border-color: var(--gris-borde);
+            color: var(--dorado);
+            font-weight: 600;
+            padding: 1rem;
+        }
+        .table-admin td {
+            border-color: var(--gris-borde);
+            padding: 1rem;
+            vertical-align: middle;
+        }
+        .table-admin tbody tr:hover {
+            background: rgba(207,160,78,0.08);
+        }
+        
+        .badge-activo { background: var(--success); }
+        .badge-inactivo { background: #6c757d; }
+        
+        .btn-action {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin: 0 3px;
+        }
+        .btn-edit { background: rgba(207,160,78,0.2); color: var(--dorado); border: 1px solid var(--dorado); }
+        .btn-delete { background: rgba(220,53,69,0.2); color: var(--danger); border: 1px solid var(--danger); }
+        .btn-edit:hover { background: var(--dorado); color: #000; }
+        .btn-delete:hover { background: var(--danger); color: #fff; }
+        
+        /* FORM MODAL */
+        .modal-content {
+            background: var(--gris);
+            border: 1px solid var(--gris-borde);
+            border-radius: 20px;
+        }
+        .modal-header {
+            border-bottom-color: var(--gris-borde);
+            padding: 1.2rem 1.5rem;
+        }
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--dorado);
+        }
+        .modal-body { padding: 1.5rem; }
+        .modal-footer {
+            border-top-color: var(--gris-borde);
+            padding: 1rem 1.5rem;
+        }
+        .btn-close {
+            filter: invert(1);
+        }
+        
+        /* IMAGE UPLOAD */
+        .image-preview {
+            width: 100%;
+            height: 180px;
+            border: 2px dashed var(--gris-borde);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 1rem;
+            background: #0f0f0f;
+            overflow: hidden;
+        }
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .image-preview.has-image {
+            border-style: solid;
+            border-color: var(--dorado);
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 991px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid rgba(207,160,78,0.3);
+            }
+            .main-content { margin-left: 0; }
+            .page-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
         }
     </style>
 </head>
 <body>
 
-    <nav class="admin-navbar d-flex d-md-none justify-content-between align-items-center sticky-top">
-        <div class="syncopate-font fw-bold fs-5">ADMIN <span class="emerald-text">VIP</span></div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
-            <i class="fas fa-bars"></i>
-        </button>
-    </nav>
-
-    <div class="offcanvas offcanvas-start bg-white shadow border-end border-opacity-10" tabindex="-1" id="mobileMenu">
-        <div class="offcanvas-header border-bottom border-opacity-10">
-            <h5 class="offcanvas-title syncopate-font emerald-text">PRESTIGE PANEL</h5>
-            <button type="button" class="btn-close " data-bs-dismiss="offcanvas"></button>
-        </div>
-        <div class="offcanvas-body d-flex flex-column p-0 pt-3">
-            <a href="javascript:void(0)" class="nav-link active mx-3" onclick="switchTab('propiedades')"><i class="fas fa-home"></i> Colección Villas</a>
-            <a href="index.html" class="nav-link mx-3" style="color: var(--blue-mid);"><i class="fas fa-arrow-left"></i> Ver la Web</a>
-
-            <div class="mt-4 mb-3 mx-4">
-                <p class="small text-muted text-uppercase tracking-wide mb-2 fw-bold">Redes Oficiales</p>
-                <div class="d-flex gap-3">
-                    <a href="https://www.facebook.com/share/1c37MekKvW/?mibextid=wwXIfr" target="_blank" class="theme-nav-text text-decoration-none social-icon-esmeralda" style="font-size: 1.5rem;"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/service_inmobilliare_?igsh=a3Vhc296ZnplYjl5&utm_source=qr" target="_blank" class="theme-nav-text text-decoration-none social-icon-esmeralda" style="font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.tiktok.com/@buscoturenta?_r=1&_t=ZS-94gTpThDrxE" target="_blank" class="theme-nav-text text-decoration-none social-icon-esmeralda" style="font-size: 1.5rem;"><i class="fab fa-tiktok"></i></a>
-                </div>
+    <!-- ===== LOGIN SCREEN ===== -->
+    <div id="login-screen" class="login-container">
+        <div class="login-card">
+            <div class="login-brand">
+                <i class="bi bi-house-heart"></i><br>
+                Busco tu Renta<br><small>Panel Admin</small>
             </div>
-
-            <a href="login.html" class="nav-link logout-btn mx-3 mt-auto mb-4"><i class="fas fa-sign-out-alt"></i> Salir</a>
+            <form id="login-form">
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" id="login-email" required placeholder="admin@jocelyn.com">
+                </div>
+                <div class="mb-4">
+                    <label class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="login-pass" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn btn-dorado">
+                    <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
+                </button>
+                <div class="text-center mt-3">
+                    <a href="index.html" class="text-secondary small text-decoration-none">← Volver al sitio</a>
+                </div>
+            </form>
         </div>
     </div>
 
-    <div class="container-fluid p-0">
-        <div class="row g-0">
-            <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sticky-top">
-                <div class="syncopate-font fw-bold fs-5 mb-5 text-center">JOCELYN <br><span class="emerald-text">PRESTIGE</span></div>
-                <div class="d-flex flex-column h-75">
-                    <a href="javascript:void(0)" class="nav-link active" id="btn-propiedades" onclick="switchTab('propiedades')"><i class="fas fa-home"></i> Colección</a>
-                    <a href="index.html" class="nav-link" style="color: var(--blue-mid);"><i class="fas fa-arrow-left"></i> Ver la Web</a>
-
-                    <a href="login.html" class="nav-link logout-btn"><i class="fas fa-sign-out-alt"></i> Salir del Panel</a>
-                </div>
+    <!-- ===== DASHBOARD ===== -->
+    <div id="dashboard-screen" class="dashboard-container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="sidebar-brand">
+                Busco tu Renta<br><small>Panel Admin</small>
             </div>
+            <nav class="nav flex-column">
+                <a class="nav-link active" href="#" data-section="dashboard">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <a class="nav-link" href="#" data-section="propiedades">
+                    <i class="bi bi-house"></i> Propiedades
+                </a>
+                <a class="nav-link" href="#" data-section="leads">
+                    <i class="bi bi-envelope"></i> Consultas
+                </a>
+                <a class="nav-link" href="index.html" target="_blank">
+                    <i class="bi bi-eye"></i> Ver sitio
+                </a>
+                <a class="nav-link text-danger mt-4" href="#" id="btn-logout">
+                    <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+                </a>
+            </nav>
+        </div>
 
-            <div class="col-md-9 col-lg-10 main-wrapper">
-                
-                <div class="d-flex justify-content-between align-items-center mb-5">
-                    <h2 class="h3 fw-light">Centro de <span class="emerald-text fw-bold">Comando</span></h2>
-                    <span class="badge bg-success bg-opacity-10 text-success border border-success rounded-pill px-3 py-2"><i class="fas fa-circle text-success" style="font-size: 8px; vertical-align: middle; margin-right: 5px;"></i> Sistema Online</span>
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <!-- DASHBOARD SECTION -->
+            <div id="section-dashboard" class="admin-section">
+                <div class="page-header">
+                    <h2 class="page-title">📊 Dashboard</h2>
+                    <span class="text-secondary small" id="user-info"></span>
                 </div>
-
-                <div id="tab-propiedades" class="tab-section active">
-                    <div class="row g-4 mb-4">
-                        <div class="col-6 col-md-4">
-                            <div class="stat-card">
-                                <h2 class="emerald-text mb-0 display-5 fw-bold" id="stat-count">—</h2>
-                                <div class="small text-muted mt-2 text-uppercase tracking-wide">Propiedades Publicadas</div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <div class="stat-card">
-                                <h2 class="theme-text mb-0 display-5 fw-bold"><i class="fas fa-cloud"></i></h2>
-                                <div class="small text-muted mt-2 text-uppercase tracking-wide">Conexión Supabase</div>
-                            </div>
-                        </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="count-propiedades">0</div>
+                        <div class="stat-label">Propiedades Activas</div>
                     </div>
-
-                    <div class="dashboard-card">
-                        <div class="d-flex justify-content-between align-items-center border-bottom border-opacity-10 pb-4 mb-4">
-                            <h4 class="h5 m-0"><i class="fas fa-building text-muted me-2"></i> Inventario Real</h4>
-                            <button class="btn-main" data-bs-toggle="modal" data-bs-target="#propertyModal"><i class="fas fa-plus me-2"></i> Agregar Propiedad</button>
-                        </div>
-                        
-                        <div id="admin-property-list" class="row border-top pt-4">
-                            <div class="col-12 text-center py-5">
-                                <p class="text-muted"><i class="fas fa-spinner fa-spin me-2"></i> Cargando inventario desde la base de datos...</p>
-                            </div>
-                        </div>
-                        
+                    <div class="stat-card">
+                        <div class="stat-value" id="count-destacadas">0</div>
+                        <div class="stat-label">Destacadas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="count-total">$0</div>
+                        <div class="stat-label">Valor Total</div>
                     </div>
                 </div>
 
-
-
-                <div class="text-center mt-5 mb-2 border-top border-opacity-10 pt-4">
-                    <p class="small text-muted tracking-wide mb-1">SOFTWARE ADMINISTRATIVO EXCLUSIVO DE</p>
-                    <b class="emerald-text d-inline-block mb-3" style="letter-spacing: 3px; font-size: 1.1rem;">INTEGRATCORE</b>
-                    <br>
-                    <a href="mailto:contact@integratcore.com" class="text-muted small text-decoration-none bg-white shadow px-3 py-2 rounded-pill border border-opacity-10">
-                        <i class="fas fa-headset me-1 text-emerald"></i> Soporte Técnico: <b>contact@integratcore.com</b>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="propertyModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content bg-white shadow border-opacity-10" style="border-radius: 20px;">
-                <div class="modal-header border-bottom border-opacity-10 p-4">
-                    <h5 class="modal-title syncopate-font emerald-text"><i class="fas fa-key me-2"></i> Ficha de Propiedad</h5>
-                    <button type="button" class="btn-close " data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body p-4 p-md-5">
-                    <form id="propiedadForm" onsubmit="return false;">
-                        <input type="hidden" id="form-id">
-                        <h6 class="text-muted text-uppercase tracking-wide mb-3">Datos Principales</h6>
-                        <div class="row g-4 mb-4">
-                            <div class="col-md-8">
-                                <label class="form-label">Nombre de la Villa / Proyecto</label>
-                                <input type="text" class="form-control" id="form-nombre" placeholder="Ej: Villa Paraíso (Renta)">
-                                <small class="text-muted mt-1 d-block"><i class="fas fa-magic text-emerald"></i> Tip: Escribe "Renta" para que aparezca la etiqueta verde.</small>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Precio (US$)</label>
-                                <input type="text" class="form-control" id="form-precio" placeholder="Ej: 350,000 / mes">
-                            </div>
-                        </div>
-
-                        <h6 class="text-muted text-uppercase tracking-wide mb-3">Descripción de la Propiedad</h6>
-                        <div class="mb-4">
-                            <label class="form-label text-emerald"><i class="fas fa-align-left me-1"></i> Descripción Completa</label>
-                            <textarea class="form-control form-textarea" id="form-descripcion" rows="4" placeholder="Describe la propiedad con todos los detalles: ubicación, ambiente, características especiales, estilo de vida que ofrece..."></textarea>
-                            <small class="text-muted mt-1 d-block">Este texto aparecerá en la tarjeta de la propiedad en la web.</small>
-                        </div>
-
-                        <h6 class="text-muted text-uppercase tracking-wide mb-3">Amenidades</h6>
-                        <div class="mb-4">
-                            <label class="form-label text-emerald"><i class="fas fa-list-ul me-1"></i> Lista de Amenidades</label>
-                            <textarea class="form-control form-textarea" id="form-amenidades" rows="2" placeholder="Ej: 3 Habitaciones | 2.5 Baños | Piscina Infinita | Vista al Mar"></textarea>
-                        </div>
-
-                        <h6 class="text-muted text-uppercase tracking-wide mb-3">Fotos</h6>
-                        <div class="border rounded p-3 bg-light">
-                            <label class="form-label text-emerald">Subir Fotos (Puedes seleccionar varias)</label>
-                            <input type="file" class="form-control" id="form-fotos" accept="image/*" multiple>
-                            <small class="text-muted mt-1 d-block" id="form-fotos-hint">Selecciona las fotos. Si no subes nuevas, se mantienen las anteriores.</small>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer border-top border-opacity-10 p-4">
-                    <button type="button" class="btn-outline me-2" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn-main" id="btn-guardar" onclick="saveDataToSupabase()"><i class="fas fa-cloud-upload-alt me-2"></i> Guardar y Publicar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-        // CONFIGURACIÓN DE LAS LLAVES
-        const SUPABASE_URL = 'https://onrbrlmqblyddxtsoapk.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ucmJybG1xYmx5ZGR4dHNvYXBrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNTk1NDYsImV4cCI6MjA4ODkzNTU0Nn0.WkzYwQqNA_QrtfgOAicWqc_suREHsabKoUbXpr-3T7M';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-        // FUNCIÓN QUE CARGA LAS PROPIEDADES EN EL PANEL
-        async function loadAdminProperties() {
-            const listContainer = document.getElementById('admin-property-list');
-            const statCount = document.getElementById('stat-count');
-            
-            const { data, error } = await supabase.from('propiedades').select('*');
-            
-            if (error) { 
-                listContainer.innerHTML = '<p class="text-danger text-center">Error cargando base de datos.</p>';
-                if(statCount) statCount.textContent = 'ERR';
-                return; 
-            }
-
-            if (!data || data.length === 0) {
-                listContainer.innerHTML = '<div class="col-12"><p class="text-muted text-center py-5 border rounded">El inventario está vacío. Haz clic en "Agregar Propiedad" para empezar.</p></div>';
-                if(statCount) statCount.textContent = '0';
-                return;
-            }
-
-            if(statCount) statCount.textContent = data.length;
-
-            listContainer.innerHTML = '';
-            data.forEach((villa, index) => {
-                let isRenta = villa.nombre.toLowerCase().includes('renta') || villa.nombre.toLowerCase().includes('alquiler');
-                let badgeHtml = isRenta ? '<div class="glass-badge badge-renta z-3">EN RENTA</div>' : '<div class="glass-badge z-3">COLECCIÓN</div>';
-
-                let fotosArray = [];
-                if(villa.fotos && Array.isArray(villa.fotos) && villa.fotos.length > 0) {
-                    fotosArray = villa.fotos;
-                } else {
-                    fotosArray = [
-                        'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800',
-                        'https://images.unsplash.com/photo-1600607687930-cebc5a777227?auto=format&fit=crop&q=80&w=800'
-                    ];
-                }
-                
-                if(fotosArray.length === 1) {
-                    fotosArray.push('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800');
-                }
-
-                let carouselId = `admin-carousel-${index}`;
-                let carouselIndicators = '';
-                let carouselInner = '';
-
-                fotosArray.forEach((foto, i) => {
-                    carouselIndicators += `<button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${i}" ${i === 0 ? 'class="active" aria-current="true"' : ''}></button>`;
-                    carouselInner += `
-                        <div class="carousel-item h-100 ${i === 0 ? 'active' : ''}">
-                            <img src="${foto}" class="card-image-real d-block w-100 h-100 object-fit-cover" alt="Admin Foto">
-                        </div>
-                    `;
-                });
-
-                listContainer.innerHTML += `
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="molded-card">
-                            <div id="${carouselId}" class="carousel slide molded-img-placeholder p-0" style="height: 200px;" data-bs-ride="carousel">
-                                ${badgeHtml}
-                                <div class="carousel-indicators z-3">${carouselIndicators}</div>
-                                <div class="carousel-inner h-100">${carouselInner}</div>
-                                <button class="carousel-control-prev z-3" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
-                                <button class="carousel-control-next z-3" type="button" data-bs-target="#${carouselId}" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
-                            </div>
-                            <div class="p-3 text-center">
-                                <h5 class="theme-text fw-bold m-0 mb-1 fs-6">${villa.nombre}</h5>
-                                <p class="emerald-text fw-bold m-0 small">US$ ${villa.precio}</p>
-                                <p class="text-muted small mt-1 mb-0" style="font-size:0.75rem; line-height:1.3; max-height:2.6em; overflow:hidden;">${villa.descripcion || villa.amenidades || ''}</p>
-                                <div class="mt-3 d-flex gap-2">
-                                    <button class="btn-outline w-50 py-1" style="font-size:0.8rem;" onclick="editProperty('${villa.id}')"><i class="fas fa-pen me-1"></i> Editar</button>
-                                    <button class="btn-outline text-danger border-danger w-50 py-1" style="font-size:0.8rem;" onclick="deleteProperty('${villa.id}')"><i class="fas fa-trash me-1"></i> Borrar</button>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card-admin">
+                            <div class="card-header">🏠 Propiedades Recientes</div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-admin mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Propiedad</th>
+                                                <th>Ubicación</th>
+                                                <th>Precio</th>
+                                                <th>Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabla-recientes"></tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                `;
-            });
+                    <div class="col-lg-4">
+                        <div class="card-admin">
+                            <div class="card-header">⚡ Acciones Rápidas</div>
+                            <div class="card-body">
+                                <button class="btn btn-dorado w-100 mb-3" data-bs-toggle="modal" data-bs-target="#modalPropiedad" onclick="prepararModalNueva()">
+                                    <i class="bi bi-plus-lg"></i> Nueva Propiedad
+                                </button>
+                                <a href="index.html" target="_blank" class="btn btn-outline-dorado w-100">
+                                    <i class="bi bi-eye"></i> Ver Sitio Web
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROPIEDADES SECTION -->
+            <div id="section-propiedades" class="admin-section d-none">
+                <div class="page-header">
+                    <h2 class="page-title">🏠 Gestionar Propiedades</h2>
+                    <button class="btn btn-dorado" data-bs-toggle="modal" data-bs-target="#modalPropiedad" onclick="prepararModalNueva()">
+                        <i class="bi bi-plus-lg"></i> Nueva
+                    </button>
+                </div>
+                
+                <div class="card-admin">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-admin mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Imagen</th>
+                                        <th>Título</th>
+                                        <th>Ubicación</th>
+                                        <th>Precio</th>
+                                        <th>Destacada</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla-propiedades"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEADS SECTION -->
+            <div id="section-leads" class="admin-section d-none">
+                <div class="page-header">
+                    <h2 class="page-title">📩 Consultas de Clientes</h2>
+                </div>
+                <div class="card-admin">
+                    <div class="card-body">
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle"></i> 
+                            Las consultas llegan directamente a WhatsApp: 
+                            <strong>https://wa.me/18492508144</strong>
+                        </div>
+                        <p class="text-secondary">Para gestionar leads con base de datos, configura la tabla "leads" en Supabase.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: NUEVA/EDITAR PROPIEDAD -->
+    <div class="modal fade" id="modalPropiedad" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">✨ <span id="modal-title">Nueva Propiedad</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-propiedad">
+                        <input type="hidden" id="prop-id">
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Título *</label>
+                            <input type="text" class="form-control" id="prop-titulo" required placeholder="Ej: Villa Casa de Campo">
+                        </div>
+                        
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Ubicación *</label>
+                                <input type="text" class="form-control" id="prop-ubicacion" required placeholder="Ej: La Romana, RD">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Precio (USD)</label>
+                                <input type="number" class="form-control" id="prop-precio" placeholder="295000">
+                            </div>
+                        </div>
+                        
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Habitaciones</label>
+                                <input type="number" class="form-control" id="prop-hab" placeholder="3">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Baños</label>
+                                <input type="number" class="form-control" id="prop-banos" placeholder="3">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Metros²</label>
+                                <input type="number" class="form-control" id="prop-m2" placeholder="280">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Descripción Corta</label>
+                            <textarea class="form-control" id="prop-desc-corta" rows="2" placeholder="Breve descripción para la tarjeta"></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Imagen Principal</label>
+                            <div class="image-preview" id="image-preview">
+                                <span><i class="bi bi-image"></i> Vista previa</span>
+                            </div>
+                            <input type="url" class="form-control mb-2" id="prop-imagen" placeholder="https://ejemplo.com/imagen.jpg">
+                            <small class="text-secondary">
+                                <i class="bi bi-info-circle"></i> 
+                                Sube tu imagen a <a href="https://imgbb.com" target="_blank" class="texto-dorado">ImgBB</a> 
+                                o <a href="https://cloudinary.com" target="_blank" class="texto-dorado">Cloudinary</a> y pega la URL
+                            </small>
+                        </div>
+                        
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Tipo</label>
+                                <select class="form-select" id="prop-tipo">
+                                    <option value="venta">Venta</option>
+                                    <option value="renta">Renta</option>
+                                    <option value="proyecto">Proyecto</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Estado</label>
+                                <select class="form-select" id="prop-activo">
+                                    <option value="true">✅ Activo</option>
+                                    <option value="false">⏸️ Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="prop-destacado">
+                            <label class="form-check-label" for="prop-destacado">
+                                <strong>⭐ Marcar como propiedad destacada</strong> (aparece primero)
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-dorado" id="btn-guardar">💾 Guardar Propiedad</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    
+    <script>
+        // ===== INICIALIZAR SUPABASE =====
+        const { createClient } = supabase;
+        const db = createClient(CONFIG.supabase.url, CONFIG.supabase.key);
+
+        // ===== AUTH SIMPLE =====
+        const loginScreen = document.getElementById('login-screen');
+        const dashboardScreen = document.getElementById('dashboard-screen');
+
+        // Verificar sesión
+        if (localStorage.getItem('admin_logged') === 'true') {
+            mostrarDashboard();
         }
 
-        // CARGAR PROPIEDADES AL ABRIR EL PANEL
-        document.addEventListener('DOMContentLoaded', () => {
-            loadAdminProperties();
-            // Limpiar el modal al cerrarse (quitar modo edicion)
-            document.getElementById('propertyModal').addEventListener('hidden.bs.modal', () => {
-                document.getElementById('propiedadForm').reset();
-                document.getElementById('form-id').value = '';
-                document.querySelector('.modal-title').innerHTML = '<i class="fas fa-key me-2"></i> Ficha de Propiedad';
-                document.getElementById('btn-guardar').innerHTML = '<i class="fas fa-cloud-upload-alt me-2"></i> Guardar y Publicar';
-                document.getElementById('form-fotos-hint').textContent = 'Selecciona las fotos de la propiedad.';
+        // Login form
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const pass = document.getElementById('login-pass').value;
+            
+            if (email === CONFIG.admin.user && pass === CONFIG.admin.pass) {
+                localStorage.setItem('admin_logged', 'true');
+                document.getElementById('user-info').textContent = `👤 ${email}`;
+                mostrarDashboard();
+                cargarDashboard();
+            } else {
+                alert('❌ Credenciales incorrectas');
+            }
+        });
+
+        // Logout
+        document.getElementById('btn-logout').addEventListener('click', () => {
+            localStorage.removeItem('admin_logged');
+            loginScreen.style.display = 'flex';
+            dashboardScreen.style.display = 'none';
+        });
+
+        function mostrarDashboard() {
+            loginScreen.style.display = 'none';
+            dashboardScreen.style.display = 'block';
+            document.querySelectorAll('.admin-section').forEach(s => s.classList.add('d-none'));
+            document.getElementById('section-dashboard').classList.remove('d-none');
+            document.querySelector('.nav-link[data-section="dashboard"]').classList.add('active');
+        }
+
+        // ===== NAVEGACIÓN =====
+        document.querySelectorAll('.nav-link[data-section]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                document.querySelectorAll('.admin-section').forEach(s => s.classList.add('d-none'));
+                document.getElementById(`section-${link.dataset.section}`).classList.remove('d-none');
+                
+                if (link.dataset.section === 'propiedades') cargarPropiedadesAdmin();
+                if (link.dataset.section === 'dashboard') cargarDashboard();
             });
         });
 
-        // FUNCIÓN PARA EDITAR PROPIEDAD (pre-llena el modal)
-        async function editProperty(id) {
-            const { data, error } = await supabase.from('propiedades').select('*').eq('id', id).single();
-            if (error || !data) { alert('No se pudo cargar la propiedad.'); return; }
-
-            document.getElementById('form-id').value = data.id;
-            document.getElementById('form-nombre').value = data.nombre || '';
-            document.getElementById('form-precio').value = data.precio || '';
-            document.getElementById('form-descripcion').value = data.descripcion || '';
-            document.getElementById('form-amenidades').value = data.amenidades || '';
-            document.getElementById('form-fotos-hint').textContent = 'Las fotos actuales se mantendrán si no subes nuevas.';
-            document.querySelector('.modal-title').innerHTML = '<i class="fas fa-pen me-2"></i> Editar Propiedad';
-            document.getElementById('btn-guardar').innerHTML = '<i class="fas fa-save me-2"></i> Guardar Cambios';
-
-            var modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('propertyModal'));
-            modal.show();
+        // ===== DASHBOARD =====
+        async function cargarDashboard() {
+            try {
+                const { data: props } = await db.from('propiedades').select('precio_usd, activo, destacado');
+                const activas = props?.filter(p => p.activo) || [];
+                const destacadas = activas.filter(p => p.destacado);
+                const total = activas.reduce((sum, p) => sum + (p.precio_usd || 0), 0);
+                
+                document.getElementById('count-propiedades').textContent = activas.length;
+                document.getElementById('count-destacadas').textContent = destacadas.length;
+                document.getElementById('count-total').textContent = total > 0 ? `$${(total/1000000).toFixed(1)}M` : '$0';
+                
+                // Tabla recientes
+                const { data: recientes } = await db.from('propiedades').select('*').order('created_at', {ascending: false}).limit(5);
+                document.getElementById('tabla-recientes').innerHTML = (recientes || []).map(p => `
+                    <tr>
+                        <td>${p.titulo}</td>
+                        <td>${p.ubicacion}</td>
+                        <td>${p.precio_usd ? '$'+parseInt(p.precio_usd).toLocaleString() : '-'}</td>
+                        <td><span class="badge ${p.activo ? 'badge-activo' : 'badge-inactivo'}">${p.activo ? 'Activo' : 'Inactivo'}</span></td>
+                    </tr>
+                `).join('') || '<tr><td colspan="4" class="text-center text-secondary py-3">Sin propiedades</td></tr>';
+            } catch(err) { console.error(err); }
         }
 
-        // FUNCIÓN PARA ELIMINAR PROPIEDADES
-        async function deleteProperty(id) {
-            if(!confirm('¿Deseas ELIMINAR esta propiedad? Se borrará de la página web inmediatamente.')) return;
-            const { error } = await supabase.from('propiedades').delete().eq('id', id);
-            if(error) {
-                alert('Error al eliminar: ' + error.message);
-            } else {
-                alert('Propiedad eliminada de la base de datos.');
-                loadAdminProperties();
-            }
-        }
-
-        // FUNCIÓN PARA GUARDAR O ACTUALIZAR PROPIEDADES
-        async function saveDataToSupabase() {
-            const editId    = document.getElementById('form-id').value;
-            const nombre    = document.getElementById('form-nombre').value;
-            const precio    = document.getElementById('form-precio').value;
-            const descripcion = document.getElementById('form-descripcion').value;
-            const amenidades  = document.getElementById('form-amenidades').value;
-            const inputFotos  = document.getElementById('form-fotos');
-
-            if(!nombre || !precio) {
-                alert('El Nombre y el Precio son obligatorios.');
-                return;
-            }
-
-            const btn = document.getElementById('btn-guardar');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Guardando...';
-            btn.disabled = true;
-
-            let fotosArray = [];
-            let mantuvoFotos = false;
-
-            if(inputFotos.files && inputFotos.files.length > 0) {
-                // Subir fotos nuevas
-                for (let i = 0; i < inputFotos.files.length; i++) {
-                    const fotoOriginal = inputFotos.files[i];
-                    const fileExt = fotoOriginal.name.split('.').pop();
-                    const fileName = `villas/${Date.now()}_${i}.${fileExt}`;
-                    const filePath = fileName;
-
-                    const { error: uploadError } = await supabase.storage
-                        .from('galeria')
-                        .upload(filePath, fotoOriginal, { upsert: true });
-
-                    if (!uploadError) {
-                        const { data: publicURLData } = supabase.storage.from('galeria').getPublicUrl(filePath);
-                        fotosArray.push(publicURLData.publicUrl);
-                    }
-                }
-            } else if(editId) {
-                // Mantener las fotos existentes si es edicion sin nuevas fotos
-                const { data: existing } = await supabase.from('propiedades').select('fotos').eq('id', editId).single();
-                if(existing && existing.fotos) { fotosArray = existing.fotos; }
-                mantuvoFotos = true;
-            } else {
-                fotosArray = [
-                    'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800',
-                    'https://images.unsplash.com/photo-1600607687930-cebc5a777227?auto=format&fit=crop&q=80&w=800'
-                ];
-            }
-
-            const payload = { nombre, precio, descripcion, amenidades, fotos: fotosArray };
-            let dbError = null;
-
-            if(editId) {
-                // MODO EDICION: UPDATE
-                const { error } = await supabase.from('propiedades').update(payload).eq('id', editId);
-                dbError = error;
-            } else {
-                // MODO NUEVO: INSERT
-                const { error } = await supabase.from('propiedades').insert([payload]);
-                dbError = error;
-            }
-
-            if (dbError) {
-                alert('Error al guardar: ' + dbError.message);
-            } else {
-                alert(editId ? '¡Propiedad actualizada con éxito!' : '¡Propiedad guardada con éxito!');
-                var modalEl = document.getElementById('propertyModal');
-                bootstrap.Modal.getOrCreateInstance(modalEl).hide();
-                loadAdminProperties();
-            }
-
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        }
-
-        // CAMBIO DE PESTAÑAS SEGURO (Evita que el menú se quede pegado)
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-section').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+        // ===== PROPIEDADES ADMIN =====
+        async function cargarPropiedadesAdmin() {
+            const { data, error } = await db.from('propiedades').select('*').order('created_at', { ascending: false });
+            if (error) return console.error(error);
             
-            const tabEl = document.getElementById('tab-' + tabId);
-            if(tabEl) tabEl.classList.add('active');
-            
-            const btnDesktop = document.getElementById('btn-' + tabId);
-            if(btnDesktop) btnDesktop.classList.add('active');
-            
-            // Cerrar menú en móviles de forma segura simulando el clic en el botón de cerrar
-            const offcanvasElement = document.getElementById('mobileMenu');
-            if(offcanvasElement && offcanvasElement.classList.contains('show')) {
-                const btnClose = offcanvasElement.querySelector('.btn-close');
-                if(btnClose) btnClose.click();
-            }
+            document.getElementById('tabla-propiedades').innerHTML = (data || []).map(p => `
+                <tr>
+                    <td><img src="${p.imagen_url || 'https://placehold.co/60x40'}" style="width:60px;height:40px;object-fit:cover;border-radius:8px;"></td>
+                    <td>${p.titulo}</td>
+                    <td>${p.ubicacion}</td>
+                    <td>${p.precio_usd ? '$'+parseInt(p.precio_usd).toLocaleString() : '-'}</td>
+                    <td>${p.destacado ? '⭐' : '-'}</td>
+                    <td>
+                        <button class="btn-action btn-edit" onclick='editarPropiedad(${JSON.stringify(p).replace(/'/g, "\\'")})'><i class="bi bi-pencil"></i></button>
+                        <button class="btn-action btn-delete" onclick="eliminarPropiedad('${p.id}')"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('') || '<tr><td colspan="6" class="text-center text-secondary py-4">No hay propiedades. ¡Crea la primera!</td></tr>';
         }
+
+        // ===== PREPARAR MODAL =====
+        window.prepararModalNueva = () => {
+            document.getElementById('form-propiedad').reset();
+            document.getElementById('prop-id').value = '';
+            document.getElementById('modal-title').textContent = 'Nueva Propiedad';
+            document.getElementById('image-preview').innerHTML = '<span><i class="bi bi-image"></i> Vista previa</span>';
+            document.getElementById('image-preview').classList.remove('has-image');
+        };
+
+        // ===== PREVIEW IMAGEN =====
+        document.getElementById('prop-imagen').addEventListener('input', (e) => {
+            const preview = document.getElementById('image-preview');
+            const url = e.target.value;
+            if (url) {
+                preview.innerHTML = `<img src="${url}" alt="Preview" onerror="this.parentElement.innerHTML='<span><i class=\\'bi bi-x-circle\\'></i> Error al cargar</span>'">`;
+                preview.classList.add('has-image');
+            } else {
+                preview.innerHTML = '<span><i class="bi bi-image"></i> Vista previa</span>';
+                preview.classList.remove('has-image');
+            }
+        });
+
+        // ===== GUARDAR PROPIEDAD =====
+        document.getElementById('btn-guardar').addEventListener('click', async () => {
+            const prop = {
+                titulo: document.getElementById('prop-titulo').value,
+                ubicacion: document.getElementById('prop-ubicacion').value,
+                precio_usd: document.getElementById('prop-precio').value || null,
+                habitaciones: document.getElementById('prop-hab').value || null,
+                banos: document.getElementById('prop-banos').value || null,
+                metros2: document.getElementById('prop-m2').value || null,
+                descripcion_corta: document.getElementById('prop-desc-corta').value,
+                imagen_url: document.getElementById('prop-imagen').value || null,
+                tipo: document.getElementById('prop-tipo').value,
+                activo: document.getElementById('prop-activo').value === 'true',
+                destacado: document.getElementById('prop-destacado').checked,
+            };
+            
+            const id = document.getElementById('prop-id').value;
+            const { error } = id 
+                ? await db.from('propiedades').update(prop).eq('id', id)
+                : await db.from('propiedades').insert([prop]);
+            
+            if (error) {
+                alert('❌ Error: ' + error.message);
+            } else {
+                alert('✅ Propiedad guardada correctamente');
+                bootstrap.Modal.getInstance(document.getElementById('modalPropiedad')).hide();
+                cargarPropiedadesAdmin();
+                cargarDashboard();
+            }
+        });
+
+        // ===== EDITAR =====
+        window.editarPropiedad = (p) => {
+            document.getElementById('prop-id').value = p.id;
+            document.getElementById('prop-titulo').value = p.titulo;
+            document.getElementById('prop-ubicacion').value = p.ubicacion;
+            document.getElementById('prop-precio').value = p.precio_usd;
+            document.getElementById('prop-hab').value = p.habitaciones;
+            document.getElementById('prop-banos').value = p.banos;
+            document.getElementById('prop-m2').value = p.metros2;
+            document.getElementById('prop-desc-corta').value = p.descripcion_corta || '';
+            document.getElementById('prop-imagen').value = p.imagen_url || '';
+            document.getElementById('prop-tipo').value = p.tipo || 'venta';
+            document.getElementById('prop-activo').value = p.activo.toString();
+            document.getElementById('prop-destacado').checked = p.destacado;
+            document.getElementById('modal-title').textContent = 'Editar Propiedad';
+            
+            // Preview imagen
+            if (p.imagen_url) {
+                document.getElementById('image-preview').innerHTML = `<img src="${p.imagen_url}" alt="Preview">`;
+                document.getElementById('image-preview').classList.add('has-image');
+            }
+            
+            new bootstrap.Modal(document.getElementById('modalPropiedad')).show();
+        };
+
+        // ===== ELIMINAR =====
+        window.eliminarPropiedad = async (id) => {
+            if (!confirm('¿Seguro que deseas eliminar esta propiedad?')) return;
+            const { error } = await db.from('propiedades').delete().eq('id', id);
+            if (error) alert('❌ Error: ' + error.message);
+            else {
+                alert('✅ Eliminada');
+                cargarPropiedadesAdmin();
+                cargarDashboard();
+            }
+        };
+
+        // ===== INICIALIZAR =====
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('admin_logged') === 'true') {
+                cargarDashboard();
+            }
+        });
     </script>
 </body>
 </html>
